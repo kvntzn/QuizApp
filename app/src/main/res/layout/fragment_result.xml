@@ -1,14 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ResultFragment">
+    tools:context=".ui.ResultFragment"
+    android:background="@color/colorPrimaryDark">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/results_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/crimson_text"
+        android:text="@string/results"
+        android:textColor="@color/colorPrimary"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <ProgressBar
+        android:id="@+id/results_progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/results_title" />
+
+    <TextView
+        android:id="@+id/results_percent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/work_sans"
+        android:text="100%"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/results_progress"
+        app:layout_constraintEnd_toEndOf="@+id/results_progress"
+        app:layout_constraintStart_toStartOf="@+id/results_progress"
+        app:layout_constraintTop_toTopOf="@+id/results_progress" />
+
+    <TextView
+        android:id="@+id/results_correct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
+        android:textColor="@color/colorLightText"
+        android:fontFamily="@font/work_sans"
+        android:text="@string/correct_answer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/results_progress" />
+
+    <TextView
+        android:id="@+id/results_wrong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/colorLightText"
+        android:fontFamily="@font/work_sans"
+        android:text="@string/wrong_answer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/results_correct" />
+
+    <TextView
+        android:id="@+id/results_missed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:textColor="@color/colorLightText"
+        android:fontFamily="@font/work_sans"
+        android:text="@string/questions_missed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/results_wrong" />
+
+    <TextView
+        android:id="@+id/results_correct_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:textColor="@color/colorLightText"
+        android:fontFamily="@font/work_sans"
+        app:layout_constraintBaseline_toBaselineOf="@+id/results_correct"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="NA" />
+
+    <TextView
+        android:id="@+id/results_wrong_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:textColor="@color/colorLightText"
+        android:fontFamily="@font/work_sans"
+        app:layout_constraintBaseline_toBaselineOf="@+id/results_wrong"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="NA" />
+
+    <TextView
+        android:id="@+id/results_missed_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:textColor="@color/colorLightText"
+        android:fontFamily="@font/work_sans"
+        app:layout_constraintBaseline_toBaselineOf="@+id/results_missed"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="NA" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/primary_btn_bg"
+        android:fontFamily="@font/work_sans"
+        android:text="@string/go_to_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

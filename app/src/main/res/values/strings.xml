@@ -3,4 +3,22 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Title">Quiz</string>
+    <string name="QuizTitle">Quiz Title</string>
+    <string name="quiz_description">Quiz Description</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="view_quiz">View Quiz</string>
+    <string name="total_questions">Total Questions</string>
+    <string name="last_score">Your Last Score</string>
+    <string name="start_quiz">Start Quiz</string>
+    <string name="loading_quiz">Loading Quiz</string>
+    <string name="question">Question</string>
+    <string name="option_button">Option Button</string>
+    <string name="verifying_answer">Verifying Answer</string>
+    <string name="next_question">Next Question</string>
+    <string name="correct_answer">Correct Answer</string>
+    <string name="wrong_answer">Wrong_answer</string>
+    <string name="questions_missed">Questions Missed</string>
+    <string name="results">Results</string>
+    <string name="go_to_home">Go To Home</string>
 </resources>
