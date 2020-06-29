@@ -21,4 +21,5 @@
     <string name="questions_missed">Questions Missed</string>
     <string name="results">Results</string>
     <string name="go_to_home">Go To Home</string>
+    <string name="checking_user_account">Checking user account...</string>
 </resources>
