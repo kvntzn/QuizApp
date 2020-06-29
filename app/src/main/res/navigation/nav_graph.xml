@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
-        android:name="com.heathkev.quizapp.ui.QuizFragment"
+        android:name="com.heathkev.quizapp.ui.list.QuizFragment"
         android:label="fragment_quiz"
         tools:layout="@layout/fragment_quiz" >
         <action

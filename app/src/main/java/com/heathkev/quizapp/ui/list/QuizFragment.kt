@@ -1,4 +1,4 @@
-package com.heathkev.quizapp.ui
+package com.heathkev.quizapp.ui.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
