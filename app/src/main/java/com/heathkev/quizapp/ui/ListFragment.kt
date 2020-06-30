@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.fragment.findNavController
 import com.heathkev.quizapp.R
 import com.heathkev.quizapp.databinding.FragmentListBinding
 import com.heathkev.quizapp.ui.list.QuizListAdapter
@@ -25,23 +26,38 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding: FragmentListBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_list, container, false)
+            inflater, R.layout.fragment_list, container, false
+        )
 
-        val quizListViewModel =  ViewModelProvider(this).get(QuizListViewModel::class.java)
-        binding.quizListViewModel = quizListViewModel
+        val viewModel = ViewModelProvider(this).get(QuizListViewModel::class.java)
+        binding.quizListViewModel = viewModel
         binding.lifecycleOwner = this
 
-        val adapter = QuizListAdapter()
+        val adapter = QuizListAdapter(QuizListAdapter.OnClickListener {
+            viewModel.displayQuizListModelDetails(it)
+        })
 
         val listView = binding.listView
-        listView.layoutManager = LinearLayoutManager(activity)
         listView.setHasFixedSize(true)
         listView.adapter = adapter
 
-        quizListViewModel.quizListModelData.observe(viewLifecycleOwner, Observer {
+        val fadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+        val fadeOutAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+        val listProgress = binding.listProgress
+
+        viewModel.quizListModelData.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.quizListModels = it
-                adapter.notifyDataSetChanged()
+                listView.startAnimation(fadeInAnimation)
+                listProgress.startAnimation(fadeOutAnimation)
+
+                adapter.submitList(it)
+            }
+        })
+
+        viewModel.navigateToSelectedQuizListModel.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                this.findNavController().navigate(ListFragmentDirections.actionListFragmentToDetailFragment(it))
+                viewModel.displayQuizListModelDetailsComplete()
             }
         })
 

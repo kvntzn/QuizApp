@@ -1,58 +1,48 @@
 package com.heathkev.quizapp.ui.list
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.heathkev.quizapp.R
 import com.heathkev.quizapp.data.QuizListModel
+import com.heathkev.quizapp.databinding.SingleListItemBinding
+import kotlinx.android.synthetic.main.single_list_item.view.*
 
-class QuizListAdapter : RecyclerView.Adapter<QuizListAdapter.QuizViewHolder>(){
+class QuizListAdapter(val onClickListener: OnClickListener) : ListAdapter<QuizListModel, QuizListAdapter.QuizViewHolder>(DiffCallback){
 
-    var quizListModels = listOf<QuizListModel>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
+    class QuizViewHolder(private var binding: SingleListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(quizListModel: QuizListModel) {
+            binding.quizListModel = quizListModel
+            binding.executePendingBindings()
         }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuizViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.single_list_item, parent, false)
+        val view = SingleListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
         return QuizViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return quizListModels.size
-    }
-
     override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
-        holder.listTitle.text = quizListModels[position].name
-
-        val imageUrl = quizListModels[position].image
-        Glide
-            .with(holder.itemView.context)
-            .load(imageUrl)
-            .centerCrop()
-            .placeholder(R.drawable.placeholder_image)
-            .into(holder.listImage);
-
-        var listDescription = quizListModels[position].desc
-        if(listDescription.length > 150){
-            listDescription = listDescription.substring(0,150)
+        val quizListModel = getItem(position)
+        holder.itemView.list_btn.setOnClickListener {
+            onClickListener.onClick(quizListModel)
         }
-        holder.listDesc.text = "$listDescription..."
-        holder.listLevel.text = quizListModels[position].level
+        holder.bind(quizListModel)
     }
 
-    class QuizViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val listImage: ImageView = itemView.findViewById(R.id.list_image)
-        val listTitle: TextView = itemView.findViewById(R.id.list_title)
-        val listDesc: TextView = itemView.findViewById(R.id.list_desc)
-        val listLevel: TextView = itemView.findViewById(R.id.list_difficulty)
-        val listBtn: Button = itemView.findViewById(R.id.list_btn)
+    companion object DiffCallback : DiffUtil.ItemCallback<QuizListModel>() {
+        override fun areItemsTheSame(oldItem: QuizListModel, newItem: QuizListModel): Boolean {
+            return oldItem === newItem
+        }
+
+        override fun areContentsTheSame(oldItem: QuizListModel, newItem: QuizListModel): Boolean {
+            return oldItem.quiz_id == newItem.quiz_id
+        }
     }
 
+    class OnClickListener(val clickListener: (quizListModel: QuizListModel) -> Unit) {
+        fun onClick(quizListModel: QuizListModel) = clickListener(quizListModel)
+    }
 }
+

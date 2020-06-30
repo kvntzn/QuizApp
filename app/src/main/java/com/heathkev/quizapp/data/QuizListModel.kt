@@ -1,8 +1,11 @@
 package com.heathkev.quizapp.data
 
+import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
+import kotlinx.android.parcel.Parcelize
 
-class QuizListModel(
+@Parcelize
+data class QuizListModel(
     @DocumentId
     val quiz_id: String = "",
     val name: String = "",
@@ -10,6 +13,6 @@ class QuizListModel(
     val image: String = "",
     val level: String = "",
     val visibility: String = "",
-    val questions: Long = 0L) {
+    val questions: Long = 0L) : Parcelable {
 
 }
