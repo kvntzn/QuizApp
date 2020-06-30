@@ -4,8 +4,7 @@ import com.google.firebase.firestore.DocumentId
 
 class QuizListModel(
     @DocumentId
-    val quiz_id: String,
-
+    val quiz_id: String = "",
     val name: String = "",
     val desc: String = "",
     val image: String = "",

@@ -34,7 +34,7 @@ class StartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = DataBindingUtil.inflate<FragmentStartBinding>(
+        val binding: FragmentStartBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_start, container, false)
 
         return binding.root

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Quiz App</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Title">Quiz</string>
     <string name="QuizTitle">Quiz Title</string>
