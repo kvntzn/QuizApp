@@ -1,13 +1,17 @@
 package com.heathkev.quizapp.ui
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.heathkev.quizapp.R
+import com.heathkev.quizapp.databinding.FragmentDetailBinding
+import com.heathkev.quizapp.ui.list.QuizListViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -19,10 +23,30 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val arguments = DetailFragmentArgs.fromBundle(requireArguments())
+        val binding: FragmentDetailBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_detail, container, false)
 
-        Log.d("DetailFragment", arguments.toString())
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        val viewModel = ViewModelProvider(this).get(QuizListViewModel::class.java)
+
+        val arguments = DetailFragmentArgs.fromBundle(requireArguments())
+        val position = arguments.selectedQuizListModelPosition
+
+        viewModel.quizListModelData.observe(viewLifecycleOwner, Observer {
+            binding.quizListModel = it[position]
+        })
+
+        binding.detailsStartBtn.setOnClickListener{
+            viewModel.displayQuizListModelDetails(position)
+        }
+
+        viewModel.navigateToSelectedQuizListModelPosition.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                this.findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToQuizFragment(it))
+                viewModel.displayQuizListModelDetailsComplete()
+            }
+        })
+
+        return binding.root
     }
 
 }

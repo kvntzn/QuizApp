@@ -4,8 +4,7 @@ import android.os.Parcelable
 import com.google.firebase.firestore.DocumentId
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-data class QuizListModel(
+class QuizListModel(
     @DocumentId
     val quiz_id: String = "",
     val name: String = "",
@@ -13,6 +12,6 @@ data class QuizListModel(
     val image: String = "",
     val level: String = "",
     val visibility: String = "",
-    val questions: Long = 0L) : Parcelable {
+    val questions: Long = 0L){
 
 }

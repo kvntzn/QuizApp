@@ -12,9 +12,9 @@ class QuizListViewModel : ViewModel(), FirebaseRepository.OnFireStoreTaskComplet
     val quizListModelData: LiveData<List<QuizListModel>>
         get() = _quizListModelData
 
-    private val _navigateToSelectedQuizListModel = MutableLiveData<QuizListModel>()
-    val navigateToSelectedQuizListModel: LiveData<QuizListModel>
-        get() = _navigateToSelectedQuizListModel
+    private val _navigateToSelectedQuizListModelPosition = MutableLiveData<Int>()
+    val navigateToSelectedQuizListModelPosition: LiveData<Int>
+        get() = _navigateToSelectedQuizListModelPosition
 
     private val firebaseRepository = FirebaseRepository(this)
 
@@ -22,12 +22,12 @@ class QuizListViewModel : ViewModel(), FirebaseRepository.OnFireStoreTaskComplet
         firebaseRepository.getQuizData()
     }
 
-    fun displayQuizListModelDetails(quizListModel: QuizListModel) {
-        _navigateToSelectedQuizListModel.value = quizListModel
+    fun displayQuizListModelDetails(position: Int) {
+        _navigateToSelectedQuizListModelPosition.value = position
     }
 
     fun displayQuizListModelDetailsComplete() {
-        _navigateToSelectedQuizListModel.value = null
+        _navigateToSelectedQuizListModelPosition.value = null
     }
 
     override fun quizListDataAdded(quizListModelsList: List<QuizListModel>) {

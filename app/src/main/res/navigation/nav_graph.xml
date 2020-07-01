@@ -38,10 +38,14 @@
         tools:layout="@layout/fragment_detail" >
         <action
             android:id="@+id/action_detailFragment_to_quizFragment"
-            app:destination="@id/quizFragment" />
+            app:destination="@id/quizFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_down" />
         <argument
-            android:name="selectedQuizListModel"
-            app:argType="com.heathkev.quizapp.data.QuizListModel" />
+            android:name="selectedQuizListModelPosition"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
@@ -51,6 +55,9 @@
         <action
             android:id="@+id/action_quizFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
+        <argument
+            android:name="selectedQuizListModelPosition"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"

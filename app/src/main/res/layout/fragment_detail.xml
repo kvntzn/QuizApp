@@ -1,130 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.DetailFragment"
-    android:background="@color/colorPrimaryDark">
+    tools:context=".ui.DetailFragment">
+    <data>
+        <variable
+            name="quizListModel"
+            type="com.heathkev.quizapp.data.QuizListModel" />
+    </data>
 
-    <ImageView
-        android:id="@+id/details_image"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/QuizTitle"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/placeholder_image" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/details_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/crimson_text"
-        android:text="@string/QuizTitle"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_image" />
+        <ScrollView
+            android:id="@+id/details_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/details_desc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="@font/work_sans"
-        android:text="@string/quiz_description"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_title"
-        app:lineHeight="28dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:paddingBottom="100dp">
 
-    <TextView
-        android:id="@+id/details_difficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/difficulty"
-        android:textColor="@color/colorLightText"
-        android:fontFamily="@font/work_sans"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_desc" />
+                <ImageView
+                    android:id="@+id/details_image"
+                    android:layout_width="0dp"
+                    android:layout_height="192dp"
+                    android:contentDescription="@string/QuizTitle"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{quizListModel.image}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/placeholder_image" />
 
-    <TextView
-        android:id="@+id/details_questions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/work_sans"
-        android:text="@string/total_questions"
-        android:textColor="@color/colorLightText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_difficulty" />
+                <TextView
+                    android:id="@+id/details_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/crimson_text"
+                    android:text="@{quizListModel.name}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/details_image"
+                    tools:text="@string/QuizTitle" />
 
-    <TextView
-        android:id="@+id/details_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/work_sans"
-        android:text="@string/last_score"
-        android:textColor="@color/colorLightText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_questions" />
+                <TextView
+                    android:id="@+id/details_desc"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/work_sans"
+                    android:text="@{quizListModel.desc}"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/details_title"
+                    app:lineHeight="28dp"
+                    tools:text="@string/quiz_description" />
 
-    <TextView
-        android:id="@+id/details_difficulty_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/work_sans"
-        android:textColor="@color/colorLightText"
-        app:layout_constraintBaseline_toBaselineOf="@+id/details_difficulty"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="NA" />
+                <TextView
+                    android:id="@+id/details_difficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/work_sans"
+                    android:text="@string/difficulty"
+                    android:textColor="@color/colorLightText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/details_desc" />
 
-    <TextView
-        android:id="@+id/details_questions_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/work_sans"
-        android:textColor="@color/colorLightText"
-        app:layout_constraintBaseline_toBaselineOf="@+id/details_questions"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="NA" />
+                <TextView
+                    android:id="@+id/details_questions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/work_sans"
+                    android:text="@string/question"
+                    android:textColor="@color/colorLightText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/details_difficulty" />
 
-    <TextView
-        android:id="@+id/details_score_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/work_sans"
-        android:textColor="@color/colorLightText"
-        app:layout_constraintBaseline_toBaselineOf="@+id/details_score"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="NA" />
+                <TextView
+                    android:id="@+id/details_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/work_sans"
+                    android:text="@string/last_score"
+                    android:textColor="@color/colorLightText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/details_questions" />
 
-    <Button
-        android:id="@+id/details_start_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/primary_btn_bg"
-        android:fontFamily="@font/work_sans"
-        android:text="@string/start_quiz"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/details_difficulty_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/work_sans"
+                    android:text="@{quizListModel.level}"
+                    android:textColor="@color/colorLightText"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/details_difficulty"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="NA" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/details_questions_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/work_sans"
+                    android:textColor="@color/colorLightText"
+                    app:convertLong="@{quizListModel.questions}"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/details_questions"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="NA" />
+
+                <TextView
+                    android:id="@+id/details_score_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/work_sans"
+                    android:textColor="@color/colorLightText"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/details_score"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="NA" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/details_start_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/primary_btn_bg"
+            android:fontFamily="@font/work_sans"
+            android:text="@string/start_quiz"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

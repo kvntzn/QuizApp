@@ -38,3 +38,9 @@ fun bindTextView(textView: TextView, description: String)
     }
     textView.text = "${listDescription}..."
 }
+
+@BindingAdapter("convertLong")
+fun bindTextView(textView: TextView, long: Long)
+{
+    textView.text = long.toString()
+}

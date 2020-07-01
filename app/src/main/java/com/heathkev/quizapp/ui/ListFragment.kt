@@ -54,7 +54,7 @@ class ListFragment : Fragment() {
             }
         })
 
-        viewModel.navigateToSelectedQuizListModel.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToSelectedQuizListModelPosition.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 this.findNavController().navigate(ListFragmentDirections.actionListFragmentToDetailFragment(it))
                 viewModel.displayQuizListModelDetailsComplete()
