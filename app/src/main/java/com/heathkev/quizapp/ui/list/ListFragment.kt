@@ -1,4 +1,4 @@
-package com.heathkev.quizapp.ui
+package com.heathkev.quizapp.ui.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.heathkev.quizapp.R
 import com.heathkev.quizapp.databinding.FragmentListBinding
-import com.heathkev.quizapp.ui.list.QuizListAdapter
-import com.heathkev.quizapp.ui.list.QuizListViewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -56,7 +54,11 @@ class ListFragment : Fragment() {
 
         viewModel.navigateToSelectedQuizListModelPosition.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                this.findNavController().navigate(ListFragmentDirections.actionListFragmentToDetailFragment(it))
+                this.findNavController().navigate(
+                    ListFragmentDirections.actionListFragmentToDetailFragment(
+                        it
+                    )
+                )
                 viewModel.displayQuizListModelDetailsComplete()
             }
         })

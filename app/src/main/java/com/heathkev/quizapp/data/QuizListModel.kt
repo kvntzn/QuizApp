@@ -6,12 +6,15 @@ import kotlinx.android.parcel.Parcelize
 
 class QuizListModel(
     @DocumentId
-    val quiz_id: String = "",
-    val name: String = "",
-    val desc: String = "",
-    val image: String = "",
-    val level: String = "",
-    val visibility: String = "",
-    val questions: Long = 0L){
+    val quiz_id: String,
+    val name: String,
+    val desc: String,
+    val image: String,
+    val level: String ,
+    val visibility: String,
+    val questions: Long){
+
+    constructor():this("","","","","","",0L)
+
 
 }

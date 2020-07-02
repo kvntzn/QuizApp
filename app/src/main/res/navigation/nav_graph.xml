@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.heathkev.quizapp.ui.ListFragment"
+        android:name="com.heathkev.quizapp.ui.list.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.heathkev.quizapp.ui.DetailFragment"
+        android:name="com.heathkev.quizapp.ui.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <action
@@ -49,7 +49,7 @@
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
-        android:name="com.heathkev.quizapp.ui.list.QuizFragment"
+        android:name="com.heathkev.quizapp.ui.quiz.QuizFragment"
         android:label="fragment_quiz"
         tools:layout="@layout/fragment_quiz" >
         <action
@@ -58,6 +58,9 @@
         <argument
             android:name="selectedQuizListModelPosition"
             app:argType="integer" />
+        <argument
+            android:name="quizId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"

@@ -1,4 +1,4 @@
-package com.heathkev.quizapp.ui
+package com.heathkev.quizapp.ui.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -28,7 +28,10 @@ class DetailFragment : Fragment() {
 
         val viewModel = ViewModelProvider(this).get(QuizListViewModel::class.java)
 
-        val arguments = DetailFragmentArgs.fromBundle(requireArguments())
+        val arguments =
+            DetailFragmentArgs.fromBundle(
+                requireArguments()
+            )
         val position = arguments.selectedQuizListModelPosition
 
         viewModel.quizListModelData.observe(viewLifecycleOwner, Observer {
@@ -41,7 +44,12 @@ class DetailFragment : Fragment() {
 
         viewModel.navigateToSelectedQuizListModelPosition.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                this.findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToQuizFragment(it))
+                this.findNavController().navigate(
+                    DetailFragmentDirections.actionDetailFragmentToQuizFragment(
+                        it,
+                        binding.quizListModel!!.quiz_id
+                    )
+                )
                 viewModel.displayQuizListModelDetailsComplete()
             }
         })

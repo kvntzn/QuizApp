@@ -1,12 +1,25 @@
 package com.heathkev.quizapp.ui.list
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.EventListener
 import com.heathkev.quizapp.data.QuizListModel
 import com.heathkev.quizapp.firebase.FirebaseRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class QuizListViewModel : ViewModel(), FirebaseRepository.OnFireStoreTaskComplete {
+private const val TAG = "QuizListViewModel"
+class QuizListViewModel : ViewModel() {
+
+    private var firebaseRepository = FirebaseRepository()
+
+    private val viewModelJob = Job()
+    private val scope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
 
     private val _quizListModelData = MutableLiveData<List<QuizListModel>>()
     val quizListModelData: LiveData<List<QuizListModel>>
@@ -16,10 +29,28 @@ class QuizListViewModel : ViewModel(), FirebaseRepository.OnFireStoreTaskComplet
     val navigateToSelectedQuizListModelPosition: LiveData<Int>
         get() = _navigateToSelectedQuizListModelPosition
 
-    private val firebaseRepository = FirebaseRepository(this)
 
     init {
-        firebaseRepository.getQuizData()
+        getQuizData()
+    }
+
+    private fun getQuizData() {
+        scope.launch {
+            firebaseRepository.getQuizData().addSnapshotListener(EventListener { value, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    _quizListModelData.value = null
+                    return@EventListener
+                }
+
+                val quizListModelList : MutableList<QuizListModel> = mutableListOf()
+                for (doc in value!!) {
+                    val addressItem = doc.toObject(QuizListModel::class.java)
+                    quizListModelList.add(addressItem)
+                }
+                _quizListModelData.value = quizListModelList
+            })
+        }
     }
 
     fun displayQuizListModelDetails(position: Int) {
@@ -30,10 +61,8 @@ class QuizListViewModel : ViewModel(), FirebaseRepository.OnFireStoreTaskComplet
         _navigateToSelectedQuizListModelPosition.value = null
     }
 
-    override fun quizListDataAdded(quizListModelsList: List<QuizListModel>) {
-        _quizListModelData.value = quizListModelsList
-    }
-
-    override fun onError(e: Exception?) {
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }
