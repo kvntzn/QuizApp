@@ -51,21 +51,18 @@ class QuizFragment : Fragment() {
 
         binding.quizOptionA.setOnClickListener{
             val btn = it as Button
-            btn.setTextColor(resources.getColor(R.color.colorDark, null))
 
             validateOptionSelected(viewModel, btn, binding)
         }
 
         binding.quizOptionB.setOnClickListener{
             val btn = it as Button
-            btn.setTextColor(resources.getColor(R.color.colorDark, null))
 
             validateOptionSelected(viewModel, btn, binding)
         }
 
         binding.quizOptionC.setOnClickListener{
             val btn = it as Button
-            btn.setTextColor(resources.getColor(R.color.colorDark, null))
 
             validateOptionSelected(viewModel, btn, binding)
         }
@@ -107,12 +104,16 @@ class QuizFragment : Fragment() {
     }
 
     private fun validateOptionSelected(viewModel: QuizViewModel, option: Button, binding: FragmentQuizBinding){
-        val correctAnswer = viewModel.getCorrectAnswer(option.text.toString())
+        if(viewModel.canAnswer()){
+            val correctAnswer = viewModel.getCorrectAnswer(option.text.toString())
 
-        val isCorrect = option.text == correctAnswer
-        setButtonBackground(option,isCorrect)
-        setButtonVisibility(binding.quizNextBtn,View.VISIBLE,true)
-        setFeedbackText(binding.quizQuestionFeedback, isCorrect, correctAnswer)
+            option.setTextColor(resources.getColor(R.color.colorDark, null))
+
+            val isCorrect = option.text == correctAnswer
+            setButtonBackground(option, isCorrect)
+            setButtonVisibility(binding.quizNextBtn,View.VISIBLE,true)
+            setFeedbackText(binding.quizQuestionFeedback, isCorrect, correctAnswer)
+        }
     }
 
     private fun setButtonVisibility(button: Button, visibility: Int, isEnabled: Boolean){
