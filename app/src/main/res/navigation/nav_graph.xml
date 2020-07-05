@@ -63,11 +63,18 @@
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.heathkev.quizapp.ui.ResultFragment"
+        android:name="com.heathkev.quizapp.ui.result.ResultFragment"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" >
         <argument
             android:name="quiz_data"
             app:argType="com.heathkev.quizapp.data.QuizListModel" />
+        <action
+            android:id="@+id/action_resultFragment_to_listFragment"
+            app:destination="@id/listFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popUpTo="@id/resultFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

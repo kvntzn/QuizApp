@@ -1,7 +1,9 @@
 package com.heathkev.quizapp.ui.quiz
 
+import android.os.Build
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -74,6 +76,10 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
     val optionC: LiveData<String>
         get() = _optionC
 
+    private val _optionD = MutableLiveData<String>()
+    val optionD: LiveData<String>
+        get() = _optionD
+
     private val _isTimeUp = MutableLiveData<Boolean>()
     val isTimeUp: LiveData<Boolean>
         get() = _isTimeUp
@@ -100,8 +106,8 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
         }
     }
 
-    private suspend fun fetchQuestions(){
-        withContext(Dispatchers.IO){
+    private suspend fun fetchQuestions() {
+        withContext(Dispatchers.IO) {
             firebaseRepository.getQuestion(quizId).addSnapshotListener(EventListener { value, e ->
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
@@ -131,18 +137,18 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
     }
 
     private fun submitResults() {
-       uiScope.launch {
-           val resultMap = HashMap<String, Any>()
-           resultMap["correct"] = correctAnswer
-           resultMap["wrong"] = wrongAnswer
-           resultMap["unanswered"] = notAnswered
+        uiScope.launch {
+            val resultMap = HashMap<String, Any>()
+            resultMap["correct"] = correctAnswer
+            resultMap["wrong"] = wrongAnswer
+            resultMap["unanswered"] = notAnswered
 
-           submit(resultMap)
-       }
+            submit(resultMap)
+        }
     }
 
-    private suspend fun submit(resultMap: HashMap<String, Any>){
-        withContext(Dispatchers.IO){
+    private suspend fun submit(resultMap: HashMap<String, Any>) {
+        withContext(Dispatchers.IO) {
             firebaseRepository.getResults(quizId).document(userId).set(resultMap)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
@@ -163,10 +169,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
         // Load Question
         _questionText.value = questionsToAnswer[questionNumber - 1].question
 
-        // Load Options
-        _optionA.value = questionsToAnswer[questionNumber - 1].option_a
-        _optionB.value = questionsToAnswer[questionNumber - 1].option_b
-        _optionC.value = questionsToAnswer[questionNumber - 1].option_c
+        shuffleChoices(questionNumber)
 
         // Question Loaded. Set Can answer
         canAnswer = true
@@ -175,6 +178,42 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
         // Start Question Timer
         startTimer(questionNumber)
     }
+
+    private fun shuffleChoices(questionNumber: Int) {
+        // Clear choices
+        _optionA.value = null
+        _optionB.value = null
+        _optionC.value = null
+        _optionD.value = null
+
+//        _optionA.value = questionsToAnswer[questionNumber - 1].option_a
+//        _optionB.value = questionsToAnswer[questionNumber - 1].option_b
+//        _optionC.value = questionsToAnswer[questionNumber - 1].option_c
+
+        var answers = listOf(
+            questionsToAnswer[questionNumber - 1].option_a,
+            questionsToAnswer[questionNumber - 1].option_b,
+            questionsToAnswer[questionNumber - 1].option_c,
+            questionsToAnswer[questionNumber - 1].option_d
+        ).toMutableList()
+
+        answers = answers.filter{ it.isNotEmpty() }.toMutableList()
+
+        for (i in 0 until answers.size) {
+            val j = (0..i).random()
+
+            val temp: String = answers[i]
+            answers[i] = answers[j]
+            answers[j] = temp
+        }
+
+        mutableListOf(_optionA, _optionB, _optionC, _optionD).forEachIndexed { index, it ->
+            if(index <= answers.size-1){
+                it.value = answers[index]
+            }
+        }
+    }
+
 
     private fun startTimer(questionNumber: Int) {
         // Set Timer text
@@ -205,7 +244,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
         for (i in 0..totalQuestionToAnswer.toInt()) {
             val randomNumber = getRandomInteger(allQuestionList.size)
             questionsToAnswer.add(allQuestionList.get(randomNumber))
-//             allQuestionList.removeAt(randomNumber)
+             allQuestionList.removeAt(randomNumber)
 
             Log.d(TAG, "Questions $i" + questionsToAnswer[i].question)
         }
@@ -228,14 +267,12 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
                 wrongAnswer++
                 Log.d(TAG, "Wrong answer")
             }
-            correctAnswerString = questionsToAnswer[currentQuestionNumber - 1].answer
-
             // Set can answer to false
             canAnswer = false
-
             // stop the timer
             timer.cancel()
         }
+        correctAnswerString = questionsToAnswer[currentQuestionNumber - 1].answer
 
         return correctAnswerString
     }
@@ -256,7 +293,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
         _shouldNavigateToResult.value = false
     }
 
-    fun canAnswer() : Boolean{
+    fun canAnswer(): Boolean {
         return canAnswer
     }
 

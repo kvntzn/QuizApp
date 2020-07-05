@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ResultFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".ui.result.ResultFragment">
 
     <TextView
         android:id="@+id/results_title"
@@ -24,10 +24,11 @@
 
     <ProgressBar
         android:id="@+id/results_progress"
-        style="?android:attr/progressBarStyle"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:layout_marginTop="64dp"
+        android:progressDrawable="@drawable/circular_progess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_title" />
@@ -51,9 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
-        android:textColor="@color/colorLightText"
         android:fontFamily="@font/work_sans"
         android:text="@string/correct_answer"
+        android:textColor="@color/colorLightText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_progress" />
 
@@ -63,9 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:textColor="@color/colorLightText"
         android:fontFamily="@font/work_sans"
         android:text="@string/wrong_answer"
+        android:textColor="@color/colorLightText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_correct" />
 
@@ -75,9 +76,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:textColor="@color/colorLightText"
         android:fontFamily="@font/work_sans"
         android:text="@string/questions_missed"
+        android:textColor="@color/colorLightText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_wrong" />
 
@@ -86,8 +87,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:textColor="@color/colorLightText"
         android:fontFamily="@font/work_sans"
+        android:textColor="@color/colorLightText"
         app:layout_constraintBaseline_toBaselineOf="@+id/results_correct"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="NA" />
@@ -97,8 +98,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:textColor="@color/colorLightText"
         android:fontFamily="@font/work_sans"
+        android:textColor="@color/colorLightText"
         app:layout_constraintBaseline_toBaselineOf="@+id/results_wrong"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="NA" />
@@ -108,14 +109,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:textColor="@color/colorLightText"
         android:fontFamily="@font/work_sans"
+        android:textColor="@color/colorLightText"
         app:layout_constraintBaseline_toBaselineOf="@+id/results_missed"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="NA" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/results_home_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

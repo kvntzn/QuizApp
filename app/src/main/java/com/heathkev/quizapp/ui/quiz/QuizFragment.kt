@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizapp.R
 import com.heathkev.quizapp.databinding.FragmentQuizBinding
+import kotlinx.android.synthetic.main.fragment_quiz.*
 
 class QuizFragment : Fragment() {
 
@@ -43,7 +44,6 @@ class QuizFragment : Fragment() {
         binding.quizViewModel = viewModel
         binding.lifecycleOwner = this
 
-        binding.quizQuestionFeedback.visibility = View.INVISIBLE
         setButtonVisibility(binding.quizOptionA,View.VISIBLE, true)
         setButtonVisibility(binding.quizOptionB,View.VISIBLE, true)
         setButtonVisibility(binding.quizOptionC,View.VISIBLE, true)
@@ -67,6 +67,13 @@ class QuizFragment : Fragment() {
             validateOptionSelected(viewModel, btn, binding)
         }
 
+        binding.quizOptionD.setOnClickListener{
+            val btn = it as Button
+
+            validateOptionSelected(viewModel, btn, binding)
+        }
+
+
         binding.quizNextBtn.setOnClickListener{
             viewModel.loadNextQuestion()
             resetOptions(binding)
@@ -74,7 +81,10 @@ class QuizFragment : Fragment() {
 
         viewModel.isTimeUp.observe(viewLifecycleOwner, Observer {
             if(it){
-                setFeedbackText(binding.quizQuestionFeedback, false, null)
+
+                // Empty string no answer was selected
+                val correctAnswer = viewModel.getCorrectAnswer("")
+                highlightCorrectAnswer(correctAnswer)
                 setButtonVisibility(binding.quizNextBtn, View.VISIBLE, true)
                 viewModel.onTimeUpComplete()
             }
@@ -94,12 +104,13 @@ class QuizFragment : Fragment() {
         setButtonBackground(binding.quizOptionA, null)
         setButtonBackground(binding.quizOptionB, null)
         setButtonBackground(binding.quizOptionC, null)
+        setButtonBackground(binding.quizOptionD, null)
 
         binding.quizOptionA.setTextColor(resources.getColor(R.color.colorLightText, null))
         binding.quizOptionB.setTextColor(resources.getColor(R.color.colorLightText, null))
         binding.quizOptionC.setTextColor(resources.getColor(R.color.colorLightText, null))
+        binding.quizOptionD.setTextColor(resources.getColor(R.color.colorLightText, null))
 
-        binding.quizQuestionFeedback.visibility = View.INVISIBLE
         setButtonVisibility(binding.quizNextBtn, View.INVISIBLE, false)
     }
 
@@ -111,8 +122,32 @@ class QuizFragment : Fragment() {
 
             val isCorrect = option.text == correctAnswer
             setButtonBackground(option, isCorrect)
+            if(!isCorrect){
+                highlightCorrectAnswer(correctAnswer)
+            }
+
             setButtonVisibility(binding.quizNextBtn,View.VISIBLE,true)
-            setFeedbackText(binding.quizQuestionFeedback, isCorrect, correctAnswer)
+        }
+    }
+
+    private fun highlightCorrectAnswer(correctAnswer: String) {
+        when(correctAnswer){
+            quiz_option_a.text -> {
+                setButtonBackground(quiz_option_a, true)
+                quiz_option_a.setTextColor(resources.getColor(R.color.colorDark, null))
+            }
+            quiz_option_b.text -> {
+                setButtonBackground(quiz_option_b, true)
+                quiz_option_b.setTextColor(resources.getColor(R.color.colorDark, null))
+            }
+            quiz_option_c.text -> {
+                setButtonBackground(quiz_option_c, true)
+                quiz_option_c.setTextColor(resources.getColor(R.color.colorDark, null))
+            }
+            else -> {
+                setButtonBackground(quiz_option_d, true)
+                quiz_option_d.setTextColor(resources.getColor(R.color.colorDark, null))
+            }
         }
     }
 
@@ -131,19 +166,4 @@ class QuizFragment : Fragment() {
         }
     }
 
-    private fun setFeedbackText(feedback: TextView, isCorrect: Boolean, correctAnswer: String?){
-        feedback.visibility = View.VISIBLE
-        feedback.text = if (isCorrect){
-            getString(R.string.correct_answer)
-        }
-        else{
-            if(correctAnswer.isNullOrEmpty()){
-                getString(R.string.time_up_message)
-            }else{
-                getString(R.string.wrong_answer, correctAnswer)
-            }
-        }
-        val color = if (isCorrect) resources.getColor(R.color.colorPrimary, null) else resources.getColor(R.color.colorAccent, null)
-        feedback.setTextColor(color)
-    }
 }

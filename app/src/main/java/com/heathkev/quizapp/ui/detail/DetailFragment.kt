@@ -9,9 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizapp.R
+import com.heathkev.quizapp.data.QuizListModel
 import com.heathkev.quizapp.databinding.FragmentDetailBinding
+import com.heathkev.quizapp.firebase.FirebaseRepository
 import com.heathkev.quizapp.ui.list.QuizListViewModel
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 /**
  * A simple [Fragment] subclass.
@@ -43,7 +47,42 @@ class DetailFragment : Fragment() {
             }
         })
 
+        loadResultData(quizData)
+
         return binding.root
+    }
+
+    private fun loadResultData(quizData: QuizListModel) {
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUserId = if(firebaseAuth.currentUser != null){
+            firebaseAuth.currentUser!!.uid
+        }else{
+            ""
+            // go to home page
+        }
+
+        val firebaseRepository = FirebaseRepository()
+        firebaseRepository.getResults(quizData.quiz_id).document(currentUserId).get().addOnCompleteListener{
+            if(it.isSuccessful){
+                val result = it.result
+
+                if (result != null) {
+                    val correct = result.getLong("correct")
+                    val wrong = result.getLong("wrong")
+                    val missed = result.getLong("unanswered")
+
+                   if(correct!= null && wrong != null && missed != null){
+                       // calculate progress
+                       val total = correct + wrong + missed
+                       val percent = (correct*100)/total
+
+                       details_score_text.text = "$percent%"
+                   }
+                }else{
+                    // Document doesn't exist, and result should stay NA
+                }
+            }
+        }
     }
 
 }

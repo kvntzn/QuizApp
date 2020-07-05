@@ -15,12 +15,17 @@
     <string name="option_button">Option Button</string>
     <string name="verifying_answer">Verifying Answer</string>
     <string name="next_question">Next Question</string>
-    <string name="wrong_answer">Wrong answer \n Correct Answer: %1$s</string>
+    <string name="wrong_answer_quiz">Wrong answer \n Correct Answer: %1$s</string>
     <string name="questions_missed">Questions Missed</string>
     <string name="results">Results</string>
     <string name="go_to_home">Go To Home</string>
     <string name="checking_user_account">Checking user account…</string>
     <string name="correct_answer">Correct Answer</string>
+    <string name="wrong_answer">Wrong Answer</string>
     <string name="time_up_message">Time Up! No answer was submitted</string>
     <string name="close_button">close button</string>
+    <string name="create_account">Creating Account...</string>
+    <string name="account_created">Account Created...</string>
+    <string name="logged_in">Logged in...</string>
+    <string name="not_available">NA</string>
 </resources>

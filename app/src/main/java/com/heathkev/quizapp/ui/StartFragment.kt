@@ -45,7 +45,6 @@ class StartFragment : Fragment() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        val progressBar = start_progress
         val startFeedBackText = start_feedback
         startFeedBackText.text = getString(R.string.checking_user_account)
     }
@@ -57,12 +56,12 @@ class StartFragment : Fragment() {
         val currentUser = firebaseAuth.currentUser
         if(currentUser == null){
 
-            startFeedBackText.setText("Creating Account...")
+            startFeedBackText.text = getString(R.string.create_account)
 
             // Create new account
             firebaseAuth.signInAnonymously().addOnCompleteListener {
                 if(it.isSuccessful){
-                    startFeedBackText.setText("Account Created...")
+                    startFeedBackText.text = getString(R.string.account_created)
                     requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment())
                 }else{
                     Log.d(START_TAG, "Start log: ${it.exception}")
@@ -70,7 +69,7 @@ class StartFragment : Fragment() {
             }
         } else{
             // Navigate to Homepage
-            startFeedBackText.setText("Logged in...")
+            startFeedBackText.text = getString(R.string.logged_in)
             requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment())
         }
     }
