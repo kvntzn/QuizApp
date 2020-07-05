@@ -13,7 +13,7 @@ private const val TAG = "FirebaseRepository"
 class FirebaseRepository {
 
     private val firebaseFireStore = FirebaseFirestore.getInstance()
-    private val quizRef = firebaseFireStore.collection("QuizList")
+    private val quizRef = firebaseFireStore.collection("QuizList").whereEqualTo("visibility", "public")
 
     fun getQuizList(): LiveData<List<QuizListModel>> {
         val quizListModelListData = MutableLiveData<List<QuizListModel>>()
@@ -37,6 +37,10 @@ class FirebaseRepository {
 
 
     fun getQuestion(quizId: String): CollectionReference {
-        return quizRef.document(quizId).collection("Questions")
+        return firebaseFireStore.collection("QuizList").document(quizId).collection("Questions")
+    }
+
+    fun getResults(quizId: String) : CollectionReference{
+       return firebaseFireStore.collection("QuizList").document(quizId).collection("Results")
     }
 }

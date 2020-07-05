@@ -5,6 +5,7 @@
     tools:context=".ui.quiz.QuizFragment">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="quizViewModel"
             type="com.heathkev.quizapp.ui.quiz.QuizViewModel" />
@@ -22,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/close_button"
             android:padding="16dp"
             android:src="@drawable/quiz_close_btn"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +67,7 @@
             android:fontFamily="@font/work_sans"
             android:textColor="@android:color/white"
             android:textSize="36sp"
-            android:text="@{quizViewModel.questionNumber}"
+            android:text="@{quizViewModel.questionNumberString}"
             app:layout_constraintEnd_toEndOf="@+id/quiz_question_number_title"
             app:layout_constraintStart_toStartOf="@+id/quiz_question_number_title"
             app:layout_constraintTop_toBottomOf="@+id/quiz_question_number_title"
@@ -79,7 +81,7 @@
             android:layout_marginTop="32dp"
             android:progress="@{quizViewModel.questionProgress}"
             android:progressDrawable="@drawable/circular_progess"
-            android:visibility="@{quizViewModel.questionProgressVisibility}"
+            android:visibility="@{(quizViewModel.questionProgress > 0) ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="@+id/quiz_question_number"
             app:layout_constraintEnd_toEndOf="@+id/quiz_title"
             app:layout_constraintStart_toEndOf="@+id/quiz_close_btn"
@@ -118,7 +120,7 @@
             tools:text="Fetching Data" />
 
         <Button
-            android:id="@+id/quiz_option_one"
+            android:id="@+id/quiz_option_a"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -128,17 +130,15 @@
             android:fontFamily="@font/work_sans"
             android:padding="12dp"
             android:text="@{quizViewModel.optionA}"
-            android:visibility="@{quizViewModel.optionVisibility}"
-            android:enabled="@{quizViewModel.optionsAvailability}"
-            android:onClick="@{() -> quizViewModel.CheckSelectedAnswer(quizViewModel.optionA)}"
+            android:textAllCaps="false"
             android:textColor="@color/colorLightText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quiz_question"
-            tools:text="@string/option_button"/>
+            tools:text="@string/option_button" />
 
         <Button
-            android:id="@+id/quiz_option_two"
+            android:id="@+id/quiz_option_b"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -148,17 +148,15 @@
             android:fontFamily="@font/work_sans"
             android:padding="12dp"
             android:text="@{quizViewModel.optionB}"
-            android:visibility="@{quizViewModel.optionVisibility}"
-            android:enabled="@{quizViewModel.optionsAvailability}"
-            android:onClick="@{() -> quizViewModel.CheckSelectedAnswer(quizViewModel.optionB)}"
+            android:textAllCaps="false"
             android:textColor="@color/colorLightText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_option_one"
+            app:layout_constraintTop_toBottomOf="@+id/quiz_option_a"
             tools:text="@string/option_button"/>
 
         <Button
-            android:id="@+id/quiz_option_three"
+            android:id="@+id/quiz_option_c"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -168,13 +166,11 @@
             android:fontFamily="@font/work_sans"
             android:padding="12dp"
             android:text="@{quizViewModel.optionC}"
-            android:visibility="@{quizViewModel.optionVisibility}"
-            android:enabled="@{quizViewModel.optionsAvailability}"
-            android:onClick="@{() -> quizViewModel.CheckSelectedAnswer(quizViewModel.optionC)}"
+            android:textAllCaps="false"
             android:textColor="@color/colorLightText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_option_two"
+            app:layout_constraintTop_toBottomOf="@+id/quiz_option_b"
             tools:text="@string/option_button"/>
 
         <TextView
@@ -184,14 +180,15 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
             android:fontFamily="@font/work_sans"
             android:text="@string/verifying_answer"
-            android:visibility="@{quizViewModel.buttonVisibility}"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
+            app:layout_constraintBottom_toTopOf="@+id/quiz_next_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_option_three" />
+            app:layout_constraintTop_toBottomOf="@+id/quiz_option_c" />
 
         <Button
             android:id="@+id/quiz_next_btn"
@@ -202,8 +199,6 @@
             android:layout_marginBottom="32dp"
             android:background="@drawable/primary_btn_bg"
             android:text="@string/next_question"
-            android:visibility="@{quizViewModel.buttonVisibility}"
-            android:enabled="@{quizViewModel.buttonsAvailability}"
             android:textColor="@color/colorPrimaryDark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

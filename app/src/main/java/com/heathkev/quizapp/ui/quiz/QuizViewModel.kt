@@ -2,9 +2,9 @@ package com.heathkev.quizapp.ui.quiz
 
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.EventListener
 import com.heathkev.quizapp.data.QuestionsModel
@@ -12,25 +12,34 @@ import com.heathkev.quizapp.data.QuizListModel
 import com.heathkev.quizapp.firebase.FirebaseRepository
 
 private const val TAG = "QuizViewModel"
-class QuizViewModel(quizListModel: QuizListModel) : ViewModel() {
+
+class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewModel() {
 
     private var firebaseRepository = FirebaseRepository()
 
     private val quizDetail = quizListModel
 
     private val quizId = quizListModel.quiz_id
-    val quizTitle = quizDetail.name
+    private val userId = currentUserId
 
     private var allQuestionList = mutableListOf<QuestionsModel>()
     private val totalQuestionToAnswer = quizListModel.questions
     private val questionsToAnswer = mutableListOf<QuestionsModel>()
 
-    // Quetion number
-    private val _questionNumber = MutableLiveData<String>()
-    val questionNumber: LiveData<String>
-        get() = _questionNumber
+    // Question Title
+    private val _quizTitle = MutableLiveData<String>()
+    val quizTitle: LiveData<String>
+        get() = _quizTitle
+
+    // Question number
+    private val _questionNumber = MutableLiveData<Int>()
+    val questionNumberString: LiveData<String> = Transformations.map(_questionNumber) {
+        it?.toString()
+    }
 
     // Question time
+    private lateinit var timer: CountDownTimer
+
     private val _questionTime = MutableLiveData<String>()
     val questionTime: LiveData<String>
         get() = _questionTime
@@ -40,56 +49,46 @@ class QuizViewModel(quizListModel: QuizListModel) : ViewModel() {
     val questionProgress: LiveData<Int>
         get() = _questionProgress
 
-    // Question time Progress bar
-    private val _questionProgressVisibility = MutableLiveData<Int>()
-    val questionProgressVisibility: LiveData<Int>
-        get() = _questionProgressVisibility
-
     // Question text
     private val _questionText = MutableLiveData<String>()
     val questionText: LiveData<String>
         get() = _questionText
 
     // Options
-    private val _optionVisibility = MutableLiveData<Int>()
-    val optionVisibility: LiveData<Int>
-        get() = _optionVisibility
-
-    private val _optionsAvailability = MutableLiveData<Boolean>()
-    val optionsAvailability: LiveData<Boolean>
-        get() = _optionsAvailability
-
     private val _optionA = MutableLiveData<String>()
-    val optionA : LiveData<String>
+    val optionA: LiveData<String>
         get() = _optionA
 
     private val _optionB = MutableLiveData<String>()
-    val optionB : LiveData<String>
+    val optionB: LiveData<String>
         get() = _optionB
 
     private val _optionC = MutableLiveData<String>()
-    val optionC : LiveData<String>
+    val optionC: LiveData<String>
         get() = _optionC
 
-    // Next & Feedback Buttons
-    private val _buttonVisibility = MutableLiveData<Int>()
-    val buttonVisibility: LiveData<Int>
-        get() = _buttonVisibility
+    private val _isTimeUp = MutableLiveData<Boolean>()
+    val isTimeUp: LiveData<Boolean>
+        get() = _isTimeUp
 
-    private val _buttonsAvailability = MutableLiveData<Boolean>()
-    val buttonsAvailability: LiveData<Boolean>
-        get() = _buttonsAvailability
+    private val _shouldNavigateToResult = MutableLiveData<Boolean>()
+    val shouldNavigateToResult: LiveData<Boolean>
+        get() = _shouldNavigateToResult
+
 
     // Can answer
     private var canAnswer: Boolean = false
-
-    private var currentQuestion: Int = 0
+    private var correctAnswer: Int = 0
+    private var wrongAnswer: Int = 0
+    private var currentQuestionNumber: Int = 1
+    private var notAnswered: Int = 0
 
     init {
+        _quizTitle.value = quizDetail.name
         fetchQuestions()
     }
 
-    private fun fetchQuestions(){
+    private fun fetchQuestions() {
         firebaseRepository.getQuestion(quizId).addSnapshotListener(EventListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -103,93 +102,136 @@ class QuizViewModel(quizListModel: QuizListModel) : ViewModel() {
             }
             allQuestionList = questionModelList
             pickQuestions()
-            loadUI()
+            loadQuestion(currentQuestionNumber)
         })
     }
 
-    fun loadUI(){
-        // Enable Options
-        _optionVisibility.value = View.VISIBLE
-        _optionsAvailability.value = true
-        _buttonVisibility.value = View.INVISIBLE
-        _buttonsAvailability.value = false
+    fun loadNextQuestion() {
+        currentQuestionNumber++
 
-        // Load Question
-        loadQuestion(1)
+        if (currentQuestionNumber > totalQuestionToAnswer) {
+            submitResults()
+        } else {
+            loadQuestion(currentQuestionNumber)
+        }
     }
 
-    private fun loadQuestion(questionNumber: Int){
+    private fun submitResults() {
+        val resultMap = HashMap<String, Any>()
+        resultMap["correct"] = correctAnswer
+        resultMap["wrong"] = wrongAnswer
+        resultMap["unanswered"] = notAnswered
+
+        firebaseRepository.getResults(quizId).document(userId).set(resultMap)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    // Goto result page
+                    navigateToResultPage()
+                } else {
+                    // Show error
+                    _quizTitle.value = it.exception?.message
+                }
+            }
+    }
+
+    private fun navigateToResultPage() {
+        _shouldNavigateToResult.value = true
+    }
+
+    fun navigateToResultPageComplete() {
+        _shouldNavigateToResult.value = false
+    }
+
+    private fun loadQuestion(questionNumber: Int) {
         // Question number
-        _questionNumber.value = questionNumber.toString()
+        _questionNumber.value = questionNumber
 
         // Load Question
-        _questionText.value =  questionsToAnswer[questionNumber].question
+        _questionText.value = questionsToAnswer[questionNumber - 1].question
 
         // Load Options
-        _optionA.value = questionsToAnswer[questionNumber].option_a
-        _optionB.value = questionsToAnswer[questionNumber].option_b
-        _optionC.value = questionsToAnswer[questionNumber].option_c
+        _optionA.value = questionsToAnswer[questionNumber - 1].option_a
+        _optionB.value = questionsToAnswer[questionNumber - 1].option_b
+        _optionC.value = questionsToAnswer[questionNumber - 1].option_c
 
         // Question Loaded. Set Can answer
         canAnswer = true
-        currentQuestion = questionNumber
+        currentQuestionNumber = questionNumber
 
         // Start Question Timer
         startTimer(questionNumber)
     }
 
     private fun startTimer(questionNumber: Int) {
-
         // Set Timer text
-        val timeToAnswer = questionsToAnswer[questionNumber].timer
+        val timeToAnswer = questionsToAnswer[questionNumber - 1].timer
         _questionTime.value = timeToAnswer.toString()
 
-        //Show Timer Progress bar
-        _questionProgressVisibility.value = View.VISIBLE
-
         // Start Countdown
-        val timer = object: CountDownTimer(timeToAnswer*1000,10){
+        timer = object : CountDownTimer(timeToAnswer * 1000, 10) {
             override fun onFinish() {
                 // Time up
                 canAnswer = false
+                notAnswered++
+                onTimeUp()
             }
 
             override fun onTick(millisUntilFinished: Long) {
                 _questionTime.value = (millisUntilFinished / 1000).toString()
 
-                val percent = millisUntilFinished/(timeToAnswer*10)
+                val percent = millisUntilFinished / (timeToAnswer * 10)
                 _questionProgress.value = percent.toInt()
             }
-        };
+        }
 
         timer.start()
     }
 
-    fun pickQuestions(){
-        for (i in 0..totalQuestionToAnswer.toInt()){
+    fun onTimeUp() {
+        _isTimeUp.value = true
+    }
+
+    fun onTimeUpComplete() {
+        _isTimeUp.value = false
+    }
+
+
+    fun pickQuestions() {
+        for (i in 0..totalQuestionToAnswer.toInt()) {
             val randomNumber = getRandomInteger(allQuestionList.size)
             questionsToAnswer.add(allQuestionList.get(randomNumber))
-            // allQuestionList.removeAt(randomNumber)
+//             allQuestionList.removeAt(randomNumber)
 
-            Log.d(TAG,"Questions $i" + questionsToAnswer[i].question)
+            Log.d(TAG, "Questions $i" + questionsToAnswer[i].question)
         }
     }
 
-    private fun getRandomInteger(maximum: Int, minimum: Int = 0): Int{
-        return ((Math.random()*(maximum - minimum))).toInt() + minimum
+    private fun getRandomInteger(maximum: Int, minimum: Int = 0): Int {
+        return ((Math.random() * (maximum - minimum))).toInt() + minimum
     }
 
-    fun CheckSelectedAnswer(selectedAnswer: String){
+    fun getCorrectAnswer(selectedAnswer: String): String {
+        var correctAnswerString = ""
+
         //Check answer
-        if(canAnswer){
-            if(questionsToAnswer[currentQuestion].answer == selectedAnswer){
+        if (canAnswer) {
+            if (questionsToAnswer[currentQuestionNumber - 1].answer == selectedAnswer) {
                 // Correct answer
+                correctAnswer++
                 Log.d(TAG, "Correct answer")
-            }
-            else{
+            } else {
+                wrongAnswer++
                 Log.d(TAG, "Wrong answer")
             }
+            correctAnswerString = questionsToAnswer[currentQuestionNumber - 1].answer
+
+            // Set can answer to false
             canAnswer = false
+
+            // stop the timer
+            timer.cancel()
         }
+
+        return correctAnswerString
     }
 }
