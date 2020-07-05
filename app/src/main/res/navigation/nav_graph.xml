@@ -44,8 +44,8 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_down" />
         <argument
-            android:name="selectedQuizListModelPosition"
-            app:argType="integer" />
+            android:name="quiz_data"
+            app:argType="com.heathkev.quizapp.data.QuizListModel" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
@@ -56,11 +56,8 @@
             android:id="@+id/action_quizFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
         <argument
-            android:name="selectedQuizListModelPosition"
-            app:argType="integer" />
-        <argument
-            android:name="quizId"
-            app:argType="string" />
+            android:name="quiz_data"
+            app:argType="com.heathkev.quizapp.data.QuizListModel" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"

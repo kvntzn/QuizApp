@@ -25,31 +25,20 @@ class DetailFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding: FragmentDetailBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_detail, container, false)
+        binding.lifecycleOwner = this
+
+        val quizData = DetailFragmentArgs.fromBundle(requireArguments()).quizData
+        binding.quizListModel = quizData
 
         val viewModel = ViewModelProvider(this).get(QuizListViewModel::class.java)
 
-        val arguments =
-            DetailFragmentArgs.fromBundle(
-                requireArguments()
-            )
-        val position = arguments.selectedQuizListModelPosition
-
-        viewModel.quizListModelData.observe(viewLifecycleOwner, Observer {
-            binding.quizListModel = it[position]
-        })
-
         binding.detailsStartBtn.setOnClickListener{
-            viewModel.displayQuizListModelDetails(position)
+            viewModel.displayQuizListModelDetails(quizData)
         }
 
         viewModel.navigateToSelectedQuizListModelPosition.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                this.findNavController().navigate(
-                    DetailFragmentDirections.actionDetailFragmentToQuizFragment(
-                        it,
-                        binding.quizListModel!!.quiz_id
-                    )
-                )
+                this.findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToQuizFragment(quizData))
                 viewModel.displayQuizListModelDetailsComplete()
             }
         })
