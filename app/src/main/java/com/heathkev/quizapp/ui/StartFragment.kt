@@ -2,24 +2,19 @@ package com.heathkev.quizapp.ui
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-
 import com.heathkev.quizapp.R
 import com.heathkev.quizapp.databinding.FragmentStartBinding
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_start.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -37,6 +32,7 @@ class StartFragment : Fragment() {
         val binding: FragmentStartBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_start, container, false)
 
+        (activity as AppCompatActivity).supportActionBar?.hide()
         return binding.root
     }
 
@@ -54,6 +50,10 @@ class StartFragment : Fragment() {
         val startFeedBackText = start_feedback
 
         val currentUser = firebaseAuth.currentUser
+
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.startFragment, true)
+            .build()
         if(currentUser == null){
 
             startFeedBackText.text = getString(R.string.create_account)
@@ -62,7 +62,8 @@ class StartFragment : Fragment() {
             firebaseAuth.signInAnonymously().addOnCompleteListener {
                 if(it.isSuccessful){
                     startFeedBackText.text = getString(R.string.account_created)
-                    requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment())
+
+                    requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment(),navOptions)
                 }else{
                     Log.d(START_TAG, "Start log: ${it.exception}")
                 }
@@ -70,7 +71,7 @@ class StartFragment : Fragment() {
         } else{
             // Navigate to Homepage
             startFeedBackText.text = getString(R.string.logged_in)
-            requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment())
+            requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment(), navOptions)
         }
     }
 }

@@ -48,7 +48,6 @@ class DetailFragment : Fragment() {
         })
 
         loadResultData(quizData)
-
         return binding.root
     }
 

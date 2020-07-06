@@ -26,7 +26,6 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimaryDark"
                 android:paddingBottom="100dp">
 
                 <ImageView
@@ -49,7 +48,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/crimson_text"
                     android:text="@{quizListModel.name}"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/primaryColor"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/details_image"
@@ -64,7 +63,7 @@
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/work_sans"
                     android:text="@{quizListModel.desc}"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/details_title"
@@ -79,7 +78,7 @@
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/work_sans"
                     android:text="@string/difficulty"
-                    android:textColor="@color/colorLightText"
+                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/details_desc" />
 
@@ -91,7 +90,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/work_sans"
                     android:text="@string/question"
-                    android:textColor="@color/colorLightText"
+                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/details_difficulty" />
 
@@ -103,7 +102,7 @@
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/work_sans"
                     android:text="@string/last_score"
-                    android:textColor="@color/colorLightText"
+                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/details_questions" />
 
@@ -114,7 +113,7 @@
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/work_sans"
                     android:text="@{quizListModel.level}"
-                    android:textColor="@color/colorLightText"
+                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintBaseline_toBaselineOf="@+id/details_difficulty"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="NA" />
@@ -125,7 +124,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/work_sans"
-                    android:textColor="@color/colorLightText"
+                    android:textColor="@color/colorOnBackground"
                     app:convertLong="@{quizListModel.questions}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/details_questions"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -138,7 +137,7 @@
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/work_sans"
                     android:text="@string/not_available"
-                    android:textColor="@color/colorLightText"
+                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintBaseline_toBaselineOf="@+id/details_score"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="NA" />

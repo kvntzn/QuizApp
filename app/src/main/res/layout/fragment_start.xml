@@ -13,8 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/start_title"
@@ -22,7 +21,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/crimson_text"
             android:text="Quizz"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/primaryColor"
             android:textSize="60sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +33,7 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginBottom="32dp"
-            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTint="@color/primaryColor"
             app:layout_constraintBottom_toTopOf="@+id/start_feedback"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

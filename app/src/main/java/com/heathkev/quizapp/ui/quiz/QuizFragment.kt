@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -38,11 +38,14 @@ class QuizFragment : Fragment() {
             // go to home page
         }
 
-
         val viewModelFactory = QuizViewModelFactory(quizData, currentUserId)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(QuizViewModel::class.java)
         binding.quizViewModel = viewModel
         binding.lifecycleOwner = this
+
+        viewModel.questionNumber.observe(viewLifecycleOwner, Observer {
+            (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_quiz_question, it,  quizData.questions)
+        })
 
         setButtonVisibility(binding.quizOptionA,View.VISIBLE, true)
         setButtonVisibility(binding.quizOptionB,View.VISIBLE, true)
@@ -106,10 +109,10 @@ class QuizFragment : Fragment() {
         setButtonBackground(binding.quizOptionC, null)
         setButtonBackground(binding.quizOptionD, null)
 
-        binding.quizOptionA.setTextColor(resources.getColor(R.color.colorLightText, null))
-        binding.quizOptionB.setTextColor(resources.getColor(R.color.colorLightText, null))
-        binding.quizOptionC.setTextColor(resources.getColor(R.color.colorLightText, null))
-        binding.quizOptionD.setTextColor(resources.getColor(R.color.colorLightText, null))
+        binding.quizOptionA.setTextColor(resources.getColor(R.color.colorOnBackground, null))
+        binding.quizOptionB.setTextColor(resources.getColor(R.color.colorOnBackground, null))
+        binding.quizOptionC.setTextColor(resources.getColor(R.color.colorOnBackground, null))
+        binding.quizOptionD.setTextColor(resources.getColor(R.color.colorOnBackground, null))
 
         setButtonVisibility(binding.quizNextBtn, View.INVISIBLE, false)
     }
@@ -118,7 +121,7 @@ class QuizFragment : Fragment() {
         if(viewModel.canAnswer()){
             val correctAnswer = viewModel.getCorrectAnswer(option.text.toString())
 
-            option.setTextColor(resources.getColor(R.color.colorDark, null))
+            option.setTextColor(resources.getColor(R.color.primaryTextColor, null))
 
             val isCorrect = option.text == correctAnswer
             setButtonBackground(option, isCorrect)
@@ -134,19 +137,19 @@ class QuizFragment : Fragment() {
         when(correctAnswer){
             quiz_option_a.text -> {
                 setButtonBackground(quiz_option_a, true)
-                quiz_option_a.setTextColor(resources.getColor(R.color.colorDark, null))
+                quiz_option_a.setTextColor(resources.getColor(R.color.primaryTextColor, null))
             }
             quiz_option_b.text -> {
                 setButtonBackground(quiz_option_b, true)
-                quiz_option_b.setTextColor(resources.getColor(R.color.colorDark, null))
+                quiz_option_b.setTextColor(resources.getColor(R.color.primaryTextColor, null))
             }
             quiz_option_c.text -> {
                 setButtonBackground(quiz_option_c, true)
-                quiz_option_c.setTextColor(resources.getColor(R.color.colorDark, null))
+                quiz_option_c.setTextColor(resources.getColor(R.color.primaryTextColor, null))
             }
             else -> {
                 setButtonBackground(quiz_option_d, true)
-                quiz_option_d.setTextColor(resources.getColor(R.color.colorDark, null))
+                quiz_option_d.setTextColor(resources.getColor(R.color.primaryTextColor, null))
             }
         }
     }
@@ -158,12 +161,14 @@ class QuizFragment : Fragment() {
 
     private fun setButtonBackground(button: Button, isCorrect: Boolean?){
         if(isCorrect != null && isCorrect){
-            button.background = resources.getDrawable(R.drawable.correct_answer_btn_bg, null)
+            button.backgroundTintList = resources.getColorStateList(R.color.colorCorrect, null);
         }else if(isCorrect != null && !isCorrect){
-            button.background = resources.getDrawable(R.drawable.wrong_answer_btn_bg, null)
+            button.backgroundTintList = resources.getColorStateList(R.color.colorAccent, null);
         }else{
-            button.background = resources.getDrawable(R.drawable.outline_light_btn_bg, null)
+            button.backgroundTintList = resources.getColorStateList(R.color.primaryTextColor, null);
         }
     }
+
+
 
 }

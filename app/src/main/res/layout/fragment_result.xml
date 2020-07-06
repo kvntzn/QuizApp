@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark"
     tools:context=".ui.result.ResultFragment">
 
     <TextView
@@ -16,7 +15,7 @@
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/crimson_text"
         android:text="@string/results"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/primaryColor"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +38,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/work_sans"
         android:text="100%"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/primaryColor"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="@+id/results_progress"
         app:layout_constraintEnd_toEndOf="@+id/results_progress"
@@ -54,7 +53,7 @@
         android:layout_marginTop="64dp"
         android:fontFamily="@font/work_sans"
         android:text="@string/correct_answer"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorOnBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_progress" />
 
@@ -66,7 +65,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/work_sans"
         android:text="@string/wrong_answer"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorOnBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_correct" />
 
@@ -78,7 +77,7 @@
         android:layout_marginTop="32dp"
         android:fontFamily="@font/work_sans"
         android:text="@string/questions_missed"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorOnBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/results_wrong" />
 
@@ -88,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/work_sans"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorOnBackground"
         app:layout_constraintBaseline_toBaselineOf="@+id/results_correct"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="NA" />
@@ -99,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/work_sans"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorOnBackground"
         app:layout_constraintBaseline_toBaselineOf="@+id/results_wrong"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="NA" />
@@ -110,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/work_sans"
-        android:textColor="@color/colorLightText"
+        android:textColor="@color/colorOnBackground"
         app:layout_constraintBaseline_toBaselineOf="@+id/results_missed"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="NA" />
