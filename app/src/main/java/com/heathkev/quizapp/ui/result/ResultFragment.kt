@@ -4,9 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizapp.R
 import com.heathkev.quizapp.firebase.FirebaseRepository
@@ -20,7 +19,6 @@ class ResultFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        (activity as AppCompatActivity).supportActionBar?.hide()
         return inflater.inflate(R.layout.fragment_result, container, false)
     }
 
@@ -28,7 +26,7 @@ class ResultFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         results_home_btn.setOnClickListener{
-            this.findNavController().navigate(ResultFragmentDirections.actionResultFragmentToListFragment())
+            Toast.makeText(context,"Button clicked", Toast.LENGTH_SHORT).show()
         }
 
         val quizData = ResultFragmentArgs.fromBundle(

@@ -56,7 +56,9 @@
             android:id="@+id/action_quizFragment_to_resultFragment"
             app:destination="@id/resultFragment"
             app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popUpTo="@id/detailFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="quiz_data"
             app:argType="com.heathkev.quizapp.data.QuizListModel" />
@@ -64,15 +66,10 @@
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.heathkev.quizapp.ui.result.ResultFragment"
-        android:label="fragment_result"
-        tools:layout="@layout/fragment_result" >
+        android:label="@string/results"
+        tools:layout="@layout/fragment_result">
         <argument
             android:name="quiz_data"
             app:argType="com.heathkev.quizapp.data.QuizListModel" />
-        <action
-            android:id="@+id/action_resultFragment_to_listFragment"
-            app:destination="@id/listFragment"
-            app:enterAnim="@anim/fragment_open_enter"
-            app:exitAnim="@anim/fragment_open_exit" />
     </fragment>
 </navigation>
