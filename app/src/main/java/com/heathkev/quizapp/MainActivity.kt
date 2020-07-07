@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.listFragment -> {
                     toolBar.setDisplayShowTitleEnabled(false)
                     binding.heroImage.visibility = View.VISIBLE
+                    supportActionBar?.show()
                 }
                 else -> {
                     toolBar.setDisplayShowTitleEnabled(true)
