@@ -25,8 +25,8 @@
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:contentDescription="@string/app_name"
-                android:tint="?colorOnSecondary"
-                app:srcCompat="@drawable/googleg_standard_color_18" />
+                android:tint="@color/primaryLightColor"
+                app:srcCompat="@drawable/logo" />
         </androidx.appcompat.widget.Toolbar>
 
         <fragment
@@ -43,6 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/drawer_view" />
+        app:menu="@menu/navdrawer_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

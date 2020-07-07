@@ -6,7 +6,7 @@
     <data>
         <variable
             name="quizListViewModel"
-            type="com.heathkev.quizapp.ui.list.QuizListViewModel" />
+            type="com.heathkev.quizado.ui.list.QuizListViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -31,7 +31,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:indeterminate="true"
-        android:indeterminateTint="@color/primaryColor"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

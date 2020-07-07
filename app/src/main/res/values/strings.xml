@@ -24,11 +24,14 @@
     <string name="wrong_answer">Wrong Answer</string>
     <string name="time_up_message">Time Up! No answer was submitted</string>
     <string name="close_button">close button</string>
-    <string name="create_account">Creating Account...</string>
-    <string name="account_created">Account Created...</string>
-    <string name="logged_in">Logged in...</string>
+    <string name="create_account">Creating Account…</string>
+    <string name="account_created">Account Created…</string>
+    <string name="logged_in">Logged in…</string>
     <string name="not_available">NA</string>
     <string name="detail">Detail</string>
     <string name="title_quiz_question">Quiz (%1$d/%2$d)</string>
     <string name="about">About</string>
+    <string name="one_hundred_percent">100%</string>
+    <string name="dark_mode">Dark mode</string>
+    <string name="Settings">Settings</string>
 </resources>

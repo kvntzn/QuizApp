@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.heathkev.quizapp.ui.StartFragment"
+        android:name="com.heathkev.quizado.ui.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.heathkev.quizapp.ui.list.ListFragment"
+        android:name="com.heathkev.quizado.ui.list.ListFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_list">
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.heathkev.quizapp.ui.detail.DetailFragment"
+        android:name="com.heathkev.quizado.ui.detail.DetailFragment"
         android:label="@string/detail"
         tools:layout="@layout/fragment_detail">
         <action
@@ -45,11 +45,11 @@
             app:popExitAnim="@anim/slide_down" />
         <argument
             android:name="quiz_data"
-            app:argType="com.heathkev.quizapp.data.QuizListModel" />
+            app:argType="com.heathkev.quizado.data.QuizListModel" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
-        android:name="com.heathkev.quizapp.ui.quiz.QuizFragment"
+        android:name="com.heathkev.quizado.ui.quiz.QuizFragment"
         android:label="@string/Title"
         tools:layout="@layout/fragment_quiz">
         <action
@@ -61,15 +61,20 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="quiz_data"
-            app:argType="com.heathkev.quizapp.data.QuizListModel" />
+            app:argType="com.heathkev.quizado.data.QuizListModel" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
-        android:name="com.heathkev.quizapp.ui.result.ResultFragment"
+        android:name="com.heathkev.quizado.ui.result.ResultFragment"
         android:label="@string/results"
         tools:layout="@layout/fragment_result">
         <argument
             android:name="quiz_data"
-            app:argType="com.heathkev.quizapp.data.QuizListModel" />
+            app:argType="com.heathkev.quizado.data.QuizListModel" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.heathkev.quizado.SettingsFragment"
+        android:label="@string/Settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
