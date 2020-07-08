@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         // APP bar
         appBarConfiguration = AppBarConfiguration(
             setOf(
+                R.id.startFragment,
                 R.id.listFragment
             ),
             binding.mainDrawerLayout

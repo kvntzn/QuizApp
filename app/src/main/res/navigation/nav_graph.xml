@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/startFragment"
-        android:name="com.heathkev.quizado.ui.StartFragment"
+        android:name="com.heathkev.quizado.ui.start.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
         <action

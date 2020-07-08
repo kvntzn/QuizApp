@@ -34,4 +34,5 @@
     <string name="one_hundred_percent">100%</string>
     <string name="dark_mode">Dark mode</string>
     <string name="Settings">Settings</string>
+    <string name="login">Login</string>
 </resources>

@@ -2,13 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.StartFragment">
+    tools:context=".ui.start.StartFragment">
 
     <data>
-
+        <import type="com.heathkev.quizado.ui.start.LoginViewModel.AuthenticationState"/>
+        <import type="android.view.View"/>
         <variable
-            name="start"
-            type="com.heathkev.quizado.ui.StartFragment" />
+            name="viewModel"
+            type="com.heathkev.quizado.ui.start.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,11 +29,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <Button
+            android:id="@+id/start_login_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/login"
+            android:visibility="@{viewModel.authenticationState == AuthenticationState.UNAUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <ProgressBar
             android:id="@+id/start_progress"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginBottom="32dp"
+            android:visibility="@{viewModel.authenticationState == AuthenticationState.AUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
             app:layout_constraintBottom_toTopOf="@+id/start_feedback"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -46,7 +61,8 @@
             android:layout_marginBottom="32dp"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="@{viewModel.authenticationState == AuthenticationState.AUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+            app:layout_constraintBottom_toTopOf="@+id/start_login_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Initializing" />

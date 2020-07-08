@@ -66,4 +66,7 @@ dependencies {
 
     //Material design
     implementation "com.google.android.material:material:$version_material"
+
+    //Firebase UI
+    implementation 'com.firebaseui:firebase-ui-auth:5.0.0'
 }
