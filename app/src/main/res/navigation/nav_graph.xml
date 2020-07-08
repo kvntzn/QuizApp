@@ -77,4 +77,9 @@
         android:name="com.heathkev.quizado.SettingsFragment"
         android:label="@string/Settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.heathkev.quizado.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
 </navigation>

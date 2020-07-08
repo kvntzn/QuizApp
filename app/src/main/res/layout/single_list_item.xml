@@ -51,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
-
                 android:text="@{quizListModel.name}"
                 android:textColor="@color/primaryColor"
                 android:textSize="24sp"
