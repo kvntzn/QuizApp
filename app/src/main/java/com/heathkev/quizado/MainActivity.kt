@@ -1,8 +1,10 @@
 package com.heathkev.quizado
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -12,6 +14,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.heathkev.quizado.databinding.ActivityMainBinding
 
+const val DARK_MODE = "darkmode"
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
@@ -21,6 +24,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+        // Update dark mode
+        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
+        val isDarkMode = sharedPref.getBoolean(DARK_MODE, false)
+
+        if(isDarkMode){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+
+        // APP bar
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.listFragment

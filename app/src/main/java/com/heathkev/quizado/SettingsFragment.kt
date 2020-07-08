@@ -10,10 +10,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-/**
- * A simple [Fragment] subclass.
- */
-private const val DARK_MODE = "darkmode"
+
 class SettingsFragment : Fragment() {
 
     override fun onCreateView(

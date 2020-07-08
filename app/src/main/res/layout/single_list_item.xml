@@ -12,12 +12,11 @@
             type="com.heathkev.quizado.data.QuizListModel" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/quiz_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        app:cardBackgroundColor="@color/primaryTextColor"
         app:cardCornerRadius="6dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -103,6 +102,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_difficulty" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="system_ui_scrim_light">#B3FFFFFF</color> <!-- 70% white -->
+    <color name="system_ui_scrim_black">#40000000</color> <!-- 25% black -->
+    <!-- We use a dark scrim by default since light status is API 23+ -->
+    <color name="status_bar_scrim">@color/system_ui_scrim_black</color>
+    <!-- We use a dark scrim by default since light nav bar is API 27+ -->
+    <color name="nav_bar_scrim">@color/system_ui_scrim_black</color>
+
     <color name="primaryColor">#673ab7</color>
     <color name="primaryLightColor">#9a67ea</color>
     <color name="primaryDarkColor">#320b86</color>
+
     <color name="secondaryColor">#cde3a3</color>
     <color name="secondaryLightColor">#ffffd5</color>
     <color name="secondaryDarkColor">#9bb174</color>
     <color name="primaryTextColor">#ffffff</color>>
     <color name="secondaryTextColor">#000000</color>
+    
     <color name="colorWrong">#B00200</color>
     <color name="colorCorrect">#20b000</color>
+
+    <color name="colorBackground">#FFFFFF</color>
     <color name="colorOnBackground">#000000</color>
 </resources>

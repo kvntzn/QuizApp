@@ -165,7 +165,7 @@ class QuizFragment : Fragment() {
         }else if(isCorrect != null && !isCorrect){
             button.backgroundTintList = resources.getColorStateList(R.color.colorWrong, null)
         }else{
-            button.backgroundTintList = resources.getColorStateList(R.color.primaryTextColor, null)
+            button.backgroundTintList = resources.getColorStateList(R.color.colorBackground, null)
         }
     }
 

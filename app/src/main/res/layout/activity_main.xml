@@ -16,9 +16,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?colorPrimaryDark"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar">
+            android:layout_height="?attr/actionBarSize">
 
             <ImageView
                 android:id="@+id/hero_image"
@@ -28,6 +26,11 @@
                 android:tint="@color/primaryLightColor"
                 app:srcCompat="@drawable/logo" />
         </androidx.appcompat.widget.Toolbar>
+        <View
+            android:id="@+id/status_bar_scrim"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/status_bar_scrim" />
 
         <fragment
             android:id="@+id/nav_host_fragment"
