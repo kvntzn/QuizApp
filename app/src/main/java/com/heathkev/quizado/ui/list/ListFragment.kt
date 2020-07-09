@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.chip.Chip
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentListBinding
 
@@ -54,6 +55,31 @@ class ListFragment : Fragment() {
                 adapter.submitList(it)
             }
         })
+
+        viewModel.categoryList.observe(viewLifecycleOwner, object: Observer<List<String>> {
+            override fun onChanged(data: List<String>?) {
+                data ?: return
+                val chipGroup = binding.catergoryList
+                val inflator = LayoutInflater.from(chipGroup.context)
+
+                val children = data.map { categoryName ->
+                    val chip = inflator.inflate(R.layout.categories, chipGroup, false) as Chip
+                    chip.text = categoryName
+                    chip.tag = categoryName
+                    chip.setOnCheckedChangeListener { button, isChecked ->
+                        viewModel.onFilterChanged(button.tag as String, isChecked)
+                    }
+                    chip
+                }
+
+                chipGroup.removeAllViews()
+
+                for (chip in children) {
+                    chipGroup.addView(chip)
+                }
+            }
+        })
+
 
         viewModel.navigateToSelectedQuizListModelPosition.observe(viewLifecycleOwner, Observer {
             if (it != null) {

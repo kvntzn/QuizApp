@@ -13,7 +13,8 @@ data class QuizListModel(
     val image: String,
     val level: String ,
     val visibility: String,
+    val category: String,
     val questions: Long) : Parcelable {
 
-    constructor():this("","","","","","",0L)
+    constructor():this("","","","","","","",0L)
 }
