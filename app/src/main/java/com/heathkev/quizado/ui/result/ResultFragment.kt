@@ -1,24 +1,31 @@
 package com.heathkev.quizado.ui.result
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizado.R
+import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.android.synthetic.main.fragment_result.*
 
 class ResultFragment : Fragment() {
 
+    private lateinit var quizData: QuizListModel
+    private var correct: Long = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        quizData = ResultFragmentArgs.fromBundle(
+            requireArguments()
+        ).quizData
 
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_result, container, false)
     }
 
@@ -28,10 +35,6 @@ class ResultFragment : Fragment() {
         results_home_btn.setOnClickListener{
             Toast.makeText(context,"Button clicked", Toast.LENGTH_SHORT).show()
         }
-
-        val quizData = ResultFragmentArgs.fromBundle(
-            requireArguments()
-        ).quizData
 
         val firebaseAuth = FirebaseAuth.getInstance()
         val currentUserId = if(firebaseAuth.currentUser != null){
@@ -47,7 +50,7 @@ class ResultFragment : Fragment() {
                 val result = it.result
 
                 if (result != null) {
-                    val correct = result.getLong("correct")!!
+                    correct = result.getLong("correct")!!
                     val wrong = result.getLong("wrong")!!
                     val missed = result.getLong("unanswered")!!
 
@@ -64,5 +67,40 @@ class ResultFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overflow_menu, menu)
+        // check if the activity resolves
+        if(null == getShareIntent().resolveActivity(requireActivity().packageManager)){
+            // hide the menu item if it doesn't resolve
+            menu.findItem(R.id.share).isVisible = false
+        }
+    }
+
+    private fun getShareIntent() : Intent {
+        return ShareCompat.IntentBuilder.from(requireActivity())
+            .setText(getString(R.string.share_text, correct, quizData.questions, quizData.name))
+            .setType("text/plain")
+            .intent
+
+//        val shareIntent = Intent(Intent.ACTION_SEND)
+//        shareIntent.setType("text/plain")
+//                .putExtra(Intent.EXTRA_TEXT,
+//                        getString(R.string.share_success_text, args.numCorrect,
+//                                args.numQuestions))
+//        return  shareIntent
+    }
+
+    private fun shareSuccess(){
+        startActivity(getShareIntent())
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.share -> shareSuccess()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

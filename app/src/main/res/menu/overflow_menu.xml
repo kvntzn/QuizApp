@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/dark_mode_switch"
-        android:checkable="true"
-        android:title="@string/dark_mode" />
+        android:id="@+id/share"
+        android:enabled="true"
+        android:icon="@drawable/share"
+        android:title="@string/share"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
 </menu>
