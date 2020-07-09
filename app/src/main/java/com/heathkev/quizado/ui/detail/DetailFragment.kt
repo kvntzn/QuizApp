@@ -22,12 +22,13 @@ import kotlinx.android.synthetic.main.fragment_detail.*
  */
 class DetailFragment : Fragment() {
 
+    private lateinit var binding: FragmentDetailBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding: FragmentDetailBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_detail, container, false)
         binding.lifecycleOwner = this
 
@@ -75,7 +76,7 @@ class DetailFragment : Fragment() {
                        val total = correct + wrong + missed
                        val percent = (correct*100)/total
 
-                       details_score_text.text = "$percent%"
+                       binding.detailsScoreText.text = "$percent%"
                    }
                 }else{
                     // Document doesn't exist, and result should stay NA

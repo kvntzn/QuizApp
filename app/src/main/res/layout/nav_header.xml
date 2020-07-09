@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/io_logo"
+            android:layout_width="@dimen/nav_header_logo_size"
+            android:layout_height="@dimen/nav_header_logo_size"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:layout_marginStart="@dimen/nav_item_horizontal_padding"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:contentDescription="@string/Title"
+            app:srcCompat="@drawable/nav_quizado_logo" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+</LinearLayout>
