@@ -32,8 +32,8 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        results_home_btn.setOnClickListener{
-            Toast.makeText(context,"Button clicked", Toast.LENGTH_SHORT).show()
+        results_share_btn.setOnClickListener{
+            shareSuccess()
         }
 
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -69,16 +69,6 @@ class ResultFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.overflow_menu, menu)
-        // check if the activity resolves
-        if(null == getShareIntent().resolveActivity(requireActivity().packageManager)){
-            // hide the menu item if it doesn't resolve
-            menu.findItem(R.id.share).isVisible = false
-        }
-    }
-
     private fun getShareIntent() : Intent {
         return ShareCompat.IntentBuilder.from(requireActivity())
             .setText(getString(R.string.share_text, correct, quizData.questions, quizData.name))
@@ -95,12 +85,5 @@ class ResultFragment : Fragment() {
 
     private fun shareSuccess(){
         startActivity(getShareIntent())
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.share -> shareSuccess()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

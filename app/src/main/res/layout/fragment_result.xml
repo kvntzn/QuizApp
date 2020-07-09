@@ -114,15 +114,17 @@
         tools:text="NA" />
 
     <Button
-        android:id="@+id/results_home_btn"
-        android:layout_width="0dp"
+        android:id="@+id/results_share_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/primary_btn_bg"
-        android:text="@string/go_to_home"
+        android:drawableEnd="@drawable/share"
+        android:text="@string/share"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
