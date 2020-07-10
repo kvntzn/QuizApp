@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorPrimaryVariant">@color/primaryLightColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/colorOnBackground</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="colorAccent">@color/secondaryColor</item>
+
+        <!-- Window decor -->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/use_light_status</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">@bool/use_light_navigation</item>
+        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>
+    </style>
+</resources>

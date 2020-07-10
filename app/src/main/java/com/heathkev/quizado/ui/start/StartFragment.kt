@@ -30,11 +30,6 @@ class StartFragment : Fragment() {
     private val viewModel by viewModels<LoginViewModel>()
     private lateinit var binding: FragmentStartBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.hide()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,6 +38,8 @@ class StartFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        (activity as AppCompatActivity).supportActionBar?.hide()
 
         binding.startFeedback.text = getString(R.string.checking_user_account)
 

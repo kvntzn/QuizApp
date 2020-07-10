@@ -23,4 +23,6 @@
 
     <color name="colorBackground">#FFFFFF</color>
     <color name="colorOnBackground">#000000</color>
+
+    <color name="transparent">#0fff</color>
 </resources>
