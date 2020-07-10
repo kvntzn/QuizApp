@@ -25,4 +25,6 @@
     <color name="colorOnBackground">#000000</color>
 
     <color name="transparent">#0fff</color>
+
+    <item name="chip_bg_alpha_checked" format="float" type="dimen">0.18</item>
 </resources>

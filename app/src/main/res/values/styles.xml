@@ -1,3 +1,23 @@
 <resources>
     <style name="AppTheme" parent="Base.AppTheme" />
+
+    <!-- Filters -->
+    <!-- Easier to extend Chip.Choice because it includes some desired color effects. -->
+    <style name="Widget.Quizado.FilterChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textAppearance">@style/TextAppearance.Quizado.FilterChip.Selectable</item>
+        <item name="chipBackgroundColor">@color/chip_bg</item>
+        <item name="chipIconVisible">true</item>
+        <item name="chipStrokeColor">@color/chip_stroke</item>
+    </style>
+
+    <style name="Widget.Quizado.FilterChip.Selectable">
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+
+    <!-- Filters -->
+    <style name="TextAppearance.Quizado.FilterChip.Selectable" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

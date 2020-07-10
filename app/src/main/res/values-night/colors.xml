@@ -19,4 +19,6 @@
 
     <color name="colorBackground">#121212</color>
     <color name="colorOnBackground">#ffffff</color>
+
+    <item name="chip_bg_alpha_checked" format="float" type="dimen">0.27</item>
 </resources>

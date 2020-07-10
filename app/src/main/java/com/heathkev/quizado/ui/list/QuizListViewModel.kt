@@ -17,7 +17,7 @@ class QuizListViewModel : ViewModel() {
 
     private var firebaseRepository = FirebaseRepository()
 
-    private var filter = FilterHolder()
+    private val filter = FilterHolder()
 
     private var currentJob: Job? = null
 
@@ -33,14 +33,20 @@ class QuizListViewModel : ViewModel() {
     val categoryList: LiveData<List<String>>
         get() = _categoryList
 
+    private var isCategoryInitialized: Boolean = false;
 
     init {
-        getQuizList()
-
+        onFilterChanged("",true)
     }
 
-    fun getQuizList(){
-        firebaseRepository.getQuizList().addSnapshotListener(EventListener { value, e ->
+    private fun getQuizList(filter: String?){
+        val quizListQuery = if(filter.isNullOrEmpty()){
+            firebaseRepository.getQuizList()
+        }else{
+            firebaseRepository.getQuizList().whereEqualTo("category", filter)
+        }
+
+        quizListQuery.addSnapshotListener(EventListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 _quizListModelListData.value = null
@@ -53,25 +59,22 @@ class QuizListViewModel : ViewModel() {
                 quizListModelList.add(quizItem)
             }
             _quizListModelListData.value = quizListModelList
-            _categoryList.value = quizListModelList.map { it.category }.distinctBy { it }
+
+            if(!isCategoryInitialized){
+                _categoryList.value =  quizListModelList.map { it.category }.distinctBy { it }
+                isCategoryInitialized =  true
+            }
         })
     }
 
     private fun onQueryChanged() {
-        // TODO: Update quiz list
         currentJob?.cancel() // if a previous query is running cancel it before starting another
         currentJob = viewModelScope.launch {
             try {
-                // this will run on a thread managed by Retrofit
-//                _quizListModelListData.value = repository.getChaptersForFilter(filter.currentValue)
-                _quizListModelListData.value?.map { it.category }?.distinctBy { it }.let {
-                    // only update the filters list if it's changed since the last time
-                    if (it != _categoryList.value) {
-                        _categoryList.value = it
-                    }
-                }
+                getQuizList(filter.currentValue)
             } catch (e: IOException) {
-//                _gdgList.value = listOf()
+                _quizListModelListData.value = listOf()
+                Log.d(TAG,"Error : ${e.message}")
             }
         }
     }
