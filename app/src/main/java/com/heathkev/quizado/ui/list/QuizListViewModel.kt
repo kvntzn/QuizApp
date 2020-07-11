@@ -33,10 +33,14 @@ class QuizListViewModel : ViewModel() {
     val categoryList: LiveData<List<String>>
         get() = _categoryList
 
+    private val _category = MutableLiveData<String>()
+    val category: LiveData<String>
+        get() = _category
+
     private var isCategoryInitialized: Boolean = false;
 
     init {
-        onFilterChanged("",true)
+        onQueryChanged()
     }
 
     private fun getQuizList(filter: String?){
@@ -72,8 +76,10 @@ class QuizListViewModel : ViewModel() {
         currentJob = viewModelScope.launch {
             try {
                 getQuizList(filter.currentValue)
+                _category.value = filter.currentValue
             } catch (e: IOException) {
                 _quizListModelListData.value = listOf()
+                _category.value = ""
                 Log.d(TAG,"Error : ${e.message}")
             }
         }

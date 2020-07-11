@@ -13,6 +13,7 @@
     android:layout_height="wrap_content"
     style="@style/Widget.Quizado.FilterChip"
     app:checkedIconVisible="true"
+    app:checkedIconTint="@color/colorOnBackground"
     tools:checked="@{isChecked}"
     tools:text="asd"
     tools:chipIconTint="@sample/tags.json/tags/color" />

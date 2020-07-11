@@ -1,8 +1,12 @@
 package com.heathkev.quizado.ui.list
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.view.children
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -80,6 +84,14 @@ class ListFragment : Fragment() {
             }
         })
 
+        viewModel.category.observe(viewLifecycleOwner, Observer {
+            val chips = binding.catergoryList.children
+            val ids= chips.map { chip -> chip.id }
+            for (id in ids) {
+                val chip: Chip = binding.catergoryList.findViewById(id)
+                chip.isChecked = chip.tag == it
+            }
+        })
 
         viewModel.navigateToSelectedQuizListModelPosition.observe(viewLifecycleOwner, Observer {
             if (it != null) {
