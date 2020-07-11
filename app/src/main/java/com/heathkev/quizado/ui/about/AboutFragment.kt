@@ -1,10 +1,11 @@
-package com.heathkev.quizado
+package com.heathkev.quizado.ui.about
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.heathkev.quizado.R
 
 /**
  * A simple [Fragment] subclass.

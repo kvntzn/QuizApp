@@ -74,12 +74,12 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.heathkev.quizado.SettingsFragment"
+        android:name="com.heathkev.quizado.ui.settings.SettingsFragment"
         android:label="@string/Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.heathkev.quizado.AboutFragment"
+        android:name="com.heathkev.quizado.ui.about.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
 </navigation>

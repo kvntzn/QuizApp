@@ -73,12 +73,10 @@ class StartFragment : Fragment() {
                 // User successfully signed in
 
                 binding.startFeedback.text = getString(R.string.account_created)
-                requireView().findNavController()
-                    .navigate(StartFragmentDirections.actionStartFragmentToListFragment())
-                Log.i(
-                    TAG,
-                    "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
-                )
+                requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment())
+                viewModel.registerUser()
+
+                Log.i(TAG,"Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
             } else {
 
                 Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
@@ -103,6 +101,4 @@ class StartFragment : Fragment() {
             SIGN_IN_REQUEST_CODE
         )
     }
-
-
 }

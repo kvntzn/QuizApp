@@ -15,6 +15,10 @@ class FirebaseRepository {
     private val firebaseFireStore = FirebaseFirestore.getInstance()
     private val quizRef = firebaseFireStore.collection("QuizList").whereEqualTo("visibility", "public")
 
+    fun getUsers(): CollectionReference {
+        return firebaseFireStore.collection("Users")
+    }
+
     fun getQuizList(): CollectionReference {
         return firebaseFireStore.collection("QuizList")
     }

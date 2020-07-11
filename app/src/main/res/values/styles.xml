@@ -10,14 +10,10 @@
         <item name="chipStrokeColor">@color/chip_stroke</item>
     </style>
 
-    <style name="Widget.Quizado.FilterChip.Selectable">
-        <item name="chipStrokeWidth">1dp</item>
-    </style>
-
-
     <!-- Filters -->
-    <style name="TextAppearance.Quizado.FilterChip.Selectable" parent="TextAppearance.MaterialComponents.Body2">
+    <style name="TextAppearance.Quizado.FilterChip.Selectable" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
 </resources>
