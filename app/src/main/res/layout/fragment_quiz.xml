@@ -27,69 +27,22 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="100dp">
-
-
-        <TextView
-            android:id="@+id/quiz_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:text="@{quizViewModel.quizTitle}"
-            android:textAlignment="center"
-            android:textColor="@color/primaryColor"
-            android:textSize="30sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/loading_quiz" />
-
-        <TextView
-            android:id="@+id/quiz_question_number_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/question"
-
-            android:textColor="@color/colorOnBackground"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="@+id/quiz_title"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_title"
-           />
-
-        <TextView
-            android:id="@+id/quiz_question_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-
-            android:textColor="@color/colorOnBackground"
-            android:textSize="36sp"
-            android:text="@{quizViewModel.questionNumberString}"
-            app:layout_constraintEnd_toEndOf="@+id/quiz_question_number_title"
-            app:layout_constraintStart_toStartOf="@+id/quiz_question_number_title"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_question_number_title"
-            tools:text="0" />
+        android:paddingBottom="150dp">
 
         <ProgressBar
             android:id="@+id/quiz_question_progress"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
             android:progress="@{quizViewModel.questionProgress}"
             android:progressDrawable="@drawable/circular_progess"
             android:visibility="@{(quizViewModel.questionProgress > 0) ? View.VISIBLE : View.INVISIBLE}"
-            app:layout_constraintBottom_toBottomOf="@+id/quiz_question_number"
-            app:layout_constraintEnd_toEndOf="@+id/quiz_title"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
 
         <TextView
@@ -112,14 +65,14 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
+            android:fontFamily="@font/merriweather"
+            android:text="@{quizViewModel.questionText}"
             android:textAlignment="center"
             android:textColor="@color/colorOnBackground"
             android:textSize="18sp"
-            android:fontFamily="@font/merriweather"
-            android:text="@{quizViewModel.questionText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_question_number"
+            app:layout_constraintTop_toBottomOf="@+id/quiz_question_progress"
             tools:text="Fetching Data" />
 
         <Button
@@ -196,13 +149,6 @@
             app:layout_constraintTop_toBottomOf="@id/quiz_option_c"
             tools:text="@string/option_button" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
     <Button
@@ -211,7 +157,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="72dp"
         android:background="@drawable/primary_btn_bg"
         android:text="@string/next_question"
         app:layout_constraintBottom_toBottomOf="parent"

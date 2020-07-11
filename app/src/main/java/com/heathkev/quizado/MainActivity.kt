@@ -80,6 +80,9 @@ class MainActivity : AppCompatActivity() {
                 else -> {
                     toolBar.setDisplayShowTitleEnabled(true)
                     binding.heroImage.visibility = View.GONE
+
+                    val appBarLayout = binding.appBar
+                    appBarLayout.setExpanded(true, true)
                 }
             }
         }

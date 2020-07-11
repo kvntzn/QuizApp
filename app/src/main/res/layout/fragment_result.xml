@@ -6,31 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.result.ResultFragment">
 
-    <TextView
-        android:id="@+id/results_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/montserrat"
-        android:text="@string/results"
-        android:textColor="@color/primaryColor"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ProgressBar
         android:id="@+id/results_progress"
         style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
         android:layout_width="128dp"
         android:layout_height="128dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="32dp"
         android:progressDrawable="@drawable/circular_progess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results_title" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/results_percent"
@@ -118,13 +103,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
         android:background="@drawable/primary_btn_bg"
         android:drawableEnd="@drawable/share"
         android:text="@string/share"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/results_missed" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

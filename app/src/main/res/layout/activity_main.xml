@@ -2,51 +2,68 @@
 <layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-<androidx.drawerlayout.widget.DrawerLayout
-    android:id="@+id/main_drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
-    <LinearLayout
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/main_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:focusableInTouchMode="true"
+        tools:context=".MainActivity"
+        android:focusable="true">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coord_layout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/hero_image"
-                android:layout_width="150dp"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                style="@style/Widget.Quizado.AppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_scrollFlags="scroll|enterAlways">
+
+                    <ImageView
+                        android:id="@+id/hero_image"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/app_name"
+                        android:tint="@color/primaryLightColor"
+                        app:srcCompat="@drawable/logo" />
+                </com.google.android.material.appbar.MaterialToolbar>
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <!--        <View-->
+            <!--            android:id="@+id/status_bar_scrim"-->
+            <!--            android:layout_width="match_parent"-->
+            <!--            android:layout_height="0.5dp"-->
+            <!--            android:background="@color/status_bar_scrim" />-->
+
+
+            <fragment
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:tint="@color/primaryLightColor"
-                app:srcCompat="@drawable/logo" />
-        </androidx.appcompat.widget.Toolbar>
-        <View
-            android:id="@+id/status_bar_scrim"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/status_bar_scrim" />
+                app:defaultNavHost="true"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:navGraph="@navigation/nav_graph"
+                tools:layout="@layout/fragment_detail" />
 
-        <fragment
-            android:id="@+id/nav_host_fragment"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/navigation_view"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:defaultNavHost="true"
-            app:navGraph="@navigation/nav_graph" />
-    </LinearLayout>
-
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/navdrawer_menu"
-        app:headerLayout="@layout/nav_header"/>
-</androidx.drawerlayout.widget.DrawerLayout>
+            android:layout_gravity="start"
+            app:menu="@menu/navdrawer_menu"
+            app:headerLayout="@layout/nav_header"/>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

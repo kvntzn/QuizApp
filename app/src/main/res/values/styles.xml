@@ -16,4 +16,9 @@
         <item name="android:fontFamily">@font/montserrat</item>
     </style>
 
+    <style name="Widget.Quizado.AppBar" parent="@style/Widget.Design.AppBarLayout">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="android:elevation">8dp</item>
+    </style>
+
 </resources>
