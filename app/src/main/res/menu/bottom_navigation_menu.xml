@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/leadersFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_cup"
+        android:title="@string/leaders"/>
+
+    <item
+        android:id="@+id/profileFragment"
+        android:enabled="true"
+        android:icon="@drawable/fui_ic_anonymous_white_24dp"
+        android:title="@string/profile" />
+</menu>

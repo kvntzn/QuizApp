@@ -3,12 +3,14 @@ package com.heathkev.quizado
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -38,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.startFragment,
-                R.id.listFragment
+                R.id.listFragment,
+                R.id.leadersFragment
             ),
             binding.mainDrawerLayout
         )
@@ -73,18 +76,37 @@ class MainActivity : AppCompatActivity() {
             val toolBar = supportActionBar ?: return@addOnDestinationChangedListener
             when (destination.id) {
                 R.id.listFragment -> {
-                    toolBar.setDisplayShowTitleEnabled(false)
-                    binding.heroImage.visibility = View.VISIBLE
-                    supportActionBar?.show()
+                    toolBar.useDefaultToolbar(false)
+
+                    binding.listBtmNavView.visibility = View.VISIBLE
+                }
+                R.id.leadersFragment -> {
+                    toolBar.useDefaultToolbar(true)
+
+                    binding.listBtmNavView.visibility = View.VISIBLE
                 }
                 else -> {
-                    toolBar.setDisplayShowTitleEnabled(true)
-                    binding.heroImage.visibility = View.GONE
+                    toolBar.useDefaultToolbar(true)
 
-                    val appBarLayout = binding.appBar
-                    appBarLayout.setExpanded(true, true)
+                    binding.listBtmNavView.visibility = View.GONE
+                    binding.appBar.setExpanded(true, true)
                 }
             }
+        }
+
+        binding.listBtmNavView.setOnNavigationItemSelectedListener {
+            NavigationUI.onNavDestinationSelected(it, navController)
+        }
+    }
+
+    private fun ActionBar.useDefaultToolbar(useToolbar: Boolean){
+        if(useToolbar){
+            this.setDisplayShowTitleEnabled(true)
+            binding.heroImage.visibility = View.GONE
+        }else{
+            this.setDisplayShowTitleEnabled(false)
+            binding.heroImage.visibility = View.VISIBLE
+            this.show()
         }
     }
 }

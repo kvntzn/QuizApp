@@ -27,7 +27,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="150dp">
+        android:paddingBottom="@dimen/quiz_padding_bottom">
 
         <ProgressBar
             android:id="@+id/quiz_question_progress"

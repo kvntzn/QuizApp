@@ -38,4 +38,7 @@
     <string name="about_desc">Quizado is a quiz application where you can answer any of the quizzes</string>
     <string name="share">Share</string>
     <string name="share_text">I just got %1$d/%2$d on Quizado\'s %3$s quiz!</string>
+    <string name="home">Home</string>
+    <string name="leaders">Leaders</string>
+    <string name="profile">Profile</string>
 </resources>
