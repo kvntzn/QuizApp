@@ -6,17 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".ui.leaders.LeadersFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_height="0dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:text="@string/hello_blank_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/leaders_text_title_desc"
+        tools:itemCount="16"
+        tools:listitem="@layout/leaders_single_list_item"/>
+
+    <TextView
+        android:id="@+id/leaders_text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/Title"
+        android:textColor="@color/primaryColor"
+        android:textSize="@dimen/text_size_h1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/leaders_text_title_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="@string/leaderboard"
+        android:textColor="@color/colorOnBackground"
+        app:layout_constraintEnd_toEndOf="@+id/leaders_text_title"
+        app:layout_constraintStart_toStartOf="@+id/leaders_text_title"
+        app:layout_constraintTop_toBottomOf="@+id/leaders_text_title"
+        app:lineHeight="28dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

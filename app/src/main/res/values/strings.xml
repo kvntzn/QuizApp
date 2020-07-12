@@ -41,4 +41,7 @@
     <string name="home">Home</string>
     <string name="leaders">Leaders</string>
     <string name="profile">Profile</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="leaders_name">Leaders Name</string>
+    <string name="score">Score</string>
 </resources>
