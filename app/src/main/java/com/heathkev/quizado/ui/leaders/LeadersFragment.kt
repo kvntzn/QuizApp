@@ -13,6 +13,8 @@ class LeadersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        val viewModel = LeadersViewModel()
+
         return inflater.inflate(R.layout.fragment_leaders, container, false)
     }
 }
