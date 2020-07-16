@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizado.R
+import com.heathkev.quizado.data.User
 import com.heathkev.quizado.databinding.FragmentQuizBinding
 import kotlinx.android.synthetic.main.fragment_quiz.*
 
@@ -31,14 +32,20 @@ class QuizFragment : Fragment() {
 
         val firebaseAuth = FirebaseAuth.getInstance()
 
-        val currentUserId = if(firebaseAuth.currentUser != null){
-            firebaseAuth.currentUser!!.uid
+        val currentUser = if(firebaseAuth.currentUser != null){
+            val authUser = firebaseAuth.currentUser!!
+           User(
+               authUser.uid,
+               authUser.displayName.toString(),
+               authUser.photoUrl.toString(),
+               authUser.email.toString()
+           )
         }else{
-            ""
+            User()
             // go to home page
         }
 
-        val viewModelFactory = QuizViewModelFactory(quizData, currentUserId)
+        val viewModelFactory = QuizViewModelFactory(quizData, currentUser)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(QuizViewModel::class.java)
         binding.quizViewModel = viewModel
         binding.lifecycleOwner = this

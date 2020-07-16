@@ -6,15 +6,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.heathkev.quizado.data.QuestionsModel
 import com.heathkev.quizado.data.QuizListModel
+import com.heathkev.quizado.data.User
 import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.coroutines.*
 
 private const val TAG = "QuizViewModel"
 
-class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewModel() {
+class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel() {
 
     private var firebaseRepository = FirebaseRepository()
 
@@ -24,7 +26,9 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
     private val quizDetail = quizListModel
 
     private val quizId = quizListModel.quiz_id
-    private val userId = currentUserId
+
+    private val _currentUser = currentUser
+    private val userId = currentUser.userId
 
     private var allQuestionList = mutableListOf<QuestionsModel>()
     private val totalQuestionToAnswer = quizListModel.questions
@@ -140,6 +144,8 @@ class QuizViewModel(quizListModel: QuizListModel, currentUserId: String) : ViewM
             resultMap["correct"] = correctAnswer
             resultMap["wrong"] = wrongAnswer
             resultMap["unanswered"] = notAnswered
+            resultMap["player_name"] = _currentUser.name
+            resultMap["player_photo"] = _currentUser.imageUrl
 
             submit(resultMap)
         }

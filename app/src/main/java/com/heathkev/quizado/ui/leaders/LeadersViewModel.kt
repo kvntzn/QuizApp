@@ -43,13 +43,15 @@ class LeadersViewModel : ViewModel(){
         val grouped = list.groupingBy(Result::user_id).aggregate { it, acc: Result?, e, _ ->
             Result(
                 e.user_id,
+                e.player_name,
+                e.player_photo,
                 (acc?.correct ?: 0) + it.sumBy { e.correct.toInt() }.toLong(),
                 (acc?.wrong ?: 0) + it.sumBy { e.wrong.toInt() }.toLong(),
                 (acc?.unanswered ?: 0) + it.sumBy { e.unanswered.toInt() }.toLong())
         }
 
         Log.d(TAG, "Results Grouped:$grouped")
-        _results.value = grouped.values.toList()
+        _results.value = grouped.values.toList().sortedByDescending { it.correct }
     }
 
 }
