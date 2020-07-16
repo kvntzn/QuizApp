@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="quizListModel"
-            type="com.heathkev.quizado.data.QuizListModel" />
+            name="resultModel"
+            type="com.heathkev.quizado.data.Result" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -46,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:text="@string/leaders_name"
+                android:text="@{resultModel.user_id}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/leaders_list_score"
                 app:layout_constraintStart_toEndOf="@+id/leaders_list_image"
@@ -57,8 +56,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:text="@string/score"
                 android:textSize="@dimen/text_size_h2"
+                app:convertLong="@{resultModel.correct}"
                 android:textColor="@color/primaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

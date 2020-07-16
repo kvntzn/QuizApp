@@ -20,7 +20,7 @@ class LeadersViewModel : ViewModel(){
         getResults()
     }
 
-    fun getResults(){
+    private fun getResults(){
         FirebaseFirestore.getInstance().collectionGroup("Results").addSnapshotListener(EventListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -32,14 +32,13 @@ class LeadersViewModel : ViewModel(){
                 val resultItem = doc.toObject(Result::class.java)
 
                 resultsList.add(resultItem)
-                Log.w(TAG, "Result $resultItem")
             }
 
             groupResults(resultsList)
         })
     }
 
-    fun groupResults(list: MutableList<Result>){
+    private fun groupResults(list: MutableList<Result>){
 
         val grouped = list.groupingBy(Result::user_id).aggregate { it, acc: Result?, e, _ ->
             Result(
@@ -47,10 +46,10 @@ class LeadersViewModel : ViewModel(){
                 (acc?.correct ?: 0) + it.sumBy { e.correct.toInt() }.toLong(),
                 (acc?.wrong ?: 0) + it.sumBy { e.wrong.toInt() }.toLong(),
                 (acc?.unanswered ?: 0) + it.sumBy { e.unanswered.toInt() }.toLong())
-        }.toList()
+        }
 
-        Log.d(TAG, grouped.toString())
-//        _results.value =
+        Log.d(TAG, "Results Grouped:$grouped")
+        _results.value = grouped.values.toList()
     }
 
 }
