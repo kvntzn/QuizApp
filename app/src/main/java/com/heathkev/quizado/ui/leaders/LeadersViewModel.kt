@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.heathkev.quizado.R
 import com.heathkev.quizado.data.Result
 
 private const val TAG = "LeadersViewModel"
@@ -40,14 +41,14 @@ class LeadersViewModel : ViewModel(){
 
     private fun groupResults(list: MutableList<Result>){
 
-        val grouped = list.groupingBy(Result::user_id).aggregate { it, acc: Result?, e, _ ->
+        val grouped = list.groupingBy(Result::user_id).aggregate { _, acc: Result?, e, _ ->
             Result(
                 e.user_id,
                 e.player_name,
                 e.player_photo,
-                (acc?.correct ?: 0) + it.sumBy { e.correct.toInt() }.toLong(),
-                (acc?.wrong ?: 0) + it.sumBy { e.wrong.toInt() }.toLong(),
-                (acc?.unanswered ?: 0) + it.sumBy { e.unanswered.toInt() }.toLong())
+                (acc?.correct ?: 0) + e.correct,
+                e.unanswered,
+                e.wrong)
         }
 
         Log.d(TAG, "Results Grouped:$grouped")

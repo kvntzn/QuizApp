@@ -140,7 +140,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
 
     private fun submitResults() {
         uiScope.launch {
-            val resultMap = HashMap<String, Any>()
+            val resultMap = HashMap<String, Any?>()
             resultMap["correct"] = correctAnswer
             resultMap["wrong"] = wrongAnswer
             resultMap["unanswered"] = notAnswered
@@ -151,7 +151,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
         }
     }
 
-    private suspend fun submit(resultMap: HashMap<String, Any>) {
+    private suspend fun submit(resultMap: HashMap<String, Any?>) {
         withContext(Dispatchers.IO) {
             firebaseRepository.getResults(quizId).document(userId).set(resultMap)
                 .addOnCompleteListener {

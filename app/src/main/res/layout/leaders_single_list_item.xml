@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:text="@{resultModel.player_name}"
+                app:playerNames="@{resultModel.player_name}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/leaders_list_score"
                 app:layout_constraintStart_toEndOf="@+id/leaders_list_image"

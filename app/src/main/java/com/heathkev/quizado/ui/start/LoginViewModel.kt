@@ -25,10 +25,10 @@ class LoginViewModel : ViewModel() {
 
     fun registerUser() {
         currentUser.value?.let {
-            val userMap = HashMap<String, Any>()
-            userMap["name"] = it.displayName.toString()
-            userMap["email"] = it.email.toString()
-            userMap["image"] = it.photoUrl.toString()
+            val userMap = HashMap<String, Any?>()
+            userMap["name"] = it.displayName
+            userMap["email"] = it.email
+            userMap["image"] = it.photoUrl
             firebaseRepository.getUsers().document(it.uid).set(userMap)
         }
     }

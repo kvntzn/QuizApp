@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -54,14 +55,15 @@ class StartFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
 
         val currentUser = FirebaseAuth.getInstance().currentUser
-        if(currentUser != null){
+        if (currentUser != null) {
             binding.startFeedback.text = getString(R.string.logged_in)
 
-            requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment())
+            requireView().findNavController()
+                .navigate(StartFragmentDirections.actionStartFragmentToListFragment())
         }
     }
 
@@ -73,10 +75,14 @@ class StartFragment : Fragment() {
                 // User successfully signed in
 
                 binding.startFeedback.text = getString(R.string.account_created)
-                requireView().findNavController().navigate(StartFragmentDirections.actionStartFragmentToListFragment())
+                requireView().findNavController()
+                    .navigate(StartFragmentDirections.actionStartFragmentToListFragment())
                 viewModel.registerUser()
 
-                Log.i(TAG,"Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!")
+                Log.i(
+                    TAG,
+                    "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
+                )
             } else {
 
                 Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")

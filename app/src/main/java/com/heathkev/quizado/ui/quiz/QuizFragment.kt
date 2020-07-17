@@ -36,9 +36,9 @@ class QuizFragment : Fragment() {
             val authUser = firebaseAuth.currentUser!!
            User(
                authUser.uid,
-               authUser.displayName.toString(),
-               authUser.photoUrl.toString(),
-               authUser.email.toString()
+               authUser.displayName,
+               authUser.photoUrl,
+               authUser.email
            )
         }else{
             User()

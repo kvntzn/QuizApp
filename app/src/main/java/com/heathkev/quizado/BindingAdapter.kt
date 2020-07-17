@@ -18,29 +18,36 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<QuizListModel>?) {
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
-        Glide.with(imgView.context)
-            .load(imgUri)
-            .apply(
-                RequestOptions()
-                .placeholder(R.drawable.placeholder_image))
-            .into(imgView)
-    }
+    val image = if (imgUrl != null) imgUrl.toUri().buildUpon().scheme("https")
+        .build() else R.drawable.ic_unknown
+    Glide.with(imgView.context)
+        .load(image)
+        .apply(
+            RequestOptions()
+                .placeholder(R.drawable.placeholder_image)
+        )
+        .into(imgView)
 }
 
 @BindingAdapter("truncate")
-fun bindTextView(textView: TextView, description: String)
-{
+fun bindTextView(textView: TextView, description: String) {
     var listDescription = description
-    if(listDescription.length > 150){
-        listDescription = listDescription.substring(0,150)
+    if (listDescription.length > 150) {
+        listDescription = listDescription.substring(0, 150)
     }
     textView.text = "$listDescription..."
 }
 
 @BindingAdapter("convertLong")
-fun bindTextView(textView: TextView, long: Long)
-{
+fun bindTextView(textView: TextView, long: Long) {
     textView.text = long.toString()
+}
+
+@BindingAdapter("playerNames")
+fun bindTextViewName(textView: TextView, name: String?) {
+    textView.text = if (name.isNullOrEmpty()) {
+        "anonymous"
+    } else {
+        name
+    }
 }
