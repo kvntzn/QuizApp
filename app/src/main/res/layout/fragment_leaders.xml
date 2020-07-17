@@ -31,8 +31,8 @@
             android:id="@+id/leaders_text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
             android:text="@string/Title"
             android:textColor="@color/primaryColor"
             android:textSize="@dimen/text_size_h1"
@@ -57,11 +57,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="197dp" />
+
+        <ImageView
+            android:id="@+id/leaders_img_cup"
+            android:layout_width="@dimen/normal_size_image"
+            android:layout_height="@dimen/normal_size_image"
+            android:layout_marginStart="@dimen/margin_large"
+            android:contentDescription="@string/cup"
+            android:tint="@color/primaryColor"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/leaders_text_title"
+            app:srcCompat="@drawable/ic_cup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

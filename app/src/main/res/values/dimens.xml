@@ -59,4 +59,5 @@
     <item name="match_parent" format="integer" type="dimen">-1</item>
     <item name="wrap_content" format="integer" type="dimen">-2</item>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="normal_size_image">60dp</dimen>
 </resources>

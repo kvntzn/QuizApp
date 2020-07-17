@@ -44,4 +44,5 @@
     <string name="leaderboard">Leaderboard</string>
     <string name="leaders_name">Leaders Name</string>
     <string name="score">Score</string>
+    <string name="cup">Cup</string>
 </resources>
