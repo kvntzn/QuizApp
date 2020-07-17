@@ -41,7 +41,8 @@ class MainActivity : AppCompatActivity() {
             setOf(
                 R.id.startFragment,
                 R.id.listFragment,
-                R.id.leadersFragment
+                R.id.leadersFragment,
+                R.id.profileFragment
             ),
             binding.mainDrawerLayout
         )
@@ -81,6 +82,11 @@ class MainActivity : AppCompatActivity() {
                     binding.listBtmNavView.visibility = View.VISIBLE
                 }
                 R.id.leadersFragment -> {
+                    toolBar.useDefaultToolbar(true)
+
+                    binding.listBtmNavView.visibility = View.VISIBLE
+                }
+                R.id.profileFragment -> {
                     toolBar.useDefaultToolbar(true)
 
                     binding.listBtmNavView.visibility = View.VISIBLE

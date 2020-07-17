@@ -87,4 +87,9 @@
         android:name="com.heathkev.quizado.ui.about.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.heathkev.quizado.ui.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
