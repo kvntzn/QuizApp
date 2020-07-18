@@ -101,6 +101,7 @@ class StartFragment : Fragment() {
         startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
+                .setIsSmartLockEnabled(false)
                 .setAvailableProviders(providers)
                 .setTheme(R.style.AppTheme)
                 .build(),

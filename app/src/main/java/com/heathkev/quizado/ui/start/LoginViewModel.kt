@@ -1,5 +1,6 @@
 package com.heathkev.quizado.ui.start
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
@@ -28,7 +29,7 @@ class LoginViewModel : ViewModel() {
             val userMap = HashMap<String, Any?>()
             userMap["name"] = it.displayName
             userMap["email"] = it.email
-            userMap["image"] = it.photoUrl
+            userMap["image"] = if (Uri.EMPTY != it.photoUrl) it.photoUrl.toString() else it.photoUrl
             firebaseRepository.getUsers().document(it.uid).set(userMap)
         }
     }

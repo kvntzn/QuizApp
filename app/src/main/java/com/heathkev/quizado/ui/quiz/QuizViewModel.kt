@@ -1,5 +1,6 @@
 package com.heathkev.quizado.ui.quiz
 
+import android.net.Uri
 import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -145,7 +146,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
             resultMap["wrong"] = wrongAnswer
             resultMap["unanswered"] = notAnswered
             resultMap["player_name"] = _currentUser.name
-            resultMap["player_photo"] = _currentUser.imageUrl
+            resultMap["player_photo"] = if (Uri.EMPTY != _currentUser.imageUrl) _currentUser.imageUrl.toString() else _currentUser.imageUrl
 
             submit(resultMap)
         }
