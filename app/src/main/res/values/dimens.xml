@@ -36,7 +36,8 @@
     <dimen name="nav_item_background_corner_radius_left">0dp</dimen>
     <dimen name="nav_item_background_corner_radius_right">100dp</dimen>
     <dimen name="nav_item_background_inset_left">0dp</dimen>
-    <dimen name="nav_item_background_inset_right">8dp</dimen>>
+    <dimen name="nav_item_background_inset_right">8dp</dimen>
+    <dimen name="bottom_nav_height">56dp</dimen>
 
     <dimen name="detail_padding_bottom">150dp</dimen>
     <dimen name="quiz_padding_bottom">150dp</dimen>
@@ -60,4 +61,5 @@
     <item name="wrap_content" format="integer" type="dimen">-2</item>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="normal_size_image">60dp</dimen>
+    <dimen name="profile_photo">150dp</dimen>
 </resources>

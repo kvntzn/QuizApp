@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/bottom_nav_height"
         tools:context=".ui.leaders.LeadersFragment">
 
         <androidx.recyclerview.widget.RecyclerView
