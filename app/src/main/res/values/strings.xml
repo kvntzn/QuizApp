@@ -45,4 +45,5 @@
     <string name="leaders_name">Leaders Name</string>
     <string name="score">Score</string>
     <string name="cup">Cup</string>
+    <string name="please_click_back_again">Please click BACK again to exit</string>
 </resources>

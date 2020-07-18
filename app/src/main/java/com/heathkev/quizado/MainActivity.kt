@@ -2,11 +2,14 @@ package com.heathkev.quizado
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,8 +22,17 @@ import com.heathkev.quizado.databinding.ActivityMainBinding
 const val DARK_MODE = "darkmode"
 class MainActivity : AppCompatActivity() {
 
+    private var doubleBackToExitPressedOnce = false
+
     lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val TOP_LEVEL_DESTINATIONS = setOf(
+        R.id.startFragment,
+        R.id.listFragment,
+        R.id.leadersFragment,
+        R.id.profileFragment
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +48,8 @@ class MainActivity : AppCompatActivity() {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
-        // APP bar
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.startFragment,
-                R.id.listFragment,
-                R.id.leadersFragment,
-                R.id.profileFragment
-            ),
+            TOP_LEVEL_DESTINATIONS,
             binding.mainDrawerLayout
         )
 
@@ -81,12 +87,7 @@ class MainActivity : AppCompatActivity() {
 
                     binding.listBtmNavView.visibility = View.VISIBLE
                 }
-                R.id.leadersFragment -> {
-                    toolBar.useDefaultToolbar(true)
-
-                    binding.listBtmNavView.visibility = View.VISIBLE
-                }
-                R.id.profileFragment -> {
+                R.id.leadersFragment, R.id.profileFragment -> {
                     toolBar.useDefaultToolbar(true)
 
                     binding.listBtmNavView.visibility = View.VISIBLE
@@ -96,12 +97,41 @@ class MainActivity : AppCompatActivity() {
 
                     binding.listBtmNavView.visibility = View.GONE
                     binding.appBar.setExpanded(true, true)
+
                 }
             }
+
+            val isTopLevelDestination = TOP_LEVEL_DESTINATIONS.contains(destination.id)
+            val lockMode = if (isTopLevelDestination) {
+                DrawerLayout.LOCK_MODE_UNLOCKED
+            } else {
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+            }
+            binding.mainDrawerLayout.setDrawerLockMode(lockMode)
         }
 
         binding.listBtmNavView.setOnNavigationItemSelectedListener {
             NavigationUI.onNavDestinationSelected(it, navController)
+        }
+    }
+
+    override fun onBackPressed() {
+        val btmNavView = binding.listBtmNavView
+        if (btmNavView.visibility == View.VISIBLE){
+            if(btmNavView.selectedItemId  != R.id.listFragment){
+                btmNavView.selectedItemId = R.id.listFragment
+            }else{
+                if (doubleBackToExitPressedOnce) {
+                    this@MainActivity.finish()
+                    return
+                }
+
+                this.doubleBackToExitPressedOnce = true
+                Toast.makeText(this, getString(R.string.please_click_back_again), Toast.LENGTH_SHORT).show()
+                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+            }
+        }else{
+            super.onBackPressed()
         }
     }
 
