@@ -1,43 +1,44 @@
 package com.heathkev.quizado.ui.profile
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizado.R
-import kotlinx.android.synthetic.main.fragment_profile.*
+import com.heathkev.quizado.data.User
+import com.heathkev.quizado.databinding.FragmentProfileBinding
 
 
 class ProfileFragment : Fragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
+        val binding: FragmentProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        TODO DataBinding
-        val currentUser  = FirebaseAuth.getInstance().currentUser
-
-        val userPhotoUrl = currentUser?.photoUrl?.buildUpon()?.scheme("https")?.build()
-        Glide.with(profile_photo.context)
-            .load(userPhotoUrl)
-            .apply(
-                RequestOptions()
-                    .placeholder(R.drawable.placeholder_image)
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = if(firebaseAuth.currentUser != null){
+            val authUser = firebaseAuth.currentUser!!
+            User(
+                authUser.uid,
+                authUser.displayName,
+                authUser.photoUrl,
+                authUser.email
             )
-            .into(profile_photo)
+        }else{
+            User()
+        }
+
+        val viewModelFactory = ProfileViewModelFactory(currentUser)
+        val viewModel = ViewModelProvider(this, viewModelFactory).get(ProfileViewModel::class.java)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        return binding.root
     }
 }

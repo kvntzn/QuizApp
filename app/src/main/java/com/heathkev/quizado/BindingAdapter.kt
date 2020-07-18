@@ -1,5 +1,6 @@
 package com.heathkev.quizado
 
+import android.net.Uri
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -20,6 +21,19 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<QuizListModel>?) {
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     val image = if (imgUrl != null) imgUrl.toUri().buildUpon().scheme("https")
         .build() else R.drawable.ic_unknown
+    Glide.with(imgView.context)
+        .load(image)
+        .apply(
+            RequestOptions()
+                .placeholder(R.drawable.placeholder_image)
+        )
+        .into(imgView)
+}
+
+@BindingAdapter("imageUrl")
+fun bindImageUri(imgView: ImageView, imgUrl: Uri?) {
+    val image = if (imgUrl != Uri.EMPTY) imgUrl?.buildUpon()?.scheme("https")
+        ?.build() else R.drawable.ic_unknown
     Glide.with(imgView.context)
         .load(image)
         .apply(
