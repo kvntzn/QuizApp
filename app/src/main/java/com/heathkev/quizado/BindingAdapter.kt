@@ -32,8 +32,13 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 
 @BindingAdapter("imageUrl")
 fun bindImageUri(imgView: ImageView, imgUrl: Uri?) {
-    val image = if (imgUrl != Uri.EMPTY) imgUrl?.buildUpon()?.scheme("https")
-        ?.build() else R.drawable.ic_unknown
+    val image = if (imgUrl != null && imgUrl != Uri.EMPTY) {
+        imgUrl.buildUpon().scheme("https")
+            ?.build()
+    } else{
+        R.drawable.ic_unknown
+    }
+
     Glide.with(imgView.context)
         .load(image)
         .apply(

@@ -46,4 +46,10 @@
     <string name="score">Score</string>
     <string name="cup">Cup</string>
     <string name="please_click_back_again">Please click BACK again to exit</string>
+    <string name="quizzes">Quizzes</string>
+    <string name="passed">Passed</string>
+    <string name="failed">Failed</string>
+    <string name="share_app">Share app</string>
+    <string name="logout">Logout</string>
+    <string name="account_details">Account Details</string>
 </resources>
