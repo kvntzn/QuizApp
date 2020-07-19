@@ -68,24 +68,24 @@
                 android:id="@+id/profile_quizzes_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:fontFamily="@font/merriweather"
                 android:text="@string/quizzes"
                 android:textColor="@color/colorOnBackground"
                 android:textSize="@dimen/text_size_h3"
-                app:layout_constraintEnd_toEndOf="@+id/profile_quizzes_number"
-                app:layout_constraintStart_toStartOf="@+id/profile_quizzes_number"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_number" />
 
             <TextView
                 android:id="@+id/profile_quizzes_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:text="@string/one_hundred_percent"
+                android:text="@{viewModel.quizzesNumber}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/text_size_h2"
                 app:layout_constraintBaseline_toBaselineOf="@+id/profile_passed_number"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/profile_quizzes_text"
+                app:layout_constraintStart_toStartOf="@+id/profile_quizzes_text" />
 
             <TextView
                 android:id="@+id/profile_passed_text"
@@ -104,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="@string/one_hundred_percent"
+                android:text="@{viewModel.passedNumber}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/text_size_h2"
                 app:layout_constraintEnd_toEndOf="@+id/profile_name"
@@ -115,66 +115,24 @@
                 android:id="@+id/profile_failed_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
                 android:fontFamily="@font/merriweather"
                 android:text="@string/failed"
                 android:textColor="@color/colorOnBackground"
                 android:textSize="@dimen/text_size_h3"
-                app:layout_constraintEnd_toEndOf="@+id/profile_failed_number"
-                app:layout_constraintStart_toStartOf="@+id/profile_failed_number"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_failed_number" />
 
             <TextView
                 android:id="@+id/profile_failed_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:text="@string/one_hundred_percent"
+                android:text="@{viewModel.failedNumber}"
                 android:textColor="@color/primaryColor"
                 android:textSize="@dimen/text_size_h2"
                 app:layout_constraintBaseline_toBaselineOf="@+id/profile_passed_number"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <TextView
-                android:id="@+id/profile_account_details"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/account_details"
-                android:textColor="@color/colorOnBackground"
-                android:textSize="@dimen/text_size_h3"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_text" />
-
-            <Button
-                android:id="@+id/profile_share"
-                style="@style/Widget.Quizado.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:padding="12dp"
-                android:text="@string/share_app"
-                app:icon="@drawable/ic_share"
-                app:iconGravity="textStart"
-                android:drawableTint="@color/primaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_account_details" />
-
-            <Button
-                android:id="@+id/profile_logout"
-                style="@style/Widget.Quizado.Button.Borderless"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:padding="12dp"
-                android:text="@string/logout"
-                app:icon="@drawable/ic_login"
-                app:iconGravity="textStart"
-                android:drawableTint="@color/primaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_share" />
-
+                app:layout_constraintEnd_toEndOf="@+id/profile_failed_text"
+                app:layout_constraintStart_toStartOf="@+id/profile_failed_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

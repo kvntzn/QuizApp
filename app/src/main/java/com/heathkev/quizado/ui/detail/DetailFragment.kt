@@ -15,7 +15,6 @@ import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.databinding.FragmentDetailBinding
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.ui.list.QuizListViewModel
-import kotlinx.android.synthetic.main.fragment_detail.*
 
 /**
  * A simple [Fragment] subclass.
@@ -62,7 +61,7 @@ class DetailFragment : Fragment() {
         }
 
         val firebaseRepository = FirebaseRepository()
-        firebaseRepository.getResults(quizData.quiz_id).document(currentUserId).get().addOnCompleteListener{
+        firebaseRepository.getResultsByQuizId(quizData.quiz_id).document(currentUserId).get().addOnCompleteListener{
             if(it.isSuccessful){
                 val result = it.result
 

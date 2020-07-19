@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
 import com.heathkev.quizado.data.QuestionsModel
 import com.heathkev.quizado.data.QuizListModel
@@ -29,7 +28,6 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
     private val quizId = quizListModel.quiz_id
 
     private val _currentUser = currentUser
-    private val userId = currentUser.userId
 
     private var allQuestionList = mutableListOf<QuestionsModel>()
     private val totalQuestionToAnswer = quizListModel.questions
@@ -145,8 +143,9 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
             resultMap["correct"] = correctAnswer
             resultMap["wrong"] = wrongAnswer
             resultMap["unanswered"] = notAnswered
+            resultMap["player_id"] = _currentUser.userId
             resultMap["player_name"] = _currentUser.name
-            resultMap["player_photo"] = if (Uri.EMPTY != _currentUser.imageUrl) _currentUser.imageUrl.toString() else _currentUser.imageUrl
+            resultMap["player_photo"] = if (_currentUser.imageUrl != null && Uri.EMPTY != _currentUser.imageUrl) _currentUser.imageUrl.toString() else _currentUser.imageUrl
 
             submit(resultMap)
         }
@@ -154,7 +153,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
 
     private suspend fun submit(resultMap: HashMap<String, Any?>) {
         withContext(Dispatchers.IO) {
-            firebaseRepository.getResults(quizId).document(userId).set(resultMap)
+            firebaseRepository.getResultsByQuizId(quizId).document(_currentUser.userId).set(resultMap)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         // Goto result page

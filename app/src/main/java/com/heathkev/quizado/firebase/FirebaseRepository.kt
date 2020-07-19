@@ -1,12 +1,8 @@
 package com.heathkev.quizado.firebase
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
-import com.heathkev.quizado.data.QuizListModel
+import com.google.firebase.firestore.Query
 
 private const val TAG = "FirebaseRepository"
 
@@ -27,7 +23,15 @@ class FirebaseRepository {
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Questions")
     }
 
-    fun getResults(quizId: String) : CollectionReference{
+    fun getResultsByQuizId(quizId: String) : CollectionReference{
        return firebaseFireStore.collection("QuizList").document(quizId).collection("Results")
+    }
+
+    fun getAllResults(): Query {
+        return FirebaseFirestore.getInstance().collectionGroup("Results")
+    }
+
+    fun getResultsByUserId(userId: String): Query {
+        return FirebaseFirestore.getInstance().collectionGroup("Results").whereEqualTo("player_id",userId)
     }
 }

@@ -9,9 +9,12 @@ import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.Result
+import com.heathkev.quizado.firebase.FirebaseRepository
 
 private const val TAG = "LeadersViewModel"
 class LeadersViewModel : ViewModel(){
+
+    private val firebaseRepository = FirebaseRepository()
 
     private val _results = MutableLiveData<List<Result>>()
     val results : LiveData<List<Result>>
@@ -22,7 +25,7 @@ class LeadersViewModel : ViewModel(){
     }
 
     private fun getResults(){
-        FirebaseFirestore.getInstance().collectionGroup("Results").addSnapshotListener(EventListener { value, e ->
+        firebaseRepository.getAllResults().addSnapshotListener(EventListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 return@EventListener

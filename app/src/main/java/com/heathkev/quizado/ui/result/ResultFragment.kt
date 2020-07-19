@@ -3,7 +3,6 @@ package com.heathkev.quizado.ui.result
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -45,7 +44,7 @@ class ResultFragment : Fragment() {
         }
 
         val firebaseRepository = FirebaseRepository()
-        firebaseRepository.getResults(quizData.quiz_id).document(currentUserId).get().addOnCompleteListener{
+        firebaseRepository.getResultsByQuizId(quizData.quiz_id).document(currentUserId).get().addOnCompleteListener{
             if(it.isSuccessful){
                 val result = it.result
 
