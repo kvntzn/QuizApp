@@ -63,7 +63,7 @@ class StartFragment : Fragment() {
             binding.startFeedback.text = getString(R.string.logged_in)
 
             requireView().findNavController()
-                .navigate(StartFragmentDirections.actionStartFragmentToListFragment())
+                .navigate(StartFragmentDirections.actionStartFragmentToHomeFragment())
         }
     }
 
@@ -76,7 +76,7 @@ class StartFragment : Fragment() {
 
                 binding.startFeedback.text = getString(R.string.account_created)
                 requireView().findNavController()
-                    .navigate(StartFragmentDirections.actionStartFragmentToListFragment())
+                    .navigate(StartFragmentDirections.actionStartFragmentToHomeFragment())
                 viewModel.registerUser()
 
                 Log.i(

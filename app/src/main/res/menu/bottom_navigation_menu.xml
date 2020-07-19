@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/listFragment"
+        android:id="@+id/homeFragment"
         android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/home"/>
@@ -10,6 +10,12 @@
         android:enabled="true"
         android:icon="@drawable/ic_cup"
         android:title="@string/leaders"/>
+
+    <item
+        android:id="@+id/listFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_task"
+        android:title="@string/quiz"/>
 
     <item
         android:id="@+id/profileFragment"

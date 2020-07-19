@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private val TOP_LEVEL_DESTINATIONS = setOf(
         R.id.startFragment,
+        R.id.homeFragment,
         R.id.listFragment,
         R.id.leadersFragment,
         R.id.profileFragment
@@ -82,12 +83,12 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
             val toolBar = supportActionBar ?: return@addOnDestinationChangedListener
             when (destination.id) {
-                R.id.listFragment -> {
+                R.id.homeFragment -> {
                     toolBar.useDefaultToolbar(false)
 
                     binding.listBtmNavView.visibility = View.VISIBLE
                 }
-                R.id.leadersFragment, R.id.profileFragment -> {
+                R.id.leadersFragment, R.id.profileFragment,R.id.listFragment -> {
                     toolBar.useDefaultToolbar(true)
 
                     binding.listBtmNavView.visibility = View.VISIBLE
