@@ -40,7 +40,7 @@
                 android:id="@+id/profile_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
                 android:textColor="@color/colorOnBackground"
                 android:textSize="@dimen/text_size_h1"
                 android:textStyle="bold"
@@ -58,7 +58,6 @@
                 android:fontFamily="@font/merriweather"
                 app:playerNames="@{viewModel.user.email}"
                 android:textColor="@color/colorOnBackground"
-                android:textSize="@dimen/text_size_h3"
                 app:layout_constraintEnd_toEndOf="@+id/profile_photo"
                 app:layout_constraintStart_toStartOf="@+id/profile_photo"
                 app:layout_constraintTop_toBottomOf="@+id/profile_name"
@@ -72,7 +71,6 @@
                 android:fontFamily="@font/merriweather"
                 android:text="@string/quizzes"
                 android:textColor="@color/colorOnBackground"
-                android:textSize="@dimen/text_size_h3"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_number" />
 
@@ -94,7 +92,6 @@
                 android:fontFamily="@font/merriweather"
                 android:text="@string/passed"
                 android:textColor="@color/colorOnBackground"
-                android:textSize="@dimen/text_size_h3"
                 app:layout_constraintEnd_toEndOf="@+id/profile_passed_number"
                 app:layout_constraintStart_toStartOf="@+id/profile_passed_number"
                 app:layout_constraintTop_toBottomOf="@+id/profile_passed_number" />
@@ -119,7 +116,6 @@
                 android:fontFamily="@font/merriweather"
                 android:text="@string/failed"
                 android:textColor="@color/colorOnBackground"
-                android:textSize="@dimen/text_size_h3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_failed_number" />
 

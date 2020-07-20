@@ -1,45 +1,54 @@
 package com.heathkev.quizado.ui.leaders
 
 import android.util.Log
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FirebaseFirestore
-import com.heathkev.quizado.R
 import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.firebase.FirebaseRepository
+import kotlinx.coroutines.*
 
 private const val TAG = "LeadersViewModel"
 class LeadersViewModel : ViewModel(){
 
     private val firebaseRepository = FirebaseRepository()
 
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
     private val _results = MutableLiveData<List<Result>>()
     val results : LiveData<List<Result>>
         get() = _results
 
     init{
-        getResults()
+        initializeResults()
     }
 
-    private fun getResults(){
-        firebaseRepository.getAllResults().addSnapshotListener(EventListener { value, e ->
-            if (e != null) {
-                Log.w(TAG, "Listen failed.", e)
-                return@EventListener
-            }
+    private fun initializeResults() {
+        uiScope.launch {
+            getResults()
+        }
+    }
 
-            val resultsList: MutableList<Result> = mutableListOf()
-            for (doc in value!!) {
-                val resultItem = doc.toObject(Result::class.java)
+    private suspend fun getResults(){
+        withContext(Dispatchers.IO) {
+            firebaseRepository.getAllResults().addSnapshotListener(EventListener { value, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@EventListener
+                }
 
-                resultsList.add(resultItem)
-            }
+                val resultsList: MutableList<Result> = mutableListOf()
+                for (doc in value!!) {
+                    val resultItem = doc.toObject(Result::class.java)
 
-            groupResults(resultsList)
-        })
+                    resultsList.add(resultItem)
+                }
+
+                groupResults(resultsList)
+            })
+        }
     }
 
     private fun groupResults(list: MutableList<Result>){
