@@ -33,7 +33,7 @@
                 android:id="@+id/leaders_list_image"
                 android:layout_width="68dp"
                 android:layout_height="68dp"
-                app:civ_border_color="@color/colorOnBackground"
+                app:civ_border_color="@color/primaryColor"
                 app:civ_border_width="2dp"
                 app:imageUrl="@{resultModel.player_photo}"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -53,4 +53,6 @@
     <string name="account_details">Account Details</string>
     <string name="quiz">Quiz</string>
     <string name="home">Home</string>
+    <string name="play_quiz">Play Quiz</string>
+    <string name="recent_results">Recent Results</string>
 </resources>
