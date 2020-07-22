@@ -55,4 +55,7 @@
     <string name="home">Home</string>
     <string name="play_quiz">Play Quiz</string>
     <string name="recent_results">Recent Results</string>
+    <string name="category">Category</string>
+    <string name="result_status">Result Status</string>
+    <string name="juan_dela_cruz">Juan Dela Cruz</string>
 </resources>

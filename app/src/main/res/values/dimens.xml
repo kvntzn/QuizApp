@@ -62,4 +62,5 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="normal_size_image">60dp</dimen>
     <dimen name="profile_photo">90dp</dimen>
+    <dimen name="text_size_tiny">11sp</dimen>
 </resources>

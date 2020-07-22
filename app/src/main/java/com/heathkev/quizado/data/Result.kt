@@ -7,9 +7,11 @@ class Result (
     val user_id: String,
     val player_name: String?,
     val player_photo: String?,
+    val quiz_name: String,
+    val quiz_category: String,
     val correct: Long,
     val unanswered: Long,
     val wrong: Long
 ){
-    constructor() : this("","","",0L,0L,0L)
+    constructor() : this("","","","","",0L,0L,0L)
 }
