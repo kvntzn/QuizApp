@@ -1,26 +1,38 @@
 package com.heathkev.quizado.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.heathkev.quizado.R
 import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.databinding.HomeResultSingleListItemBinding
 
-class HomeResultsListAdapter : ListAdapter<Result, HomeResultsListAdapter.ResultsViewHolder>(DiffCallback){
+class HomeResultsListAdapter() : ListAdapter<Result, HomeResultsListAdapter.ResultsViewHolder>(DiffCallback){
 
-    class ResultsViewHolder(private var binding: HomeResultSingleListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ResultsViewHolder(private var binding: HomeResultSingleListItemBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(result: Result) {
             binding.resultModel = result
 
-            val total = result.correct + result.wrong + result.wrong
+            val correct = result.correct
+            val wrong = result.wrong
+            val unanswered = result.unanswered
 
-            binding.homeResultScore.text = "${result.correct}/$total"
+            val total = correct + unanswered + wrong
 
-            val percentage = result.correct * 100
-            binding.homeResultProgress.progress = percentage.toInt()
-            binding.homeResultsPercent.text = "$percentage%"
+            if(correct != 0L){
+                binding.homeResultScore.text =  context.getString(R.string.score_over, correct, total)
+
+                val percentage = (correct * 100)/ total
+                binding.homeResultProgress.progress = percentage.toInt()
+                binding.homeResultsPercent.text = "$percentage&"
+            }else{
+                binding.homeResultScore.text = context.getString(R.string.empty)
+                binding.homeResultProgress.progress = 0
+                binding.homeResultsPercent.text = context.getString(R.string.empty)
+            }
 
             binding.executePendingBindings()
         }
@@ -28,7 +40,7 @@ class HomeResultsListAdapter : ListAdapter<Result, HomeResultsListAdapter.Result
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsViewHolder {
         val view = HomeResultSingleListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
-        return ResultsViewHolder(view)
+        return ResultsViewHolder(view, parent.context)
     }
 
     override fun onBindViewHolder(holder: ResultsViewHolder, position: Int) {
