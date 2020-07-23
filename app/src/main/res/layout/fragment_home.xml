@@ -20,11 +20,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="8dp"
-            android:text="@string/juan_dela_cruz"
+            android:text="@{viewModel.user.displayName}"
             android:textColor="@color/colorOnBackground"
             android:textSize="@dimen/text_size_h2"
             app:layout_constraintStart_toEndOf="@+id/home_photo"
-            app:layout_constraintTop_toTopOf="@+id/home_photo" />
+            app:layout_constraintTop_toTopOf="@+id/home_photo"
+            tools:text="Juan Dela Cruz"/>
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/home_photo"
@@ -32,7 +33,7 @@
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:src="@drawable/ic_unknown"
+            app:imageUrl="@{viewModel.user.photoUrl}"
             app:civ_border_color="@color/primaryColor"
             app:civ_border_width="2dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
             tools:src="@drawable/ic_unknown" />
 
         <Button
-            android:id="@+id/quiz_next_btn"
+            android:id="@+id/home_play_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -78,7 +79,7 @@
             android:textSize="@dimen/text_size_h3"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_next_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/home_play_button" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

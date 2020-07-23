@@ -1,18 +1,17 @@
 package com.heathkev.quizado.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentHomeBinding
-import com.heathkev.quizado.ui.leaders.LeadersListAdapter
-import com.heathkev.quizado.ui.leaders.LeadersViewModel
 
 class HomeFragment : Fragment() {
     override fun onCreateView(
@@ -30,18 +29,37 @@ class HomeFragment : Fragment() {
         listView.adapter = adapter
 
         val fadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-        val fadeOutAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
-//        val listProgress = binding.leadersProgress
 
         viewModel.resultList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 listView.startAnimation(fadeInAnimation)
-//                listProgress.startAnimation(fadeOutAnimation)
 
                 adapter.submitList(it)
             }
         })
 
+        binding.homePlayButton.setOnClickListener {
+            viewModel.playQuiz()
+        }
+
+        viewModel.navigateToQuizListModel.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                this.findNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToQuizFragment(
+                        it
+                    )
+                )
+                viewModel.playQuizComplete()
+            }
+        })
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        binding.homePlayButton.setOnClickListener {
+//            navigation_view.setCheckedItem(R.id.listFragment)
+//        }
     }
 }
