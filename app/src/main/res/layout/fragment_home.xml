@@ -1,74 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/home_name_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginTop="8dp"
-        android:text="@string/juan_dela_cruz"
-        android:textColor="@color/colorOnBackground"
-        android:textSize="@dimen/text_size_h2"
-        app:layout_constraintStart_toEndOf="@+id/home_photo"
-        app:layout_constraintTop_toTopOf="@+id/home_photo" />
+    <data>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/home_photo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/ic_unknown"
-        app:civ_border_color="@color/primaryColor"
-        app:civ_border_width="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_unknown" />
+    </data>
 
-    <Button
-        android:id="@+id/quiz_next_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/primary_btn_bg"
-        android:text="@string/play_quiz"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_photo" />
-
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_recent_results"
-        app:spanCount="2"
-        tools:itemCount="16"
-        tools:listitem="@layout/home_result_single_list_item" />
+        android:layout_height="match_parent"
+        tools:context=".ui.home.HomeFragment">
 
-    <TextView
-        android:id="@+id/home_recent_results"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/recent_results"
-        android:textColor="@color/colorOnBackground"
-        android:textSize="@dimen/text_size_h3"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_next_btn" />
+        <TextView
+            android:id="@+id/home_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginTop="8dp"
+            android:text="@string/juan_dela_cruz"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="@dimen/text_size_h2"
+            app:layout_constraintStart_toEndOf="@+id/home_photo"
+            app:layout_constraintTop_toTopOf="@+id/home_photo" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/home_photo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:src="@drawable/ic_unknown"
+            app:civ_border_color="@color/primaryColor"
+            app:civ_border_width="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_unknown" />
+
+        <Button
+            android:id="@+id/quiz_next_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/primary_btn_bg"
+            android:text="@string/play_quiz"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_photo" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/home_recent_results"
+            app:spanCount="2"
+            tools:itemCount="16"
+            tools:listitem="@layout/home_result_single_list_item" />
+
+        <TextView
+            android:id="@+id/home_recent_results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/recent_results"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="@dimen/text_size_h3"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quiz_next_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

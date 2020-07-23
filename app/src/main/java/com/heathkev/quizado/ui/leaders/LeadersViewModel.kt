@@ -58,6 +58,8 @@ class LeadersViewModel : ViewModel(){
                 e.user_id,
                 e.player_name,
                 e.player_photo,
+                "",
+                "",
                 (acc?.correct ?: 0) + e.correct,
                 e.unanswered,
                 e.wrong)

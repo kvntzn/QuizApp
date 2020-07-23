@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <variable
+            name="resultModel"
+            type="com.heathkev.quizado.data.Result" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -28,6 +31,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
+                android:text="@{resultModel.quiz_category}"
                 android:textColor="@color/primaryColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +45,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/merriweather"
-                android:text="@string/QuizTitle"
+                android:text="@{resultModel.quiz_name}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintBottom_toTopOf="@+id/home_result_score"
                 app:layout_constraintStart_toStartOf="parent"
@@ -52,12 +56,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="06/10"
                 android:textColor="@color/colorOnBackground"
                 android:textSize="@dimen/text_size_h2"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="06/10"/>
 
             <TextView
                 android:id="@+id/home_result_status"
@@ -70,7 +74,6 @@
                 app:layout_constraintBaseline_toBaselineOf="@+id/home_result_score"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-
             <ProgressBar
                 android:id="@+id/home_result_progress"
                 style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
@@ -78,21 +81,21 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:progress="50"
                 android:progressDrawable="@drawable/circular_progess"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/results_percent"
+                android:id="@+id/home_results_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/one_hundred_percent"
                 android:textColor="@color/secondaryColor"
                 app:layout_constraintBottom_toBottomOf="@+id/home_result_progress"
                 app:layout_constraintEnd_toEndOf="@+id/home_result_progress"
                 app:layout_constraintStart_toStartOf="@+id/home_result_progress"
-                app:layout_constraintTop_toTopOf="@+id/home_result_progress" />
+                app:layout_constraintTop_toTopOf="@+id/home_result_progress"
+                tools:text="@string/one_hundred_percent"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
