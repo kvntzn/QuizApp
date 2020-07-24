@@ -18,7 +18,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding : FragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        val binding: FragmentHomeBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         val viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
         binding.viewModel = viewModel
@@ -29,10 +30,14 @@ class HomeFragment : Fragment() {
         listView.adapter = adapter
 
         val fadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+        val fadeOutAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+        val listProgress = binding.homeProgress
+
 
         viewModel.resultList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 listView.startAnimation(fadeInAnimation)
+                listProgress.startAnimation(fadeOutAnimation)
 
                 adapter.submitList(it)
             }
@@ -54,12 +59,5 @@ class HomeFragment : Fragment() {
         })
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-//        binding.homePlayButton.setOnClickListener {
-//            navigation_view.setCheckedItem(R.id.listFragment)
-//        }
     }
 }

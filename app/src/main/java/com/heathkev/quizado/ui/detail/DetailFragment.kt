@@ -75,7 +75,7 @@ class DetailFragment : Fragment() {
                        val total = correct + wrong + missed
                        val percent = (correct*100)/total
 
-                       binding.detailsScoreText.text = "$percent%"
+                       binding.detailsScoreText.text = getString(R.string.score_percentage, percent)
                    }
                 }else{
                     // Document doesn't exist, and result should stay NA

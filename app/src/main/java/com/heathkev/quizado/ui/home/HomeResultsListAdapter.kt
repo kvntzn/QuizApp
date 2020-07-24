@@ -27,7 +27,7 @@ class HomeResultsListAdapter() : ListAdapter<Result, HomeResultsListAdapter.Resu
 
                 val percentage = (correct * 100)/ total
                 binding.homeResultProgress.progress = percentage.toInt()
-                binding.homeResultsPercent.text = "$percentage&"
+                binding.homeResultsPercent.text = context.getString(R.string.score_percentage, percentage)
             }else{
                 binding.homeResultScore.text = context.getString(R.string.empty)
                 binding.homeResultProgress.progress = 0

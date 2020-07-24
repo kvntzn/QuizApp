@@ -143,6 +143,10 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
             resultMap["correct"] = correctAnswer
             resultMap["wrong"] = wrongAnswer
             resultMap["unanswered"] = notAnswered
+
+            resultMap["quiz_name"] = quizDetail.name
+            resultMap["quiz_category"] = quizDetail.category
+
             resultMap["player_id"] = _currentUser.userId
             resultMap["player_name"] = _currentUser.name
             resultMap["player_photo"] = if (_currentUser.imageUrl != null && Uri.EMPTY != _currentUser.imageUrl) _currentUser.imageUrl.toString() else _currentUser.imageUrl
@@ -189,10 +193,6 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
         _optionB.value = null
         _optionC.value = null
         _optionD.value = null
-
-//        _optionA.value = questionsToAnswer[questionNumber - 1].option_a
-//        _optionB.value = questionsToAnswer[questionNumber - 1].option_b
-//        _optionC.value = questionsToAnswer[questionNumber - 1].option_c
 
         var answers = listOf(
             questionsToAnswer[questionNumber - 1].option_a,

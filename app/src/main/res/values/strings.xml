@@ -59,6 +59,6 @@
     <string name="result_status">Result Status</string>
     <string name="juan_dela_cruz">Juan Dela Cruz</string>
     <string name="score_over">%1$d/%2$d</string>
-    <string name="score_percentage">%1$d %</string>
+    <string name="score_percentage">%1$d%%</string>
     <string name="empty">--</string>
 </resources>

@@ -56,7 +56,7 @@ class HomeViewModel : ViewModel(){
                     _categoryList.add(resultItem)
                 }
 
-                _resultList.value = _categoryList
+                _resultList.value = _categoryList.also { it -> it.sortByDescending { it.correct } }
             })
         }
     }
