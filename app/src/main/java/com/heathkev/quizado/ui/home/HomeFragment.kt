@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
         viewModel.navigateToQuizListModel.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 this.findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToQuizFragment(
+                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(
                         it
                     )
                 )
