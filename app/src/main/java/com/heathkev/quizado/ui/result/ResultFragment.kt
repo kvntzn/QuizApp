@@ -5,10 +5,15 @@ import android.os.Bundle
 import android.view.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.firebase.FirebaseRepository
+import com.heathkev.quizado.ui.detail.DetailFragmentDirections
 import kotlinx.android.synthetic.main.fragment_result.*
 
 class ResultFragment : Fragment() {
@@ -33,6 +38,10 @@ class ResultFragment : Fragment() {
 
         results_share_btn.setOnClickListener{
             shareSuccess()
+        }
+
+        results_play_btn.setOnClickListener {
+            it.findNavController().navigate(ResultFragmentDirections.actionResultFragmentToDetailFragment(quizData))
         }
 
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -62,18 +71,30 @@ class ResultFragment : Fragment() {
                     results_percent.text = getString(R.string.score_percentage, percent)
                     results_progress.progress = percent.toInt()
 
+                    val image: Int
                     val passed = correct > (total / 2)
                     if(passed){
+                        results_title.text = getString(R.string.congratulations)
+                        results_title.setTextColor(resources.getColor(R.color.colorCorrect, null))
+
                         result_message_text.text =  getString(R.string.congrats_message, quizData.name)
-                        result_image.setImageResource(R.drawable.ic_success)
+                        image = R.drawable.ic_success
                     }else{
-                        result_image.setImageResource(R.drawable.ic_failed)
+                        results_title.text = getString(R.string.try_again)
+                        results_title.setTextColor(resources.getColor(R.color.colorWrong, null))
+
+                         image = R.drawable.ic_failed
                         result_message_text.text = getString(R.string.failed_message, quizData.name)
                     }
 
+                    Glide.with(this)
+                        .load(image)
+                        .into(result_image)
                 }
             }
         }
+
+
     }
 
     private fun getShareIntent() : Intent {

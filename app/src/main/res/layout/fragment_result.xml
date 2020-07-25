@@ -14,6 +14,32 @@
         android:paddingBottom="@dimen/detail_padding_bottom">
 
         <TextView
+            android:id="@+id/results_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textSize="@dimen/text_size_h1"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@string/try_again"
+            tools:textColor="@color/colorCorrect" />
+
+        <ImageView
+            android:id="@+id/result_image"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/image_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/results_title"
+            tools:src="@drawable/ic_success" />
+
+        <TextView
             android:id="@+id/result_message_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -46,9 +72,9 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/margin_small"
             android:progress="100"
             android:progressDrawable="@drawable/circular_progess"
+            android:layout_marginTop="@dimen/margin_small"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/result_image" />
 
@@ -57,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/one_hundred_percent"
-            android:textColor="@color/secondaryColor"
+            android:textColor="@color/colorOnBackground"
             app:layout_constraintBottom_toBottomOf="@+id/results_progress"
             app:layout_constraintEnd_toEndOf="@+id/results_progress"
             app:layout_constraintStart_toStartOf="@+id/results_progress"
@@ -74,20 +100,24 @@
             android:drawableEnd="@drawable/ic_share"
             android:text="@string/share"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
+
+        <Button
+            android:id="@+id/results_play_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/primary_btn_bg"
+            android:drawableEnd="@drawable/ic_replay"
+            android:text="@string/play_again"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
 
-        <ImageView
-            android:id="@+id/result_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="@string/image_result"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_success"/>
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

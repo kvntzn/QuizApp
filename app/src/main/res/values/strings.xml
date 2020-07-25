@@ -36,7 +36,7 @@
     <string name="Settings">Settings</string>
     <string name="login">Login</string>
     <string name="about_desc">Quizado is a quiz application where you can answer any of the quizzes</string>
-    <string name="share">Share</string>
+    <string name="share">Share Quiz</string>
     <string name="share_text">I just got %1$d/%2$d on Quizado\'s %3$s quiz!</string>
     <string name="leaders">Leaders</string>
     <string name="profile">Profile</string>
@@ -64,4 +64,7 @@
     <string name="congrats_message">Congrats you passed the Quiz for %1$s</string>
     <string name="failed_message">You failed the quiz for %1$s. Play again to score better</string>
     <string name="image_result">Image Result</string>
+    <string name="play_again">Play Again</string>
+    <string name="congratulations">CONGRATS!</string>
+    <string name="try_again">TRY AGAIN</string>
 </resources>

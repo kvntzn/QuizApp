@@ -72,6 +72,15 @@
         <argument
             android:name="quiz_data"
             app:argType="com.heathkev.quizado.data.QuizListModel" />
+        <action
+            android:id="@+id/action_resultFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/homeFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_down"
+            />
     </fragment>
     <fragment
         android:id="@+id/leadersFragment"
