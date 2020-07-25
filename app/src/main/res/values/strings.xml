@@ -61,4 +61,7 @@
     <string name="score_over">%1$d/%2$d</string>
     <string name="score_percentage">%1$d%%</string>
     <string name="empty">--</string>
+    <string name="congrats_message">Congrats you passed the Quiz for %1$s</string>
+    <string name="failed_message">You failed the quiz for %1$s. Play again to score better</string>
+    <string name="image_result">Image Result</string>
 </resources>

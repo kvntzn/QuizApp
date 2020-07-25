@@ -53,16 +53,24 @@ class ResultFragment : Fragment() {
                     val wrong = result.getLong("wrong")!!
                     val missed = result.getLong("unanswered")!!
 
-                    results_correct_text.text = correct.toString()
-                    results_wrong_text.text = wrong.toString()
-                    results_missed_text.text = missed.toString()
+                    val total = correct + wrong + missed
+                    results_score.text = getString(R.string.score_over, correct, total)
 
                     // calculate progress
-                    val total = correct + wrong + missed
                     val percent = (correct*100)/total
 
-                    results_percent.text = "$percent%"
+                    results_percent.text = getString(R.string.score_percentage, percent)
                     results_progress.progress = percent.toInt()
+
+                    val passed = correct > (total / 2)
+                    if(passed){
+                        result_message_text.text =  getString(R.string.congrats_message, quizData.name)
+                        result_image.setImageResource(R.drawable.ic_success)
+                    }else{
+                        result_image.setImageResource(R.drawable.ic_failed)
+                        result_message_text.text = getString(R.string.failed_message, quizData.name)
+                    }
+
                 }
             }
         }

@@ -1,115 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.result.ResultFragment">
+    android:fillViewport="true"
+    android:scrollbars="none"
+    android:layout_height="match_parent">
 
-    <ProgressBar
-        android:id="@+id/results_progress"
-        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
-        android:layout_width="128dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="32dp"
-        android:progressDrawable="@drawable/circular_progess"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/results_percent"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/one_hundred_percent"
-        android:textColor="@color/secondaryColor"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/results_progress"
-        app:layout_constraintEnd_toEndOf="@+id/results_progress"
-        app:layout_constraintStart_toStartOf="@+id/results_progress"
-        app:layout_constraintTop_toTopOf="@+id/results_progress" />
+        tools:context=".ui.result.ResultFragment"
+        android:paddingBottom="@dimen/detail_padding_bottom">
 
-    <TextView
-        android:id="@+id/results_correct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/merriweather"
-        android:text="@string/correct_answer"
-        android:textColor="@color/colorOnBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results_progress" />
+        <TextView
+            android:id="@+id/result_message_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/merriweather"
+            android:textAlignment="center"
+            android:textColor="@color/colorOnBackground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/results_progress"
+            tools:text="@string/congrats_message" />
 
-    <TextView
-        android:id="@+id/results_wrong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/wrong_answer"
-        android:fontFamily="@font/merriweather"
-        android:textColor="@color/colorOnBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results_correct" />
+        <TextView
+            android:id="@+id/results_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/colorOnBackground"
+            android:textSize="@dimen/text_size_h1"
+            app:layout_constraintBottom_toBottomOf="@+id/results_progress"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="@+id/results_progress"
+            tools:text="06/10" />
 
-    <TextView
-        android:id="@+id/results_missed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/questions_missed"
-        android:fontFamily="@font/merriweather"
-        android:textColor="@color/colorOnBackground"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results_wrong" />
+        <ProgressBar
+            android:id="@+id/results_progress"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/margin_small"
+            android:progress="100"
+            android:progressDrawable="@drawable/circular_progess"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/result_image" />
 
-    <TextView
-        android:id="@+id/results_correct_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:textColor="@color/colorOnBackground"
-        android:fontFamily="@font/merriweather"
-        app:layout_constraintBaseline_toBaselineOf="@+id/results_correct"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="NA" />
+        <TextView
+            android:id="@+id/results_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/one_hundred_percent"
+            android:textColor="@color/secondaryColor"
+            app:layout_constraintBottom_toBottomOf="@+id/results_progress"
+            app:layout_constraintEnd_toEndOf="@+id/results_progress"
+            app:layout_constraintStart_toStartOf="@+id/results_progress"
+            app:layout_constraintTop_toTopOf="@+id/results_progress" />
 
-    <TextView
-        android:id="@+id/results_wrong_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/merriweather"
-        android:textColor="@color/colorOnBackground"
-        app:layout_constraintBaseline_toBaselineOf="@+id/results_wrong"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="NA" />
+        <Button
+            android:id="@+id/results_share_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/primary_btn_bg"
+            android:drawableEnd="@drawable/ic_share"
+            android:text="@string/share"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
 
-    <TextView
-        android:id="@+id/results_missed_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/merriweather"
-        android:textColor="@color/colorOnBackground"
-        app:layout_constraintBaseline_toBaselineOf="@+id/results_missed"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="NA" />
+        <ImageView
+            android:id="@+id/result_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/image_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_success"/>
 
-    <Button
-        android:id="@+id/results_share_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/primary_btn_bg"
-        android:drawableEnd="@drawable/ic_share"
-        android:text="@string/share"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/results_missed" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
