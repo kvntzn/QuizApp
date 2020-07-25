@@ -8,4 +8,8 @@
         android:id="@+id/settingsFragment"
         android:icon="@drawable/ic_settings"
         android:title="@string/Settings" />
+    <item
+        android:id="@+id/acknowlegementsFragment"
+        android:icon="@drawable/ic_heart"
+        android:title="@string/acknowledgements"/>
 </menu>
