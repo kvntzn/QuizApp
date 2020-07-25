@@ -25,7 +25,7 @@ class QuizListAdapter(val onClickListener: OnClickListener) : ListAdapter<QuizLi
 
     override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
         val quizListModel = getItem(position)
-        holder.itemView.list_btn.setOnClickListener {
+        holder.itemView.quiz_card.setOnClickListener {
             onClickListener.onClick(quizListModel)
         }
         holder.bind(quizListModel)
