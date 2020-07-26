@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
      * Delegate this to Navigation.
      */
     override fun onSupportNavigateUp() =
-        navigateUp(findNavController(R.id.nav_host_fragment), appBarConfiguration)
+        navigateUp(findNavController(R.id.nav_host_fragment), appBarConfiguration) || super.onSupportNavigateUp()
 
     /**
      * Setup Navigation for this Activity

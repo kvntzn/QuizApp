@@ -75,12 +75,11 @@
         <action
             android:id="@+id/action_resultFragment_to_detailFragment"
             app:destination="@id/detailFragment"
-            app:popUpTo="@id/homeFragment"
             app:enterAnim="@anim/slide_up"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_down"
-            />
+            app:popUpTo="@id/listFragment" />
     </fragment>
     <fragment
         android:id="@+id/leadersFragment"
