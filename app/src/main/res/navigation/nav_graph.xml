@@ -114,4 +114,9 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_down"/>
     </fragment>
+    <fragment
+        android:id="@+id/acknowlegementsFragment"
+        android:name="com.heathkev.quizado.ui.acknowledgement.AcknowledgementFragment"
+        android:label="@string/acknowledgements"
+        tools:layout="@layout/fragment_acknowledgement" />
 </navigation>
