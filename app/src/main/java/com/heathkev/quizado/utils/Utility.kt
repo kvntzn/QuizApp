@@ -2,17 +2,18 @@ package com.heathkev.quizado.utils
 
 import com.heathkev.quizado.data.Result
 
-enum class Categories {
-    Science,
-    General,
-    Math,
-    History,
-    Geography,
-    Literature
-}
-
 class Utility {
     companion object{
+        enum class Categories {
+            All,
+            Science,
+            General,
+            Math,
+            History,
+            Geography,
+            Literature,
+        }
+
         fun getCategoryResults() : List<Result>{
             return mutableListOf(
                 Result("", "", "", "", Categories.Science.toString(), 0L, 0L, 0L),

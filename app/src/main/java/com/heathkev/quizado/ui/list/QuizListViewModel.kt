@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.firestore.EventListener
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.firebase.FirebaseRepository
+import com.heathkev.quizado.ui.list.ListFragment.Companion.DEFAULT_CATEGORY
+import com.heathkev.quizado.utils.Utility.Companion.Categories
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -43,8 +45,8 @@ class QuizListViewModel : ViewModel() {
         onQueryChanged()
     }
 
-    private fun getQuizList(filter: String?){
-        val quizListQuery = if(filter.isNullOrEmpty()){
+    private fun getQuizList(filter: String){
+        val quizListQuery = if(filter == DEFAULT_CATEGORY){
             firebaseRepository.getQuizList()
         }else{
             firebaseRepository.getQuizList().whereEqualTo("category", filter)
@@ -65,7 +67,7 @@ class QuizListViewModel : ViewModel() {
             _quizListModelListData.value = quizListModelList
 
             if(!isCategoryInitialized){
-                _categoryList.value =  quizListModelList.map { it.category }.distinctBy { it }
+                _categoryList.value =  Categories.values().map { it.toString() }.toList()
                 isCategoryInitialized =  true
             }
         })
@@ -100,7 +102,7 @@ class QuizListViewModel : ViewModel() {
     }
 
     private class FilterHolder {
-        var currentValue: String? = null
+        var currentValue: String = DEFAULT_CATEGORY
             private set
 
         fun update(changedFilter: String, isChecked: Boolean): Boolean {
@@ -108,7 +110,7 @@ class QuizListViewModel : ViewModel() {
                 currentValue = changedFilter
                 return true
             } else if (currentValue == changedFilter) {
-                currentValue = null
+                currentValue = DEFAULT_CATEGORY
                 return true
             }
             return false

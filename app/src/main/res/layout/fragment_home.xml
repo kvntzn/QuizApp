@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginTop="8dp"
-            android:text="@{viewModel.user.displayName}"
+            app:playerNames="@{viewModel.user.displayName}"
             android:textColor="@color/colorOnBackground"
             android:textSize="@dimen/text_size_h2"
             app:layout_constraintStart_toEndOf="@+id/home_photo"

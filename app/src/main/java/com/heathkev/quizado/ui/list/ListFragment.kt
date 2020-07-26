@@ -23,14 +23,15 @@ import com.heathkev.quizado.databinding.FragmentListBinding
  */
 class ListFragment : Fragment() {
 
-    private val DARK_MODE = "darkmode"
-    private var isSelected: Boolean = false
+    companion object {
+        const val DEFAULT_CATEGORY = "All"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         val binding: FragmentListBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_list, container, false
         )
@@ -70,6 +71,10 @@ class ListFragment : Fragment() {
                     val chip = inflator.inflate(R.layout.categories, chipGroup, false) as Chip
                     chip.text = categoryName
                     chip.tag = categoryName
+
+                    // checked the default category
+                    chip.isChecked = categoryName == DEFAULT_CATEGORY
+
                     chip.setOnCheckedChangeListener { button, isChecked ->
                         viewModel.onFilterChanged(button.tag as String, isChecked)
                     }

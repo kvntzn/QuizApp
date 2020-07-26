@@ -42,7 +42,7 @@ class HomeViewModel : ViewModel(){
 
     private suspend fun getResults(){
         withContext(Dispatchers.IO) {
-            firebaseRepository.getAllResults().addSnapshotListener(EventListener { value, e ->
+            firebaseRepository.getResultsByUserId(user.uid).addSnapshotListener(EventListener { value, e ->
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
                     return@EventListener
@@ -56,7 +56,7 @@ class HomeViewModel : ViewModel(){
                     _categoryList.add(resultItem)
                 }
 
-                _resultList.value = _categoryList.also { it -> it.sortByDescending { it.correct } }
+                _resultList.value = _categoryList.sortedByDescending { it.correct }
             })
         }
     }
