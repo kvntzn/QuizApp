@@ -68,4 +68,9 @@
     <string name="congratulations">CONGRATS!</string>
     <string name="try_again">TRY AGAIN</string>
     <string name="acknowledgements">Acknowledgements</string>
+    <string name="send_question">Send Question</string>
+    <string name="write_your_question">Write your Question</string>
+    <string name="write_correct_answer">Write correct answer</string>
+    <string name="write_wrong_answer">Write wrong answer</string>
+    <string name="send">Send</string>
 </resources>

@@ -119,4 +119,9 @@
         android:name="com.heathkev.quizado.ui.acknowledgement.AcknowledgementFragment"
         android:label="@string/acknowledgements"
         tools:layout="@layout/fragment_acknowledgement" />
+    <fragment
+        android:id="@+id/sendQuestionFragment"
+        android:name="com.heathkev.quizado.SendQuestionFragment"
+        android:label="@string/send_question"
+        tools:layout="@layout/fragment_send_question" />
 </navigation>
