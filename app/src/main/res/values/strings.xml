@@ -73,4 +73,5 @@
     <string name="write_correct_answer">Write correct answer</string>
     <string name="write_wrong_answer">Write wrong answer</string>
     <string name="send">Send</string>
+    <string name="invalid_question">Question not supported</string>
 </resources>

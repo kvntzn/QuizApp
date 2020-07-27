@@ -2,11 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SendQuestionFragment">
+    tools:context=".ui.send.SendQuestionFragment">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.heathkev.quizado.ui.send.SendQuestionViewModel" />
+    </data>
 
     <androidx.core.widget.NestedScrollView android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:fillViewport="true"
         >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,7 +28,7 @@
                 >
 
                 <Spinner
-                    android:id="@+id/appCompatSpinner"
+                    android:id="@+id/question_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_small"
