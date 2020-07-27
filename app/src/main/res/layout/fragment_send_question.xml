@@ -4,113 +4,139 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".SendQuestionFragment">
 
-    <ScrollView android:layout_height="match_parent"
-        android:layout_width="match_parent">
+    <androidx.core.widget.NestedScrollView android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        >
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/question_title"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/question_spinner_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:ems="10"
-                android:hint="@string/write_your_question"
-                android:autofillHints="@string/write_wrong_answer"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/question_correct_answer"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginBottom="4dp"
-                android:importantForAutofill="no"
-                />
+                >
 
-            <EditText
-                android:id="@+id/question_correct_answer"
-                android:hint="@string/write_correct_answer"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/question_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/question_wrong_answer"
-                android:singleLine="true"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                />
+                <Spinner
+                    android:id="@+id/appCompatSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_marginBottom="16dp"
+                    android:entries="@array/Category_array" />
+            </com.google.android.material.card.MaterialCardView>
 
-            <EditText
-                android:id="@+id/question_wrong_answer"
-                android:layout_height="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/question_title_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_marginTop="4dp"
-                android:hint="@string/write_wrong_answer"
-                app:layout_constraintTop_toBottomOf="@+id/question_correct_answer"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/question_wrong_answer2"
-                android:singleLine="true"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                />
-            <EditText
-                android:id="@+id/question_wrong_answer2"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_marginTop="4dp"
-                android:hint="@string/write_wrong_answer"
-                app:layout_constraintTop_toBottomOf="@+id/question_wrong_answer"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="@string/question"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="32dp"
-                app:layout_constraintBottom_toTopOf="@+id/question_wrong_answer3"
-                android:layout_marginBottom="4dp"
-                android:singleLine="true"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                />
-            <EditText
-                android:id="@+id/question_wrong_answer3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_spinner_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/question_title_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/question_correct_answer_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                app:layout_constraintTop_toBottomOf="@+id/question_wrong_answer2"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="32dp"
-                android:hint="@string/write_wrong_answer"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="@string/correct_answer"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toTopOf="@+id/question_submit_btn"
-                android:layout_marginTop="4dp"
-                android:singleLine="true"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_title_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/question_correct_answer_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/question_wrong_answer_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="@string/wrong_answer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_correct_answer_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/question_wrong_answer_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/question_wrong_answer2_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="@string/wrong_answer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_wrong_answer_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/question_wrong_answer2_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/question_wrong_answer3_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="@string/wrong_answer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_wrong_answer2_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/question_wrong_answer3_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/question_submit_btn"
-                style="@android:style/Widget.Material.Button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:background="@drawable/primary_btn_bg"
                 android:text="@string/send"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/question_wrong_answer3" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/question_wrong_answer3_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

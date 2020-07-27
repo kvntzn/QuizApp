@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Category_array">
+        <item>Science</item>
+        <item>General</item>
+        <item>Math</item>
+        <item>History</item>
+        <item>Geography</item>
+        <item>Literature</item>
+    </string-array>
+</resources>
