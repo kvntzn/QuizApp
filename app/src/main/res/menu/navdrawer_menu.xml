@@ -4,21 +4,18 @@
     <item
         android:id="@+id/sendQuestionFragment"
         android:icon="@drawable/ic_send"
-        android:title="@string/send_question"/>
-
+        android:title="@string/send_question" />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/Settings" />
     <item
         android:id="@+id/aboutFragment"
         android:icon="@drawable/ic_rules"
         android:title="@string/about" />
 
     <item
-        android:id="@+id/settingsFragment"
-        android:icon="@drawable/ic_settings"
-        android:title="@string/Settings" />
-
-    <item
         android:id="@+id/acknowlegementsFragment"
         android:icon="@drawable/ic_heart"
-        android:title="@string/acknowledgements"/>
-
+        android:title="@string/acknowledgements" />
 </menu>

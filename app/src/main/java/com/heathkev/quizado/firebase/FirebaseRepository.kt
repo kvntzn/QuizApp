@@ -34,4 +34,8 @@ class FirebaseRepository {
     fun getResultsByUserId(userId: String): Query {
         return FirebaseFirestore.getInstance().collectionGroup("Results").whereEqualTo("player_id",userId)
     }
+
+    fun getQuestionRequest(): CollectionReference {
+        return firebaseFireStore.collection("QuestionRequest")
+    }
 }
