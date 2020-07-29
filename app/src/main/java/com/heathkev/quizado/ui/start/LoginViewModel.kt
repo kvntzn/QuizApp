@@ -10,7 +10,7 @@ import com.heathkev.quizado.firebase.FirebaseUserLiveData
 class LoginViewModel : ViewModel() {
 
     private var firebaseRepository = FirebaseRepository()
-    private val currentUser = FirebaseUserLiveData()
+    val currentUser = FirebaseUserLiveData()
 
     enum class AuthenticationState {
         AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION

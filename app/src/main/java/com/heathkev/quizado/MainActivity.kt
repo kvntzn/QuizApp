@@ -1,6 +1,7 @@
 package com.heathkev.quizado
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
@@ -11,12 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
-import androidx.navigation.ui.*
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.navigateUp
+import androidx.navigation.ui.onNavDestinationSelected
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.heathkev.quizado.databinding.ActivityMainBinding
+import com.heathkev.quizado.databinding.NavHeaderBinding
+import com.heathkev.quizado.ui.start.LoginViewModel
 
 const val DARK_MODE = "darkmode"
 class MainActivity : AppCompatActivity() {
@@ -26,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    companion object{
+        lateinit var userDrawable: Drawable
+    }
 
     private val TOP_LEVEL_DESTINATIONS = setOf(
         R.id.startFragment,
@@ -55,6 +65,14 @@ class MainActivity : AppCompatActivity() {
         )
 
         setupNavigation()
+
+        val viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+
+        //Navigation Header
+        val navBinding: NavHeaderBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header, binding.navigationView, false)
+        binding.navigationView.addHeaderView(navBinding.root)
+        navBinding.viewModel = viewModel
+        navBinding.lifecycleOwner = this
     }
 
     /**

@@ -14,44 +14,18 @@
         android:layout_height="match_parent"
         tools:context=".ui.home.HomeFragment">
 
-        <TextView
-            android:id="@+id/home_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_small"
-            app:playerNames="@{viewModel.user.displayName}"
-            android:textColor="@color/colorOnBackground"
-            android:textSize="@dimen/text_size_h2"
-            app:layout_constraintStart_toEndOf="@+id/home_photo"
-            app:layout_constraintTop_toTopOf="@+id/home_photo"
-            tools:text="Juan Dela Cruz"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/home_photo"
-            android:layout_width="@dimen/profile_photo_normal"
-            android:layout_height="@dimen/profile_photo_normal"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_large"
-            app:imageUrl="@{viewModel.user.photoUrl}"
-            app:civ_border_color="@color/primaryColor"
-            app:civ_border_width="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_unknown" />
-
         <Button
             android:id="@+id/home_play_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_large"
             android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginTop="@dimen/margin_large"
             android:background="@drawable/primary_btn_bg"
             android:text="@string/play_quiz"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/home_photo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_recent_results_list"
