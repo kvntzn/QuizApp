@@ -3,6 +3,7 @@ package com.heathkev.quizado
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
@@ -10,13 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.*
 import androidx.navigation.ui.NavigationUI.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.heathkev.quizado.databinding.ActivityMainBinding
 
 const val DARK_MODE = "darkmode"
@@ -26,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var navController: NavController
 
     private val TOP_LEVEL_DESTINATIONS = setOf(
         R.id.startFragment,
@@ -70,15 +70,15 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupNavigation() {
         // first find the nav controller
-        val navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.nav_host_fragment)
 
         setSupportActionBar(binding.toolbar)
 
         // then setup the action bar, tell it about the DrawerLayout
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        // finally setup the left drawer (called a NavigationView)
         binding.navigationView.setupWithNavController(navController)
+        binding.listBtmNavView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
             val toolBar = supportActionBar ?: return@addOnDestinationChangedListener
@@ -111,9 +111,11 @@ class MainActivity : AppCompatActivity() {
             binding.mainDrawerLayout.setDrawerLockMode(lockMode)
         }
 
-        binding.listBtmNavView.setOnNavigationItemSelectedListener {
-            NavigationUI.onNavDestinationSelected(it, navController)
-        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() {
