@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             val isTopLevelDestination = TOP_LEVEL_DESTINATIONS.contains(destination.id)
-            val lockMode = if (isTopLevelDestination) {
+            val lockMode = if (isTopLevelDestination && destination.id != R.id.startFragment) {
                 DrawerLayout.LOCK_MODE_UNLOCKED
             } else {
                 DrawerLayout.LOCK_MODE_LOCKED_CLOSED

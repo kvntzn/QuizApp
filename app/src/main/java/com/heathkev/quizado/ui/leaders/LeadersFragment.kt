@@ -39,7 +39,7 @@ class LeadersFragment : Fragment() {
 
         viewModel.results.observe(viewLifecycleOwner, Observer {
             it?.let {
-                listView.startAnimation(fadeInAnimation)
+//                listView.startAnimation(fadeInAnimation)
                 listProgress.startAnimation(fadeOutAnimation)
 
                 adapter.submitList(it)
