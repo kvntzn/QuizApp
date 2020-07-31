@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNavigation()
 
-        val viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         //Navigation Header
         val navBinding: NavHeaderBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header, binding.navigationView, false)
@@ -139,8 +139,8 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         val btmNavView = binding.listBtmNavView
         if (btmNavView.visibility == View.VISIBLE){
-            if(btmNavView.selectedItemId  != R.id.listFragment){
-                btmNavView.selectedItemId = R.id.listFragment
+            if(btmNavView.selectedItemId  != R.id.homeFragment){
+                btmNavView.selectedItemId = R.id.homeFragment
             }else{
                 if (doubleBackToExitPressedOnce) {
                     this@MainActivity.finish()

@@ -35,8 +35,8 @@ class HomeFragment : Fragment() {
 
 
         viewModel.resultList.observe(viewLifecycleOwner, Observer {
-            it?.let {
-//                listView.startAnimation(fadeInAnimation)
+            it.let {
+                listView.startAnimation(fadeInAnimation)
                 listProgress.startAnimation(fadeOutAnimation)
 
                 adapter.submitList(it)

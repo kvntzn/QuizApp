@@ -54,7 +54,7 @@ class ListFragment : Fragment() {
 
         viewModel.quizListModelData.observe(viewLifecycleOwner, Observer {
             it?.let {
-//                listView.startAnimation(fadeInAnimation)
+                listView.startAnimation(fadeInAnimation)
                 listProgress.startAnimation(fadeOutAnimation)
 
                 adapter.submitList(it)
@@ -69,11 +69,11 @@ class ListFragment : Fragment() {
 
                 val children = data.map { categoryName ->
                     val chip = inflator.inflate(R.layout.categories, chipGroup, false) as Chip
-                    chip.text = categoryName
-                    chip.tag = categoryName
-
                     // checked the default category
                     chip.isChecked = categoryName == DEFAULT_CATEGORY
+
+                    chip.text = categoryName
+                    chip.tag = categoryName
 
                     chip.setOnCheckedChangeListener { button, isChecked ->
                         viewModel.onFilterChanged(button.tag as String, isChecked)
