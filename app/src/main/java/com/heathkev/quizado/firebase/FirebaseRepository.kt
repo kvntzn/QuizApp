@@ -28,11 +28,11 @@ class FirebaseRepository {
     }
 
     fun getAllResults(): Query {
-        return FirebaseFirestore.getInstance().collectionGroup("Results")
+        return firebaseFireStore.collectionGroup("Results")
     }
 
     fun getResultsByUserId(userId: String): Query {
-        return FirebaseFirestore.getInstance().collectionGroup("Results").whereEqualTo("player_id",userId)
+        return firebaseFireStore.collectionGroup("Results").whereEqualTo("player_id",userId)
     }
 
     fun getQuestionRequest(): CollectionReference {

@@ -33,9 +33,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
-    companion object{
-        lateinit var userDrawable: Drawable
-    }
 
     private val TOP_LEVEL_DESTINATIONS = setOf(
         R.id.startFragment,

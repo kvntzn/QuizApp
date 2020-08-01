@@ -11,6 +11,7 @@ import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.utils.Utility
 import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 
 private const val TAG = "HomeViewModel"
 class HomeViewModel : ViewModel(){
@@ -42,11 +43,7 @@ class HomeViewModel : ViewModel(){
 
     private suspend fun getResults(){
         withContext(Dispatchers.IO) {
-            firebaseRepository.getResultsByUserId(user.uid).addSnapshotListener(EventListener { value, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    return@EventListener
-                }
+            val value = firebaseRepository.getResultsByUserId(user.uid).get().await()
 
                 for (doc in value!!) {
                     val resultItem = doc.toObject(Result::class.java)
@@ -56,8 +53,7 @@ class HomeViewModel : ViewModel(){
                     _categoryList.add(resultItem)
                 }
 
-                _resultList.value = _categoryList.sortedByDescending { it.correct }
-            })
+                _resultList.postValue(_categoryList.sortedByDescending { it.correct })
         }
     }
 
