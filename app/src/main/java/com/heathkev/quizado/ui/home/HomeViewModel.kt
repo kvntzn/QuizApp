@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.Result
@@ -42,6 +43,12 @@ class HomeViewModel : ViewModel() {
         uiScope.launch {
             val value = firebaseRepository.getResultsByUserIdAsync(user.uid)
 
+            parseResults(value)
+        }
+    }
+
+    private suspend fun parseResults(value: QuerySnapshot?) {
+        withContext(Dispatchers.Default) {
             for (doc in value!!) {
                 val resultItem = doc.toObject<Result>()
 
@@ -50,7 +57,7 @@ class HomeViewModel : ViewModel() {
                 _categoryList.add(resultItem)
             }
 
-            _resultList.value = _categoryList.sortedByDescending { it.correct }
+            _resultList.postValue(_categoryList.sortedByDescending { it.correct })
         }
     }
 
@@ -58,9 +65,11 @@ class HomeViewModel : ViewModel() {
         uiScope.launch {
             val value = firebaseRepository.getSingleQuiz()
 
-            for (doc in value!!) {
-                val quizItem = doc.toObject<QuizListModel>()
-                _navigateToQuizListModel.value = quizItem
+            withContext(Dispatchers.Default) {
+                for (doc in value!!) {
+                    val quizItem = doc.toObject<QuizListModel>()
+                    _navigateToQuizListModel.postValue(quizItem)
+                }
             }
         }
     }
