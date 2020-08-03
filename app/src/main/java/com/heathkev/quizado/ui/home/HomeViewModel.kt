@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.firebase.FirebaseRepository
@@ -14,7 +15,8 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.tasks.await
 
 private const val TAG = "HomeViewModel"
-class HomeViewModel : ViewModel(){
+
+class HomeViewModel : ViewModel() {
 
     private val firebaseRepository = FirebaseRepository()
     val user = FirebaseAuth.getInstance().currentUser!!
@@ -31,51 +33,35 @@ class HomeViewModel : ViewModel(){
     val navigateToQuizListModel: LiveData<QuizListModel>
         get() = _navigateToQuizListModel
 
-    init{
-        initializeResults()
+    init {
+        getResults()
     }
 
-    private fun initializeResults() {
+
+    private fun getResults() {
         uiScope.launch {
-            getResults()
+            val value = firebaseRepository.getResultsByUserIdAsync(user.uid)
+
+            for (doc in value!!) {
+                val resultItem = doc.toObject<Result>()
+
+                val userResult = _categoryList.find { it.quiz_category == resultItem.quiz_category }
+                _categoryList.remove(userResult)
+                _categoryList.add(resultItem)
+            }
+
+            _resultList.value = _categoryList.sortedByDescending { it.correct }
         }
     }
 
-    private suspend fun getResults(){
-        withContext(Dispatchers.IO) {
-            val value = firebaseRepository.getResultsByUserId(user.uid).get().await()
-
-                for (doc in value!!) {
-                    val resultItem = doc.toObject(Result::class.java)
-
-                    val userResult = _categoryList.find { it.quiz_category == resultItem.quiz_category }
-                    _categoryList.remove(userResult)
-                    _categoryList.add(resultItem)
-                }
-
-                _resultList.postValue(_categoryList.sortedByDescending { it.correct })
-        }
-    }
-
-    fun playQuiz(){
+    fun playQuiz() {
         uiScope.launch {
-            assignQuiz()
-        }
-    }
+            val value = firebaseRepository.getSingleQuiz()
 
-    private suspend fun assignQuiz(){
-        withContext(Dispatchers.IO){
-            firebaseRepository.getQuizList().limit(1).addSnapshotListener(EventListener { value, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    return@EventListener
-                }
-
-                for (doc in value!!) {
-                    val quizItem = doc.toObject(QuizListModel::class.java)
-                    _navigateToQuizListModel.value = quizItem
-                }
-            })
+            for (doc in value!!) {
+                val quizItem = doc.toObject<QuizListModel>()
+                _navigateToQuizListModel.value = quizItem
+            }
         }
     }
 
