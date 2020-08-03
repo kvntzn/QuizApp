@@ -20,8 +20,17 @@ class FirebaseRepository {
         return firebaseFireStore.collection("Users")
     }
 
-    fun getQuizList(): CollectionReference {
-        return firebaseFireStore.collection("QuizList")
+    suspend fun getQuizListAsync(): QuerySnapshot? {
+        return withContext(Dispatchers.IO) {
+            firebaseFireStore.collection("QuizList").get().await()
+        }
+    }
+
+    suspend fun getQuizListAsync(category: String?): QuerySnapshot? {
+        return withContext(Dispatchers.IO) {
+            firebaseFireStore.collection("QuizList").whereEqualTo("category", category).get()
+                .await()
+        }
     }
 
     suspend fun getSingleQuiz(): QuerySnapshot? {

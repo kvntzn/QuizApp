@@ -35,32 +35,34 @@ class LeadersViewModel : ViewModel() {
         }
     }
 
-    private suspend fun groupResults(value: QuerySnapshot?) {
-        withContext(Dispatchers.Default) {
-            val resultsList: MutableList<Result> = mutableListOf()
-            for (doc in value!!) {
-                val resultItem = doc.toObject<Result>()
+    private fun groupResults(value: QuerySnapshot?) {
+        val resultsList: MutableList<Result> = mutableListOf()
+        for (doc in value!!) {
+            val resultItem = doc.toObject<Result>()
 
-                resultsList.add(resultItem)
+            resultsList.add(resultItem)
+        }
+
+        val grouped =
+            resultsList.groupingBy(Result::user_id).aggregate { _, acc: Result?, e, _ ->
+                Result(
+                    e.user_id,
+                    e.player_name,
+                    e.player_photo,
+                    "",
+                    "",
+                    (acc?.correct ?: 0) + e.correct,
+                    e.unanswered,
+                    e.wrong
+                )
             }
 
-            val grouped =
-                resultsList.groupingBy(Result::user_id).aggregate { _, acc: Result?, e, _ ->
-                    Result(
-                        e.user_id,
-                        e.player_name,
-                        e.player_photo,
-                        "",
-                        "",
-                        (acc?.correct ?: 0) + e.correct,
-                        e.unanswered,
-                        e.wrong
-                    )
-                }
-
-            Log.d(TAG, "Results Grouped:$grouped")
-            _results.postValue(grouped.values.toList().sortedByDescending { it.correct })
-        }
+        Log.d(TAG, "Results Grouped:$grouped")
+        _results.postValue(grouped.values.toList().sortedByDescending { it.correct })
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }
