@@ -30,7 +30,9 @@ class LeadersViewModel : ViewModel() {
 
     private fun initializeResults() {
         uiScope.launch {
-            val value = firebaseRepository.getAllResultsAsync()
+            val value = withContext(Dispatchers.IO) {
+                firebaseRepository.getAllResultsAsync()
+            }
             groupResults(value)
         }
     }

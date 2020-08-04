@@ -41,7 +41,9 @@ class HomeViewModel : ViewModel() {
 
     private fun getResults() {
         uiScope.launch {
-            val value = firebaseRepository.getResultsByUserIdAsync(user.uid)
+            val value = withContext(Dispatchers.IO) {
+                firebaseRepository.getResultsByUserIdAsync(user.uid)
+            }
 
             parseResults(value)
         }
@@ -63,7 +65,9 @@ class HomeViewModel : ViewModel() {
 
     fun playQuiz() {
         uiScope.launch {
-            val value = firebaseRepository.getSingleQuiz()
+            val value = withContext(Dispatchers.IO) {
+                firebaseRepository.getSingleQuiz()
+            }
 
             withContext(Dispatchers.Default) {
                 for (doc in value!!) {
