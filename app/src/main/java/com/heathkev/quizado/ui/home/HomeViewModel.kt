@@ -69,11 +69,9 @@ class HomeViewModel : ViewModel() {
                 firebaseRepository.getSingleQuiz()
             }
 
-            withContext(Dispatchers.Default) {
-                for (doc in value!!) {
-                    val quizItem = doc.toObject<QuizListModel>()
-                    _navigateToQuizListModel.postValue(quizItem)
-                }
+            for (doc in value!!) {
+                val quizItem = doc.toObject<QuizListModel>()
+                _navigateToQuizListModel.postValue(quizItem)
             }
         }
     }
