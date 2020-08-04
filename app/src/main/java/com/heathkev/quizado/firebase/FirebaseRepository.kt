@@ -4,9 +4,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 
 private const val TAG = "FirebaseRepository"
 
@@ -21,22 +19,15 @@ class FirebaseRepository {
     }
 
     suspend fun getQuizListAsync(): QuerySnapshot? {
-        return withContext(Dispatchers.IO) {
-            firebaseFireStore.collection("QuizList").get().await()
-        }
+        return firebaseFireStore.collection("QuizList").get().await()
     }
 
     suspend fun getQuizListAsync(category: String?): QuerySnapshot? {
-        return withContext(Dispatchers.IO) {
-            firebaseFireStore.collection("QuizList").whereEqualTo("category", category).get()
-                .await()
-        }
+        return firebaseFireStore.collection("QuizList").whereEqualTo("category", category).get().await()
     }
 
     suspend fun getSingleQuiz(): QuerySnapshot? {
-        return withContext(Dispatchers.IO) {
-            firebaseFireStore.collection("QuizList").limit(1).get().await()
-        }
+        return firebaseFireStore.collection("QuizList").limit(1).get().await()
     }
 
     fun getQuestion(quizId: String): CollectionReference {
@@ -48,9 +39,7 @@ class FirebaseRepository {
     }
 
     suspend fun getAllResultsAsync(): QuerySnapshot? {
-        return withContext(Dispatchers.IO) {
-            firebaseFireStore.collectionGroup("Results").get().await()
-        }
+        return firebaseFireStore.collectionGroup("Results").get().await()
     }
 
     fun getResultsByUserId(userId: String): Query {
@@ -58,11 +47,9 @@ class FirebaseRepository {
     }
 
     suspend fun getResultsByUserIdAsync(userId: String): QuerySnapshot? {
-        return withContext(Dispatchers.IO) {
-            firebaseFireStore.collectionGroup("Results").whereEqualTo("player_id", userId)
-                .get()
-                .await()
-        }
+        return firebaseFireStore.collectionGroup("Results").whereEqualTo("player_id", userId)
+            .get()
+            .await()
     }
 
     fun getQuestionRequest(): CollectionReference {

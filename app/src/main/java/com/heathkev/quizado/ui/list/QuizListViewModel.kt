@@ -11,8 +11,7 @@ import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.ui.list.ListFragment.Companion.DEFAULT_CATEGORY
 import com.heathkev.quizado.utils.Utility.Companion.Categories
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.IOException
 
 private const val TAG = "QuizListViewModel"
@@ -22,7 +21,8 @@ class QuizListViewModel : ViewModel() {
 
     private val filter = FilterHolder()
 
-    private var currentJob: Job? = null
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _navigateToSelectedQuizListModelPosition = MutableLiveData<QuizListModel>()
     val navigateToSelectedQuizListModelPosition: LiveData<QuizListModel>
@@ -47,8 +47,9 @@ class QuizListViewModel : ViewModel() {
     }
 
     private suspend fun getQuizList(filter: String) {
-        val value =
+       val value = withContext(Dispatchers.IO){
             if (filter == DEFAULT_CATEGORY) firebaseRepository.getQuizListAsync() else firebaseRepository.getQuizListAsync(filter)
+        }
 
         parseQuizzes(value)
     }
@@ -68,8 +69,7 @@ class QuizListViewModel : ViewModel() {
     }
 
     private fun onQueryChanged() {
-        currentJob?.cancel() // if a previous query is running cancel it before starting another
-        currentJob = viewModelScope.launch {
+        uiScope.launch {
             try {
                 getQuizList(filter.currentValue)
                 _category.value = filter.currentValue
@@ -97,7 +97,7 @@ class QuizListViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        currentJob?.cancel()
+        viewModelJob.cancel()
     }
 
     class FilterHolder {
