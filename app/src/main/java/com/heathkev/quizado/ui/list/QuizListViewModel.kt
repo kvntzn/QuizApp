@@ -71,11 +71,11 @@ class QuizListViewModel : ViewModel() {
     private fun onQueryChanged() {
         uiScope.launch {
             try {
-                getQuizList(filter.currentValue)
                 _category.value = filter.currentValue
+                getQuizList(filter.currentValue)
             } catch (e: IOException) {
-                _quizListModelListData.value = listOf()
                 _category.value = ""
+                _quizListModelListData.value = listOf()
                 Log.d(TAG, "Error : ${e.message}")
             }
         }
