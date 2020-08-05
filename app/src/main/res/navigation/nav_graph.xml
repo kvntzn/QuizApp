@@ -10,15 +10,9 @@
         android:name="com.heathkev.quizado.ui.start.StartFragment"
         android:label="fragment_start"
         tools:layout="@layout/fragment_start" >
-        <action
-            android:id="@+id/action_startFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true" />
+
     </fragment>
+
     <fragment
         android:id="@+id/listFragment"
         android:name="com.heathkev.quizado.ui.list.ListFragment"
@@ -102,19 +96,6 @@
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.heathkev.quizado.ui.home.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/side_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
         android:id="@+id/acknowlegementsFragment"
         android:name="com.heathkev.quizado.ui.acknowledgement.AcknowledgementFragment"
         android:label="@string/acknowledgements"
@@ -124,4 +105,5 @@
         android:name="com.heathkev.quizado.ui.send.SendQuestionFragment"
         android:label="@string/send_question"
         tools:layout="@layout/fragment_send_question" />
+    <include app:graph="@navigation/nav_home" />
 </navigation>

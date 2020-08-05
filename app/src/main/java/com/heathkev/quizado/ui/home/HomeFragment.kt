@@ -43,20 +43,21 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.homePlayButton.setOnClickListener {
-            viewModel.playQuiz()
-        }
+        //TODO : NAVIGATION
+//        binding.homePlayButton.setOnClickListener {
+//            viewModel.playQuiz()
+//        }
 
-        viewModel.navigateToQuizListModel.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                this.findNavController().navigate(
-                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(
-                        it
-                    )
-                )
-                viewModel.playQuizComplete()
-            }
-        })
+//        viewModel.navigateToQuizListModel.observe(viewLifecycleOwner, Observer {
+//            if (it != null) {
+//                this.findNavController().navigate(
+//                    HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+//                        it
+//                    )
+//                )
+//                viewModel.playQuizComplete()
+//            }
+//        })
 
         return binding.root
     }

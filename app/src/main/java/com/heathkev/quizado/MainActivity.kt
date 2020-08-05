@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -24,6 +26,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.heathkev.quizado.databinding.ActivityMainBinding
 import com.heathkev.quizado.databinding.NavHeaderBinding
 import com.heathkev.quizado.ui.start.LoginViewModel
+import com.heathkev.quizado.utils.setupWithNavController
 
 const val DARK_MODE = "darkmode"
 class MainActivity : AppCompatActivity() {
@@ -33,6 +36,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+
+    private var currentNavController: LiveData<NavController>? = null
 
     private val TOP_LEVEL_DESTINATIONS = setOf(
         R.id.startFragment,
@@ -93,7 +98,14 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.navigationView.setupWithNavController(navController)
-        binding.listBtmNavView.setupWithNavController(navController)
+
+        val navGraphIds = listOf(R.navigation.nav_home)
+        val controller = binding.listBtmNavView.setupWithNavController(
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.nav_host_fragment,
+            intent = intent
+        )
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
             val toolBar = supportActionBar ?: return@addOnDestinationChangedListener
@@ -126,7 +138,11 @@ class MainActivity : AppCompatActivity() {
             binding.mainDrawerLayout.setDrawerLockMode(lockMode)
         }
 
-
+        // Whenever the selected controller changes, setup the action bar.
+        controller.observe(this, Observer { navController ->
+            setupActionBarWithNavController(navController)
+        })
+        currentNavController = controller
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
