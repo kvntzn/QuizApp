@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.heathkev.quizado.ui.result.ResultViewModel" />
@@ -19,7 +20,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/results_content"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:context=".ui.result.ResultFragment"
@@ -34,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:textSize="@dimen/text_size_h1"
+            android:textSize="48sp"
             android:textStyle="bold"
             android:text="@{viewModel.result ? @string/congratulations : @string/try_again }"
             android:textColor="@{viewModel.result ? @color/colorCorrect : @color/colorWrong }"
@@ -106,15 +107,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="@dimen/margin_large"
             android:background="@drawable/primary_btn_bg"
             android:drawableEnd="@drawable/ic_share"
             android:text="@string/share"
-            app:layout_constraintBaseline_toBaselineOf="@+id/results_play_btn"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline" />
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
 
         <Button
             android:id="@+id/results_play_btn"
+            android:visibility="@{viewModel.result ? View.GONE : View.VISIBLE}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -126,6 +129,22 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
+
+        <Button
+            android:id="@+id/results_home_btn"
+            android:visibility="@{viewModel.result ? View.VISIBLE : View.GONE}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/primary_btn_bg"
+            android:drawableEnd="@drawable/ic_home"
+            android:text="@string/return_home"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"

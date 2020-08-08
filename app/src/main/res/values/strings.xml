@@ -76,4 +76,5 @@
     <string name="invalid_question">Question not supported</string>
     <string name="sign_in">Sign In</string>
     <string name="navigate_up">Navigate up</string>
+    <string name="return_home">Return Home</string>
 </resources>

@@ -23,6 +23,7 @@ import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.ui.detail.DetailFragmentDirections
 import com.heathkev.quizado.ui.quiz.QuizViewModel
 import com.heathkev.quizado.ui.quiz.QuizViewModelFactory
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_result.*
 
 class ResultFragment : Fragment() {
@@ -81,6 +82,10 @@ class ResultFragment : Fragment() {
 
         results_play_btn.setOnClickListener {
             this.findNavController().navigate(ResultFragmentDirections.actionResultFragmentToDetailFragment(quizData))
+        }
+
+        results_home_btn.setOnClickListener {
+            this.findNavController().navigate(ResultFragmentDirections.actionResultFragmentToHomeFragment())
         }
     }
 
