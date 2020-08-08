@@ -15,17 +15,40 @@
         android:paddingBottom="@dimen/bottom_nav_height"
         tools:context=".ui.leaders.LeadersFragment">
 
+        <View
+            android:id="@+id/status_bar"
+            style="@style/Widget.Quizado.AppBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!-- work around title text color to hide android label -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Quizado.AppBar"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/status_bar"
+            app:navigationIcon="@drawable/ic_menu"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/leaders_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
             android:visibility="invisible"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leaders_text_title_desc"
+            app:layout_constraintTop_toBottomOf="@+id/leaders_img_cup"
             tools:itemCount="16"
             tools:listitem="@layout/leaders_single_list_item" />
 
@@ -39,16 +62,14 @@
             android:textColor="@color/primaryColor"
             android:textSize="@dimen/text_size_h1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <TextView
             android:id="@+id/leaders_text_title_desc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
             android:text="@string/leaderboard"
             android:textColor="@color/colorOnBackground"
-            app:layout_constraintEnd_toEndOf="@+id/leaders_text_title"
             app:layout_constraintStart_toStartOf="@+id/leaders_text_title"
             app:layout_constraintTop_toBottomOf="@+id/leaders_text_title"
             app:lineHeight="28dp" />

@@ -1,28 +1,28 @@
 package com.heathkev.quizado.ui.leaders
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.heathkev.quizado.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentLeadersBinding
-import com.heathkev.quizado.databinding.FragmentListBinding
-import com.heathkev.quizado.ui.list.QuizListViewModel
+import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
-class LeadersFragment : Fragment() {
+class LeadersFragment : MainNavigationFragment() {
+
+    private lateinit var binding: FragmentLeadersBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentLeadersBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_leaders, container, false
-        )
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_leaders, container, false)
 
         val viewModel = ViewModelProvider(this).get(LeadersViewModel::class.java)
         binding.viewModel = viewModel
@@ -47,5 +47,17 @@ class LeadersFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.root.doOnApplyWindowInsets { _, insets, _ ->
+            binding.statusBar.run {
+                layoutParams.height = insets.systemWindowInsetTop
+                isVisible = layoutParams.height > 0
+                requestLayout()
+            }
+        }
     }
 }

@@ -84,7 +84,7 @@
     <fragment
         android:id="@+id/leadersFragment"
         android:name="com.heathkev.quizado.ui.leaders.LeadersFragment"
-        android:label="@string/leaders"
+        android:label="@string/leaderboard"
         tools:layout="@layout/fragment_leaders" />
     <fragment
         android:id="@+id/settingsFragment"

@@ -40,7 +40,7 @@
     <string name="share_text">I just got %1$d/%2$d on Quizado\'s %3$s quiz!</string>
     <string name="leaders">Leaders</string>
     <string name="profile">Profile</string>
-    <string name="leaderboard">Leaderboard</string>
+    <string name="leaderboard">Leaderboards</string>
     <string name="leaders_name">Leaders Name</string>
     <string name="score">Score</string>
     <string name="cup">Cup</string>
