@@ -1,59 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+<com.heathkev.quizado.widget.NavigationBarContentFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/main_drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="true"
         tools:context=".MainActivity"
-        android:focusable="true">
+        tools:openDrawer="start">
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/coord_layout"
+        <FrameLayout
+            android:id="@+id/content_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/app_bar"
-                style="@style/Widget.Quizado.AppBar"
-                android:fitsSystemWindows="true"
+            <fragment
+                android:id="@+id/nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/nav_graph"
+                tools:layout="@layout/fragment_home" />
 
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_scrollFlags="scroll|enterAlways">
-
-                    <ImageView
-                        android:id="@+id/hero_image"
-                        android:layout_width="150dp"
-                        android:layout_height="match_parent"
-                        android:contentDescription="@string/app_name"
-                        android:tint="@color/primaryLightColor"
-                        app:srcCompat="@drawable/logo" />
-                </com.google.android.material.appbar.MaterialToolbar>
-            </com.google.android.material.appbar.AppBarLayout>
-
-            <FrameLayout
-                android:id="@+id/frame_layout"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            <View
+                android:id="@+id/status_bar_scrim"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-
-                <fragment
-                    android:id="@+id/nav_host_fragment"
-                    android:name="androidx.navigation.fragment.NavHostFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:defaultNavHost="true"
-                    app:navGraph="@navigation/nav_graph"
-                    tools:layout="@layout/fragment_home" />
-
-            </FrameLayout>
+                android:layout_height="0dp"
+                android:background="@color/status_bar_scrim" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/list_btm_nav_view"
@@ -61,15 +40,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 app:menu="@menu/bottom_navigation_menu" />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </FrameLayout>
 
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/nav_drawer_width"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:menu="@menu/navdrawer_menu"
-            />
+            app:insetForeground="@color/transparent"
+            app:menu="@menu/navdrawer_menu" />
     </androidx.drawerlayout.widget.DrawerLayout>
-</layout>
+</com.heathkev.quizado.widget.NavigationBarContentFrameLayout>

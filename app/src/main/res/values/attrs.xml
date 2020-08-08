@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NavigationBarContentFrameLayout">
+        <attr name="navigationBarBorderColor" format="color" />
+        <attr name="navigationBarBorderSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="Theme">
+        <!-- Navigation bar divider color, used by NavigationBarContentFrameLayout -->
+        <attr name="ioschedNavigationBarDividerColor" format="color" />
+
+        <attr name="colorControlLight" format="color" />
+
+        <attr name="sessionListKeyline" format="dimension" />
+
+        <attr name="eventCardHeaderBackground" format="reference|color" />
+
+        <attr name="colorSurfaceSecondary" format="color" />
+    </declare-styleable>
+</resources>

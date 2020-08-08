@@ -5,20 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.heathkev.quizado.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentHomeBinding
+import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
-class HomeFragment : Fragment() {
+class HomeFragment : MainNavigationFragment() {
+
+    private lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentHomeBinding =
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         val viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -59,5 +64,17 @@ class HomeFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.root.doOnApplyWindowInsets { _, insets, _ ->
+            binding.statusBar.run {
+                layoutParams.height = insets.systemWindowInsetTop
+                isVisible = layoutParams.height > 0
+                requestLayout()
+            }
+        }
     }
 }

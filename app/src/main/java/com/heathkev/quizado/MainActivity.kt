@@ -1,38 +1,48 @@
 package com.heathkev.quizado
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.heathkev.quizado.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.heathkev.quizado.databinding.NavHeaderBinding
-import com.heathkev.quizado.ui.start.LoginViewModel
+import com.heathkev.quizado.utils.HeightTopWindowInsetsListener
+import com.heathkev.quizado.utils.NoopWindowInsetsListener
+import com.heathkev.quizado.utils.doOnApplyWindowInsets
+import com.heathkev.quizado.widget.NavigationBarContentFrameLayout
+import kotlinx.android.synthetic.main.activity_main.*
 
 const val DARK_MODE = "darkmode"
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(), NavigationHost {
 
     private var doubleBackToExitPressedOnce = false
 
-    lateinit var binding: ActivityMainBinding
+    private lateinit var drawer: DrawerLayout
+    private lateinit var navigationView: NavigationView
+    private lateinit var btmNavigationView: BottomNavigationView
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
+    private var navHostFragment: NavHostFragment? = null
 
     private val TOP_LEVEL_DESTINATIONS = setOf(
         R.id.startFragment,
@@ -44,30 +54,69 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
         // Update dark mode
         val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
         val isDarkMode = sharedPref.getBoolean(DARK_MODE, false)
 
-        if(isDarkMode){
+        if (isDarkMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        }else{
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
 
+        setContentView(R.layout.activity_main)
+
+        val drawerContainer: NavigationBarContentFrameLayout = findViewById(R.id.drawer_container)
+        // Let's consume any
+        drawerContainer.setOnApplyWindowInsetsListener { v, insets ->
+            // Let the view draw it's navigation bar divider
+            v.onApplyWindowInsets(insets)
+
+            // Consume any horizontal insets and pad all content in. There's not much we can do
+            // with horizontal insets
+            v.updatePadding(
+                left = insets.systemWindowInsetLeft,
+                right = insets.systemWindowInsetRight
+            )
+            insets.replaceSystemWindowInsets(
+                0, insets.systemWindowInsetTop,
+                0, insets.systemWindowInsetBottom
+            )
+        }
+
+        val content = content_container
+
+        content.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        // Make the content ViewGroup ignore insets so that it does not use the default padding
+        content.setOnApplyWindowInsetsListener(NoopWindowInsetsListener)
+
+        val statusScrim = status_bar_scrim
+        statusScrim.setOnApplyWindowInsetsListener(HeightTopWindowInsetsListener)
+
+        drawer = main_drawer_layout
         appBarConfiguration = AppBarConfiguration(
             TOP_LEVEL_DESTINATIONS,
-            binding.mainDrawerLayout
+            drawer
         )
 
+        navigationView = navigation_view
+
+        val menuView = findViewById<RecyclerView>(R.id.design_navigation_view)
+        navigationView.doOnApplyWindowInsets { v, insets, padding ->
+            v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+            // NavigationView doesn't dispatch insets to the menu view, so pad the bottom here.
+            menuView?.updatePadding(bottom = insets.systemWindowInsetBottom)
+        }
         setupNavigation()
 
         val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         //Navigation Header
-        val navBinding: NavHeaderBinding = DataBindingUtil.inflate(layoutInflater, R.layout.nav_header, binding.navigationView, false)
-        binding.navigationView.addHeaderView(navBinding.root)
+        val navBinding: NavHeaderBinding =
+            DataBindingUtil.inflate(layoutInflater, R.layout.nav_header, navigationView, false)
+        navigationView.addHeaderView(navBinding.root)
         navBinding.viewModel = viewModel
         navBinding.lifecycleOwner = this
     }
@@ -78,55 +127,37 @@ class MainActivity : AppCompatActivity() {
      * Delegate this to Navigation.
      */
     override fun onSupportNavigateUp() =
-        navigateUp(findNavController(R.id.nav_host_fragment), appBarConfiguration) || super.onSupportNavigateUp()
+        navigateUp(
+            findNavController(R.id.nav_host_fragment),
+            appBarConfiguration
+        ) || super.onSupportNavigateUp()
 
     /**
      * Setup Navigation for this Activity
      */
     private fun setupNavigation() {
-        // first find the nav controller
+        navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+
         navController = findNavController(R.id.nav_host_fragment)
-
-        setSupportActionBar(binding.toolbar)
-
-        // then setup the action bar, tell it about the DrawerLayout
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.navigationView.setupWithNavController(navController)
-        binding.listBtmNavView.setupWithNavController(navController)
-
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
-            val toolBar = supportActionBar ?: return@addOnDestinationChangedListener
-            when (destination.id) {
-                R.id.homeFragment -> {
-                    toolBar.useDefaultToolbar(false)
-
-                    binding.listBtmNavView.visibility = View.VISIBLE
-                }
-                R.id.leadersFragment, R.id.profileFragment,R.id.listFragment -> {
-                    toolBar.useDefaultToolbar(true)
-
-                    binding.listBtmNavView.visibility = View.VISIBLE
-                }
-                else -> {
-                    toolBar.useDefaultToolbar(true)
-
-                    binding.listBtmNavView.visibility = View.GONE
-                    binding.appBar.setExpanded(true, true)
-
-                }
-            }
-
+            supportActionBar ?: return@addOnDestinationChangedListener
             val isTopLevelDestination = TOP_LEVEL_DESTINATIONS.contains(destination.id)
-            val lockMode = if (isTopLevelDestination && destination.id != R.id.startFragment) {
-                DrawerLayout.LOCK_MODE_UNLOCKED
+            if (isTopLevelDestination && destination.id != R.id.startFragment) {
+                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                btmNavigationView.visibility = View.VISIBLE
             } else {
-                DrawerLayout.LOCK_MODE_LOCKED_CLOSED
+                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                btmNavigationView.visibility = View.GONE
             }
-            binding.mainDrawerLayout.setDrawerLockMode(lockMode)
+
         }
 
+        // then setup the action bar, tell it about the DrawerLayout
+        navigationView.setupWithNavController(navController)
 
+        btmNavigationView = list_btm_nav_view
+        btmNavigationView.setupWithNavController(navController)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -134,33 +165,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val btmNavView = binding.listBtmNavView
-        if (btmNavView.visibility == View.VISIBLE){
-            if(btmNavView.selectedItemId  != R.id.homeFragment){
+        val btmNavView = btmNavigationView
+        if (btmNavView.visibility == View.VISIBLE) {
+            if (btmNavView.selectedItemId != R.id.homeFragment) {
                 btmNavView.selectedItemId = R.id.homeFragment
-            }else{
+            } else {
                 if (doubleBackToExitPressedOnce) {
                     this@MainActivity.finish()
                     return
                 }
 
                 this.doubleBackToExitPressedOnce = true
-                Toast.makeText(this, getString(R.string.please_click_back_again), Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    getString(R.string.please_click_back_again),
+                    Toast.LENGTH_SHORT
+                ).show()
                 Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
             }
-        }else{
+        } else {
             super.onBackPressed()
         }
     }
 
-    private fun ActionBar.useDefaultToolbar(useToolbar: Boolean){
-        if(useToolbar){
-            this.setDisplayShowTitleEnabled(true)
-            binding.heroImage.visibility = View.GONE
-        }else{
-            this.setDisplayShowTitleEnabled(false)
-            binding.heroImage.visibility = View.VISIBLE
-            this.show()
-        }
+    override fun registerToolbarWithNavigation(toolbar: Toolbar) {
+        val appBarConfiguration = AppBarConfiguration(TOP_LEVEL_DESTINATIONS, drawer)
+        toolbar.setupWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onUserInteraction() {
+        super.onUserInteraction()
+        getCurrentFragment()?.onUserInteraction()
+    }
+
+    private fun getCurrentFragment(): MainNavigationFragment? {
+        return navHostFragment
+            ?.childFragmentManager
+            ?.primaryNavigationFragment as? MainNavigationFragment
     }
 }

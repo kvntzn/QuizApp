@@ -2,6 +2,12 @@
 
     <style name="AppTheme" parent="Base.AppTheme" />
 
+    <!-- Navigation -->
+    <style name="Widget.Quizado.NavigationBarContentFrameLayout" parent="android:Widget.Material">
+        <item name="navigationBarBorderColor">?attr/ioschedNavigationBarDividerColor</item>
+        <item name="navigationBarBorderSize">1dp</item>
+    </style>
+
     <!-- Filters -->
     <!-- Easier to extend Chip.Choice because it includes some desired color effects. -->
     <style name="Widget.Quizado.FilterChip" parent="Widget.MaterialComponents.Chip.Choice">
