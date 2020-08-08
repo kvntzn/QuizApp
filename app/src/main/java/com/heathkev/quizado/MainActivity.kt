@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -102,6 +103,7 @@ class MainActivity : AppCompatActivity(), NavigationHost {
         )
 
         navigationView = navigation_view
+        btmNavigationView = list_btm_nav_view
 
         val menuView = findViewById<RecyclerView>(R.id.design_navigation_view)
         navigationView.doOnApplyWindowInsets { v, insets, padding ->
@@ -140,23 +142,21 @@ class MainActivity : AppCompatActivity(), NavigationHost {
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
 
         navController = findNavController(R.id.nav_host_fragment)
-        navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
-            supportActionBar ?: return@addOnDestinationChangedListener
-            val isTopLevelDestination = TOP_LEVEL_DESTINATIONS.contains(destination.id)
-            if (isTopLevelDestination && destination.id != R.id.startFragment) {
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val currentNavId = destination.id
+
+            val isTopLevelDestination = TOP_LEVEL_DESTINATIONS.contains(currentNavId)
+            if (isTopLevelDestination && currentNavId != R.id.startFragment) {
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 btmNavigationView.visibility = View.VISIBLE
             } else {
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 btmNavigationView.visibility = View.GONE
             }
-
         }
 
         // then setup the action bar, tell it about the DrawerLayout
         navigationView.setupWithNavController(navController)
-
-        btmNavigationView = list_btm_nav_view
         btmNavigationView.setupWithNavController(navController)
     }
 

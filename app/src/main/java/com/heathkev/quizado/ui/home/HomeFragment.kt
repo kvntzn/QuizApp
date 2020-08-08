@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import com.heathkev.quizado.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentHomeBinding
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
+
 
 class HomeFragment : MainNavigationFragment() {
 
@@ -37,7 +40,6 @@ class HomeFragment : MainNavigationFragment() {
         val fadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
         val fadeOutAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
         val listProgress = binding.homeProgress
-
 
         viewModel.resultList.observe(viewLifecycleOwner, Observer {
             it.let {
