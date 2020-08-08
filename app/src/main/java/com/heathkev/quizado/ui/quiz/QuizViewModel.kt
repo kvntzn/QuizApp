@@ -23,7 +23,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val quizDetail = quizListModel
+    val quizDetail = quizListModel
 
     private val quizId = quizListModel.quiz_id
 
