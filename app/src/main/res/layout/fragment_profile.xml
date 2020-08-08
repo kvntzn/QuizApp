@@ -11,126 +11,149 @@
             type="com.heathkev.quizado.ui.profile.ProfileViewModel" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:fillViewport="true"
-        >
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <View
+            android:id="@+id/status_bar"
+            style="@style/Widget.Quizado.AppBar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.Quizado.AppBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?actionBarSize"
+            app:title="@string/profile"
+            app:navigationIcon="@drawable/ic_menu" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_photo"
-                android:layout_width="@dimen/profile_photo_large"
-                android:layout_height="@dimen/profile_photo_large"
-                android:layout_marginStart="@dimen/margin_large"
-                android:layout_marginTop="@dimen/margin_large"
-                android:layout_marginEnd="@dimen/margin_large"
-                app:civ_border_color="@color/primaryColor"
-                app:civ_border_width="2dp"
-                app:imageUrl="@{viewModel.user.imageUrl}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/avatars" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none">
 
-            <TextView
-                android:id="@+id/profile_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:textColor="@color/colorOnBackground"
-                android:textSize="@dimen/text_size_h1"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/profile_photo"
-                app:layout_constraintStart_toStartOf="@+id/profile_photo"
-                app:layout_constraintTop_toBottomOf="@+id/profile_photo"
-                app:playerNames="@{viewModel.user.name}"
-                tools:text="@string/app_name" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/profile_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:fontFamily="@font/merriweather"
-                app:playerNames="@{viewModel.user.email}"
-                android:textColor="@color/colorOnBackground"
-                app:layout_constraintEnd_toEndOf="@+id/profile_photo"
-                app:layout_constraintStart_toStartOf="@+id/profile_photo"
-                app:layout_constraintTop_toBottomOf="@+id/profile_name"
-                tools:text="@string/app_name" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_photo"
+                    android:layout_width="@dimen/profile_photo_large"
+                    android:layout_height="@dimen/profile_photo_large"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    app:civ_border_color="@color/primaryColor"
+                    app:civ_border_width="2dp"
+                    app:imageUrl="@{viewModel.user.imageUrl}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
 
-            <TextView
-                android:id="@+id/profile_quizzes_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_large"
-                android:fontFamily="@font/merriweather"
-                android:text="@string/quizzes"
-                android:textColor="@color/colorOnBackground"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_number" />
+                <TextView
+                    android:id="@+id/profile_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="@dimen/text_size_h1"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+                    app:layout_constraintStart_toStartOf="@+id/profile_photo"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_photo"
+                    app:playerNames="@{viewModel.user.name}"
+                    tools:text="@string/app_name" />
 
-            <TextView
-                android:id="@+id/profile_quizzes_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.quizzesNumber}"
-                android:textColor="@color/primaryColor"
-                android:textSize="@dimen/text_size_h2"
-                app:layout_constraintBaseline_toBaselineOf="@+id/profile_passed_number"
-                app:layout_constraintEnd_toEndOf="@+id/profile_quizzes_text"
-                app:layout_constraintStart_toStartOf="@+id/profile_quizzes_text" />
+                <TextView
+                    android:id="@+id/profile_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:fontFamily="@font/merriweather"
+                    android:textColor="@color/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_photo"
+                    app:layout_constraintStart_toStartOf="@+id/profile_photo"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_name"
+                    app:playerNames="@{viewModel.user.email}"
+                    tools:text="@string/app_name" />
 
-            <TextView
-                android:id="@+id/profile_passed_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/merriweather"
-                android:text="@string/passed"
-                android:textColor="@color/colorOnBackground"
-                app:layout_constraintEnd_toEndOf="@+id/profile_passed_number"
-                app:layout_constraintStart_toStartOf="@+id/profile_passed_number"
-                app:layout_constraintTop_toBottomOf="@+id/profile_passed_number" />
+                <TextView
+                    android:id="@+id/profile_quizzes_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:fontFamily="@font/merriweather"
+                    android:text="@string/quizzes"
+                    android:textColor="@color/colorOnBackground"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_number" />
 
-            <TextView
-                android:id="@+id/profile_passed_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_large"
-                android:text="@{viewModel.passedNumber}"
-                android:textColor="@color/primaryColor"
-                android:textSize="@dimen/text_size_h2"
-                app:layout_constraintEnd_toEndOf="@+id/profile_name"
-                app:layout_constraintStart_toStartOf="@+id/profile_name"
-                app:layout_constraintTop_toBottomOf="@+id/profile_email" />
+                <TextView
+                    android:id="@+id/profile_quizzes_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.quizzesNumber}"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="@dimen/text_size_h2"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/profile_passed_number"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_quizzes_text"
+                    app:layout_constraintStart_toStartOf="@+id/profile_quizzes_text" />
 
-            <TextView
-                android:id="@+id/profile_failed_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/margin_large"
-                android:fontFamily="@font/merriweather"
-                android:text="@string/failed"
-                android:textColor="@color/colorOnBackground"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/profile_failed_number" />
+                <TextView
+                    android:id="@+id/profile_passed_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/merriweather"
+                    android:text="@string/passed"
+                    android:textColor="@color/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_passed_number"
+                    app:layout_constraintStart_toStartOf="@+id/profile_passed_number"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_passed_number" />
 
-            <TextView
-                android:id="@+id/profile_failed_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.failedNumber}"
-                android:textColor="@color/primaryColor"
-                android:textSize="@dimen/text_size_h2"
-                app:layout_constraintBaseline_toBaselineOf="@+id/profile_passed_number"
-                app:layout_constraintEnd_toEndOf="@+id/profile_failed_text"
-                app:layout_constraintStart_toStartOf="@+id/profile_failed_text" />
+                <TextView
+                    android:id="@+id/profile_passed_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="@{viewModel.passedNumber}"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="@dimen/text_size_h2"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_name"
+                    app:layout_constraintStart_toStartOf="@+id/profile_name"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_email" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/profile_failed_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:fontFamily="@font/merriweather"
+                    android:text="@string/failed"
+                    android:textColor="@color/colorOnBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_failed_number" />
+
+                <TextView
+                    android:id="@+id/profile_failed_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.failedNumber}"
+                    android:textColor="@color/primaryColor"
+                    android:textSize="@dimen/text_size_h2"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/profile_passed_number"
+                    app:layout_constraintEnd_toEndOf="@+id/profile_failed_text"
+                    app:layout_constraintStart_toStartOf="@+id/profile_failed_text" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
 </layout>
