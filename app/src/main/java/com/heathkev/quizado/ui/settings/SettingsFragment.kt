@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.isVisible
 import com.heathkev.quizado.DARK_MODE
+import com.heathkev.quizado.MainNavigationFragment
 import com.heathkev.quizado.R
+import com.heathkev.quizado.utils.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : MainNavigationFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,6 +26,14 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        view.doOnApplyWindowInsets { _, insets, _ ->
+            status_bar.run {
+                layoutParams.height = insets.systemWindowInsetTop
+                isVisible = layoutParams.height > 0
+                requestLayout()
+            }
+        }
 
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
 
