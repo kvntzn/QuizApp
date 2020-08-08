@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,24 +16,26 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.chip.Chip
+import com.heathkev.quizado.MainNavigationFragment
 import com.heathkev.quizado.R
+import com.heathkev.quizado.databinding.FragmentLeadersBinding
 import com.heathkev.quizado.databinding.FragmentListBinding
+import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
-/**
- * A simple [Fragment] subclass.
- */
-class ListFragment : Fragment() {
+class ListFragment : MainNavigationFragment() {
 
     companion object {
         const val DEFAULT_CATEGORY = "All"
     }
+
+    private lateinit var binding: FragmentListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val binding: FragmentListBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_list, container, false
         )
 
