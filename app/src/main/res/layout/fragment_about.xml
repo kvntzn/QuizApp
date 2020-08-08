@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.about.AboutFragment">
 
+    <View
+        android:id="@+id/status_bar"
+        style="@style/Widget.Quizado.AppBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.Quizado.AppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:navigationContentDescription="@string/navigate_up"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/status_bar"
+        app:title="@string/about" />
+
     <TextView
         android:id="@+id/about_title"
         android:layout_width="wrap_content"
@@ -19,7 +41,7 @@
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <TextView
         android:id="@+id/about_desc"
