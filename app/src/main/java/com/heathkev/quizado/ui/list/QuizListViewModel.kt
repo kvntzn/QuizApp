@@ -1,10 +1,7 @@
 package com.heathkev.quizado.ui.list
 
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.QuizListModel
@@ -15,6 +12,7 @@ import kotlinx.coroutines.*
 import java.io.IOException
 
 private const val TAG = "QuizListViewModel"
+
 class QuizListViewModel : ViewModel() {
 
     private var firebaseRepository = FirebaseRepository()
@@ -28,9 +26,11 @@ class QuizListViewModel : ViewModel() {
     val navigateToSelectedQuizListModelPosition: LiveData<QuizListModel>
         get() = _navigateToSelectedQuizListModelPosition
 
-    private val _quizListModelListData = MutableLiveData<List<QuizListModel>>()
-    val quizListModelData : LiveData<List<QuizListModel>>
-        get() = _quizListModelListData
+    private val _allQuizList = MutableLiveData<List<QuizListModel>>()
+
+    private val _quizList = MutableLiveData<List<QuizListModel>>()
+    val quizList: LiveData<List<QuizListModel>>
+        get() = _quizList
 
     private val _categoryList = MutableLiveData<List<String>>()
     val categoryList: LiveData<List<String>>
@@ -47,11 +47,18 @@ class QuizListViewModel : ViewModel() {
     }
 
     private suspend fun getQuizList(filter: String) {
-       val value = withContext(Dispatchers.IO){
-            if (filter == DEFAULT_CATEGORY) firebaseRepository.getQuizListAsync() else firebaseRepository.getQuizListAsync(filter)
+        withContext(Dispatchers.IO) {
+            if (filter == DEFAULT_CATEGORY) {
+                if (_allQuizList.value == null) {
+                    parseQuizzes(firebaseRepository.getQuizListAsync())
+                } else {
+                    _quizList.postValue(_allQuizList.value)
+                }
+            } else {
+                val filteredQuizzes = _allQuizList.value?.filter { it.category == filter }
+                _quizList.postValue(filteredQuizzes)
+            }
         }
-
-        parseQuizzes(value)
     }
 
     private fun parseQuizzes(value: QuerySnapshot?) {
@@ -60,10 +67,12 @@ class QuizListViewModel : ViewModel() {
             val quizItem = doc.toObject<QuizListModel>()
             quizListModelList.add(quizItem)
         }
-        _quizListModelListData.value = quizListModelList
+
+        _allQuizList.postValue(quizListModelList)
+        _quizList.postValue(quizListModelList)
 
         if (!isCategoryInitialized) {
-            _categoryList.value = Categories.values().map { it.toString() }.toList()
+            _categoryList.postValue(Categories.values().map { it.toString() }.toList())
             isCategoryInitialized = true
         }
     }
@@ -75,7 +84,7 @@ class QuizListViewModel : ViewModel() {
                 getQuizList(filter.currentValue)
             } catch (e: IOException) {
                 _category.value = ""
-                _quizListModelListData.value = listOf()
+                _quizList.value = listOf()
                 Log.d(TAG, "Error : ${e.message}")
             }
         }

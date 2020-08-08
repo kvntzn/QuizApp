@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.view.children
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -18,9 +16,7 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.chip.Chip
 import com.heathkev.quizado.MainNavigationFragment
 import com.heathkev.quizado.R
-import com.heathkev.quizado.databinding.FragmentLeadersBinding
 import com.heathkev.quizado.databinding.FragmentListBinding
-import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
 class ListFragment : MainNavigationFragment() {
 
@@ -55,7 +51,7 @@ class ListFragment : MainNavigationFragment() {
         val fadeOutAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
         val listProgress = binding.listProgress
 
-        viewModel.quizListModelData.observe(viewLifecycleOwner, Observer {
+        viewModel.quizList.observe(viewLifecycleOwner, Observer {
             it?.let {
                 listView.startAnimation(fadeInAnimation)
                 listProgress.startAnimation(fadeOutAnimation)
