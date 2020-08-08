@@ -25,7 +25,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- work around title text color to hide android label -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             style="@style/Widget.Quizado.AppBar"
@@ -34,17 +33,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/status_bar"
+            app:title="@string/Title"
             app:navigationIcon="@drawable/ic_menu"
-            app:titleTextColor="@color/colorBackground">
+            >
 
-            <ImageView
-                android:id="@+id/hero_image"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/app_name"
-                android:layout_marginHorizontal="@dimen/margin_normal"
-                android:tint="@color/primaryLightColor"
-                app:srcCompat="@drawable/logo" />
         </androidx.appcompat.widget.Toolbar>
 
         <Button

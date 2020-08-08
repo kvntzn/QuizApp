@@ -104,7 +104,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.heathkev.quizado.ui.home.HomeFragment"
-        android:label="@string/home"
+        android:label="@string/Title"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
