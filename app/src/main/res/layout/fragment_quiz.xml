@@ -5,11 +5,14 @@
     tools:context=".ui.quiz.QuizFragment">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="quizViewModel"
             type="com.heathkev.quizado.ui.quiz.QuizViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -29,162 +32,176 @@
             style="@style/Widget.Quizado.AppBar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            app:navigationContentDescription="@string/navigate_up"
-            app:navigationIcon="@drawable/ic_arrow_back"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/status_bar"
-            app:title="@{@string/title_quiz_question(quizViewModel.quizTitle, (quizViewModel.questionNumber != null ? quizViewModel.questionNumber : 0) , quizViewModel.quizDetail.questions)}"
-            />
+            app:navigationContentDescription="@string/navigate_up"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@{@string/title_quiz_question(quizViewModel.quizTitle, (quizViewModel.questionNumber != null ? quizViewModel.questionNumber : 0) , quizViewModel.quizDetail.questions)}" />
 
-    <ScrollView
-        android:id="@+id/quiz_scroll"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        <ScrollView
+            android:id="@+id/quiz_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/quiz_padding_bottom">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:goneUnless="@{!quizViewModel.isLoading}"
+                android:paddingBottom="@dimen/quiz_padding_bottom">
+
+                <ProgressBar
+                    android:id="@+id/quiz_question_progress"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:progress="@{quizViewModel.questionProgress}"
+                    android:progressDrawable="@drawable/circular_progess"
+                    android:visibility="@{(quizViewModel.questionProgress > 0) ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/quiz_question_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{quizViewModel.questionTime}"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="36sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/quiz_question_progress"
+                    app:layout_constraintEnd_toEndOf="@+id/quiz_question_progress"
+                    app:layout_constraintStart_toStartOf="@+id/quiz_question_progress"
+                    app:layout_constraintTop_toTopOf="@+id/quiz_question_progress"
+                    tools:text="10" />
+
+                <TextView
+                    android:id="@+id/quiz_question"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/merriweather"
+                    android:text="@{quizViewModel.questionText}"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quiz_question_progress"
+                    tools:text="Fetching Data" />
+
+                <Button
+                    android:id="@+id/quiz_option_a"
+                    style="@style/Widget.Quizado.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/merriweather"
+                    android:text="@{quizViewModel.optionA}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorOnBackground"
+                    app:backgroundTint="@color/colorBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quiz_question"
+                    tools:text="@string/option_button" />
+
+                <Button
+                    android:id="@+id/quiz_option_b"
+                    style="@style/Widget.Quizado.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/merriweather"
+                    android:text="@{quizViewModel.optionB}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorOnBackground"
+                    app:backgroundTint="@color/colorBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quiz_option_a"
+                    tools:text="@string/option_button" />
+
+                <Button
+                    android:id="@+id/quiz_option_c"
+                    style="@style/Widget.Quizado.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:fontFamily="@font/merriweather"
+                    android:text="@{quizViewModel.optionC}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorOnBackground"
+                    android:visibility="@{(quizViewModel.optionC != null) ? View.VISIBLE :  View.INVISIBLE }"
+                    app:backgroundTint="@color/colorBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/quiz_option_b"
+                    tools:text="@string/option_button" />
+
+                <Button
+                    android:id="@+id/quiz_option_d"
+                    style="@style/Widget.Quizado.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="32dp"
+                    android:text="@{quizViewModel.optionD}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorOnBackground"
+                    android:visibility="@{(quizViewModel.optionD != null) ? View.VISIBLE :  View.INVISIBLE }"
+                    app:backgroundTint="@color/colorBackground"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/quiz_option_c"
+                    tools:text="@string/option_button" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/quiz_next_btn"
+            style="@style/Widget.Quizado.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="72dp"
+            android:text="@string/next_question"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
-            android:id="@+id/quiz_question_progress"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:progress="@{quizViewModel.questionProgress}"
-            android:progressDrawable="@drawable/circular_progess"
-            android:visibility="@{(quizViewModel.questionProgress > 0) ? View.VISIBLE : View.INVISIBLE}"
+            android:id="@+id/result_load_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:goneUnless="@{quizViewModel.isLoading}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-
-        <TextView
-            android:id="@+id/quiz_question_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorOnBackground"
-            android:textSize="36sp"
-            android:text="@{quizViewModel.questionTime}"
-            app:layout_constraintBottom_toBottomOf="@+id/quiz_question_progress"
-            app:layout_constraintEnd_toEndOf="@+id/quiz_question_progress"
-            app:layout_constraintStart_toStartOf="@+id/quiz_question_progress"
-            app:layout_constraintTop_toTopOf="@+id/quiz_question_progress"
-            tools:text="10" />
-
-        <TextView
-            android:id="@+id/quiz_question"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/merriweather"
-            android:text="@{quizViewModel.questionText}"
-            android:textAlignment="center"
-            android:textColor="@color/colorOnBackground"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_question_progress"
-            tools:text="Fetching Data" />
-
-        <Button
-            android:id="@+id/quiz_option_a"
-            style="@style/Widget.Quizado.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/merriweather"
-            android:text="@{quizViewModel.optionA}"
-            android:textAllCaps="false"
-            app:backgroundTint="@color/colorBackground"
-            android:textColor="@color/colorOnBackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_question"
-            tools:text="@string/option_button" />
-
-        <Button
-            android:id="@+id/quiz_option_b"
-            style="@style/Widget.Quizado.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/merriweather"
-            android:text="@{quizViewModel.optionB}"
-            android:textAllCaps="false"
-            app:backgroundTint="@color/colorBackground"
-            android:textColor="@color/colorOnBackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_option_a"
-            tools:text="@string/option_button"/>
-
-        <Button
-            android:id="@+id/quiz_option_c"
-            style="@style/Widget.Quizado.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:fontFamily="@font/merriweather"
-            android:visibility="@{(quizViewModel.optionC != null) ? View.VISIBLE :  View.INVISIBLE }"
-            android:text="@{quizViewModel.optionC}"
-            android:textAllCaps="false"
-            app:backgroundTint="@color/colorBackground"
-            android:textColor="@color/colorOnBackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/quiz_option_b"
-            tools:text="@string/option_button"/>
-
-        <Button
-            android:id="@+id/quiz_option_d"
-            style="@style/Widget.Quizado.Button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:visibility="@{(quizViewModel.optionD != null) ? View.VISIBLE :  View.INVISIBLE }"
-            android:text="@{quizViewModel.optionD}"
-            android:textAllCaps="false"
-            app:backgroundTint="@color/colorBackground"
-            android:textColor="@color/colorOnBackground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/quiz_option_c"
-            tools:text="@string/option_button" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-    <Button
-        android:id="@+id/quiz_next_btn"
-        style="@style/Widget.Quizado.Button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="72dp"
-        android:text="@string/next_question"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            tools:layout_editor_absoluteX="197dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

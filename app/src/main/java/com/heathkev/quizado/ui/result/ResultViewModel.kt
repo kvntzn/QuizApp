@@ -47,13 +47,14 @@ class ResultViewModel(
 
     init {
         uiScope.launch {
+            _isLoading.value = true
             getResult()
+            _isLoading.value = false
         }
     }
 
     private suspend fun getResult() {
         withContext(Dispatchers.IO) {
-            _isLoading.postValue(true)
 
             val value = firebaseRepository.getResultsByQuizIdAsync(quizData.quiz_id, currentUser.userId)
 
@@ -76,8 +77,6 @@ class ResultViewModel(
                 val passed = correct > (total / 2)
                 _result.postValue(passed)
             }
-
-            _isLoading.postValue(false)
         }
     }
 

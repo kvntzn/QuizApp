@@ -29,6 +29,10 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
     private val totalQuestionToAnswer = quizListModel.questions
     private val questionsToAnswer = mutableListOf<QuestionsModel>()
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     // Question Title
     private val _quizTitle = MutableLiveData<String>()
     val quizTitle: LiveData<String>
@@ -95,9 +99,13 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
 
     private fun initializeQuestions() {
         uiScope.launch {
+            isLoading(true)
             fetchQuestions()
+            isLoading(false)
         }
     }
+
+
 
     private suspend fun fetchQuestions() {
         withContext(Dispatchers.IO) {
@@ -114,6 +122,7 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
 
         pickQuestions()
         loadQuestion(currentQuestionNumber)
+
     }
 
     fun loadNextQuestion() {
@@ -128,6 +137,8 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
 
     private fun submitResults() {
         uiScope.launch {
+            isLoading(true)
+
             val resultMap = HashMap<String, Any?>()
             resultMap["correct"] = correctAnswer
             resultMap["wrong"] = wrongAnswer
@@ -142,6 +153,7 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
                 if (currentUser.imageUrl != null && Uri.EMPTY != currentUser.imageUrl) currentUser.imageUrl.toString() else currentUser.imageUrl
 
             submit(resultMap)
+            isLoading(false)
         }
     }
 
@@ -287,6 +299,10 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
 
     fun canAnswer(): Boolean {
         return canAnswer
+    }
+
+    private fun isLoading(bool: Boolean){
+        _isLoading.value = bool
     }
 
     override fun onCleared() {

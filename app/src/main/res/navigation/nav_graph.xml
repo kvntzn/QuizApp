@@ -79,7 +79,8 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/slide_down"
-            app:popUpTo="@id/listFragment" />
+            app:popUpTo="@id/resultFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/leadersFragment"
