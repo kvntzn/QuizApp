@@ -5,8 +5,8 @@
     tools:context=".ui.detail.DetailFragment">
     <data>
         <variable
-            name="quizListModel"
-            type="com.heathkev.quizado.data.QuizListModel" />
+            name="viewModel"
+            type="com.heathkev.quizado.ui.detail.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
                     android:layout_height="192dp"
                     android:contentDescription="@string/QuizTitle"
                     android:scaleType="centerCrop"
-                    app:imageUrl="@{quizListModel.image}"
+                    app:imageUrl="@{viewModel.quiz.image}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="24dp"
-                    android:text="@{quizListModel.name}"
+                    android:text="@{viewModel.quiz.name}"
                     android:textColor="@color/primaryColor"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
-                    android:text="@{quizListModel.desc}"
+                    android:text="@{viewModel.quiz.desc}"
                     android:textColor="@color/colorOnBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
-                    android:text="@{quizListModel.level}"
+                    android:text="@{viewModel.quiz.level}"
                     android:textColor="@color/colorOnBackground"
                     app:layout_constraintBaseline_toBaselineOf="@+id/details_difficulty"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -148,7 +148,7 @@
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
                     android:textColor="@color/colorOnBackground"
-                    app:convertLong="@{quizListModel.questions}"
+                    app:convertLong="@{viewModel.quiz.questions}"
                     app:layout_constraintBaseline_toBaselineOf="@+id/details_questions"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="NA" />
@@ -160,6 +160,7 @@
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
                     android:text="@string/not_available"
+                    app:convertLong="@{viewModel.resultPercentage}"
                     android:textColor="@color/colorOnBackground"
                     app:layout_constraintBaseline_toBaselineOf="@+id/details_score"
                     app:layout_constraintEnd_toEndOf="parent"

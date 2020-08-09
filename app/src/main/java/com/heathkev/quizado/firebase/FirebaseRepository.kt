@@ -1,9 +1,6 @@
 package com.heathkev.quizado.firebase
 
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
 
 private const val TAG = "FirebaseRepository"
@@ -36,6 +33,10 @@ class FirebaseRepository {
 
     fun getResultsByQuizId(quizId: String): CollectionReference {
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Results")
+    }
+
+    suspend fun getResultsByQuizIdAsync(quizId: String, userId: String): DocumentSnapshot? {
+        return firebaseFireStore.collection("QuizList").document(quizId).collection("Results").document(userId).get().await()
     }
 
     suspend fun getAllResultsAsync(): QuerySnapshot? {
