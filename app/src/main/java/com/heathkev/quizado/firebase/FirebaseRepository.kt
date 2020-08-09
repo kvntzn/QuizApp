@@ -1,5 +1,6 @@
 package com.heathkev.quizado.firebase
 
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
 
@@ -27,12 +28,16 @@ class FirebaseRepository {
         return firebaseFireStore.collection("QuizList").limit(1).get().await()
     }
 
-    fun getQuestion(quizId: String): CollectionReference {
-        return firebaseFireStore.collection("QuizList").document(quizId).collection("Questions")
+    suspend fun getQuestion(quizId: String): QuerySnapshot? {
+        return firebaseFireStore.collection("QuizList").document(quizId).collection("Questions").get().await()
     }
 
     fun getResultsByQuizId(quizId: String): CollectionReference {
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Results")
+    }
+
+    suspend fun submitQuizResult(quizId: String, userId: String, result: HashMap<String, Any?>): Void? {
+        return firebaseFireStore.collection("QuizList").document(quizId).collection("Results").document(userId).set(result).await()
     }
 
     suspend fun getResultsByQuizIdAsync(quizId: String, userId: String): DocumentSnapshot? {

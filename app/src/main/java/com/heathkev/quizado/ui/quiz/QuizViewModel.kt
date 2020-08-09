@@ -5,9 +5,8 @@ import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.QuestionsModel
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.User
@@ -16,7 +15,8 @@ import kotlinx.coroutines.*
 
 private const val TAG = "QuizViewModel"
 
-class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel() {
+class QuizViewModel(private val quizListModel: QuizListModel, private val currentUser: User) :
+    ViewModel() {
 
     private var firebaseRepository = FirebaseRepository()
 
@@ -24,10 +24,6 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     val quizDetail = quizListModel
-
-    private val quizId = quizListModel.quiz_id
-
-    private val _currentUser = currentUser
 
     private var allQuestionList = mutableListOf<QuestionsModel>()
     private val totalQuestionToAnswer = quizListModel.questions
@@ -42,10 +38,6 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
     private val _questionNumber = MutableLiveData<Int>()
     val questionNumber: LiveData<Int>
         get() = _questionNumber
-
-    val questionNumberString: LiveData<String> = Transformations.map(_questionNumber) {
-        it?.toString()
-    }
 
     // Question time
     private lateinit var timer: CountDownTimer
@@ -109,22 +101,19 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
 
     private suspend fun fetchQuestions() {
         withContext(Dispatchers.IO) {
-            firebaseRepository.getQuestion(quizId).addSnapshotListener(EventListener { value, e ->
-                if (e != null) {
-                    Log.w(TAG, "Listen failed.", e)
-                    return@EventListener
-                }
+            val value = firebaseRepository.getQuestion(quizDetail.quiz_id)
 
-                val questionModelList: MutableList<QuestionsModel> = mutableListOf()
-                for (doc in value!!) {
-                    val questionItem = doc.toObject(QuestionsModel::class.java)
-                    questionModelList.add(questionItem)
-                }
-                allQuestionList = questionModelList
-                pickQuestions()
-                loadQuestion(currentQuestionNumber)
-            })
+            val questionModelList: MutableList<QuestionsModel> = mutableListOf()
+            for (doc in value!!) {
+                val questionItem = doc.toObject<QuestionsModel>()
+                questionModelList.add(questionItem)
+            }
+
+            allQuestionList = questionModelList
         }
+
+        pickQuestions()
+        loadQuestion(currentQuestionNumber)
     }
 
     fun loadNextQuestion() {
@@ -147,9 +136,10 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
             resultMap["quiz_name"] = quizDetail.name
             resultMap["quiz_category"] = quizDetail.category
 
-            resultMap["player_id"] = _currentUser.userId
-            resultMap["player_name"] = _currentUser.name
-            resultMap["player_photo"] = if (_currentUser.imageUrl != null && Uri.EMPTY != _currentUser.imageUrl) _currentUser.imageUrl.toString() else _currentUser.imageUrl
+            resultMap["player_id"] = currentUser.userId
+            resultMap["player_name"] = currentUser.name
+            resultMap["player_photo"] =
+                if (currentUser.imageUrl != null && Uri.EMPTY != currentUser.imageUrl) currentUser.imageUrl.toString() else currentUser.imageUrl
 
             submit(resultMap)
         }
@@ -157,16 +147,17 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
 
     private suspend fun submit(resultMap: HashMap<String, Any?>) {
         withContext(Dispatchers.IO) {
-            firebaseRepository.getResultsByQuizId(quizId).document(_currentUser.userId).set(resultMap)
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        // Goto result page
-                        navigateToResultPage()
-                    } else {
-                        // Show error
-                        _quizTitle.value = it.exception?.message
-                    }
-                }
+            try {
+                firebaseRepository.submitQuizResult(
+                    quizListModel.quiz_id,
+                    currentUser.userId,
+                    resultMap
+                )
+
+                navigateToResultPage()
+            } catch (e: Exception) {
+                _quizTitle.postValue(e.message)
+            }
         }
     }
 
@@ -201,7 +192,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
             questionsToAnswer[questionNumber - 1].option_d
         ).toMutableList()
 
-        answers = answers.filter{ it.isNotEmpty() }.toMutableList()
+        answers = answers.filter { it.isNotEmpty() }.toMutableList()
 
         for (i in 0 until answers.size) {
             val j = (0..i).random()
@@ -212,7 +203,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
         }
 
         mutableListOf(_optionA, _optionB, _optionC, _optionD).forEachIndexed { index, it ->
-            if(index <= answers.size-1){
+            if (index <= answers.size - 1) {
                 it.value = answers[index]
             }
         }
@@ -248,7 +239,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
         for (i in 0..totalQuestionToAnswer.toInt()) {
             val randomNumber = getRandomInteger(allQuestionList.size)
             questionsToAnswer.add(allQuestionList.get(randomNumber))
-             allQuestionList.removeAt(randomNumber)
+            allQuestionList.removeAt(randomNumber)
 
             Log.d(TAG, "Questions $i" + questionsToAnswer[i].question)
         }
@@ -287,7 +278,7 @@ class QuizViewModel(quizListModel: QuizListModel, currentUser: User) : ViewModel
     }
 
     private fun navigateToResultPage() {
-        _shouldNavigateToResult.value = true
+        _shouldNavigateToResult.postValue(true)
     }
 
     fun navigateToResultPageComplete() {

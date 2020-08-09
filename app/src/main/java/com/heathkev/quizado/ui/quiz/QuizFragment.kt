@@ -52,6 +52,10 @@ class QuizFragment : MainNavigationFragment() {
         binding.quizViewModel = viewModel
         binding.lifecycleOwner = this
 
+//        viewModel.questionNumber.observe(viewLifecycleOwner, Observer {
+//            binding.toolbar.title = getString(R.string.title_quiz_question, quizData.name, it ?: 0, quizData.questions)
+//        })
+
         setButtonVisibility(binding.quizOptionA,View.VISIBLE, true)
         setButtonVisibility(binding.quizOptionB,View.VISIBLE, true)
         setButtonVisibility(binding.quizOptionC,View.VISIBLE, true)
