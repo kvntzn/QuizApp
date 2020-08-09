@@ -154,13 +154,13 @@
 
                 <Button
                     android:id="@+id/question_submit_btn"
+                    style="@style/Widget.Quizado.Button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_large"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:layout_marginEnd="@dimen/margin_large"
                     android:layout_marginBottom="72dp"
-                    android:background="@drawable/primary_btn_bg"
                     android:text="@string/send"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

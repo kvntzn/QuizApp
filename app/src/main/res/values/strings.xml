@@ -36,7 +36,7 @@
     <string name="Settings">Settings</string>
     <string name="login">Login</string>
     <string name="about_desc">Quizado is a quiz application where you can answer any of the quizzes</string>
-    <string name="share">Share Quiz</string>
+    <string name="share">Share</string>
     <string name="share_text">I just got %1$d/%2$d on Quizado\'s %3$s quiz!</string>
     <string name="leaders">Leaders</string>
     <string name="profile">Profile</string>
@@ -77,4 +77,5 @@
     <string name="sign_in">Sign In</string>
     <string name="navigate_up">Navigate up</string>
     <string name="return_home">Return Home</string>
+    <string name="Retry">retry</string>
 </resources>

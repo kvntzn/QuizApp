@@ -103,12 +103,12 @@
 
         <Button
             android:id="@+id/results_share_btn"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="@dimen/margin_large"
-            android:background="@drawable/primary_btn_bg"
             android:drawableEnd="@drawable/ic_share"
             android:text="@string/share"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,33 +117,34 @@
 
         <Button
             android:id="@+id/results_play_btn"
+            style="@style/Widget.Quizado.Button"
             android:visibility="@{viewModel.result ? View.GONE : View.VISIBLE}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/primary_btn_bg"
             android:drawableEnd="@drawable/ic_replay"
-            android:text="@string/play_again"
+            android:text="@string/Retry"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
 
         <Button
             android:id="@+id/results_home_btn"
+            style="@style/Widget.Quizado.Button"
             android:visibility="@{viewModel.result ? View.VISIBLE : View.GONE}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/primary_btn_bg"
             android:drawableEnd="@drawable/ic_home"
-            android:text="@string/return_home"
+            android:text="@string/home"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/result_message_text" />
+            app:layout_constraintTop_toBottomOf="@+id/result_message_text"
+            tools:visibility="invisible"/>
 
 
         <androidx.constraintlayout.widget.Guideline

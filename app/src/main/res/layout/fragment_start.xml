@@ -31,6 +31,7 @@
 
         <Button
             android:id="@+id/start_login_btn"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"

@@ -169,12 +169,12 @@
 
         <Button
             android:id="@+id/details_start_btn"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="72dp"
-            android:background="@drawable/primary_btn_bg"
             android:text="@string/start_quiz"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

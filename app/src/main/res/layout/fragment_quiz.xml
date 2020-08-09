@@ -101,12 +101,12 @@
 
         <Button
             android:id="@+id/quiz_option_a"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:padding="12dp"
             android:fontFamily="@font/merriweather"
             android:text="@{quizViewModel.optionA}"
             android:textAllCaps="false"
@@ -119,12 +119,12 @@
 
         <Button
             android:id="@+id/quiz_option_b"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:padding="12dp"
             android:fontFamily="@font/merriweather"
             android:text="@{quizViewModel.optionB}"
             android:textAllCaps="false"
@@ -137,12 +137,12 @@
 
         <Button
             android:id="@+id/quiz_option_c"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:padding="12dp"
             android:fontFamily="@font/merriweather"
             android:visibility="@{(quizViewModel.optionC != null) ? View.VISIBLE :  View.INVISIBLE }"
             android:text="@{quizViewModel.optionC}"
@@ -156,13 +156,12 @@
 
         <Button
             android:id="@+id/quiz_option_d"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
-            android:padding="12dp"
-            android:fontFamily="@font/merriweather"
             android:visibility="@{(quizViewModel.optionD != null) ? View.VISIBLE :  View.INVISIBLE }"
             android:text="@{quizViewModel.optionD}"
             android:textAllCaps="false"
@@ -177,12 +176,12 @@
     </ScrollView>
     <Button
         android:id="@+id/quiz_next_btn"
+        style="@style/Widget.Quizado.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="72dp"
-        android:background="@drawable/primary_btn_bg"
         android:text="@string/next_question"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

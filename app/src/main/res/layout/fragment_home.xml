@@ -34,19 +34,16 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/status_bar"
             app:title="@string/Title"
-            app:navigationIcon="@drawable/ic_menu"
-            >
-
+            app:navigationIcon="@drawable/ic_menu">
         </androidx.appcompat.widget.Toolbar>
 
         <Button
             android:id="@+id/home_play_button"
+            style="@style/Widget.Quizado.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_marginHorizontal="@dimen/margin_large"
             android:layout_marginTop="@dimen/margin_normal"
-            android:background="@drawable/primary_btn_bg"
             android:text="@string/play_quiz"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

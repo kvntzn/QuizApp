@@ -35,4 +35,16 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="Widget.Quizado.Button" parent="@style/Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/RoundedShapeAppearance</item>
+        <item name="android:padding">@dimen/padding_normal</item>
+    </style>
+    <style name="RoundedShapeAppearance">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSize">@dimen/corner_size_normal</item>
+    </style>
+
 </resources>

@@ -11,6 +11,10 @@
     <dimen name="text_size_h2">20sp</dimen>
     <dimen name="text_size_h3">18sp</dimen>
 
+    <!--  Button -->
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="corner_size_normal">30dp</dimen>
+
     <dimen name="a11y_min_touch_target">48dp</dimen>
 
     <dimen name="bottom_sheet_elevation">8dp</dimen>
