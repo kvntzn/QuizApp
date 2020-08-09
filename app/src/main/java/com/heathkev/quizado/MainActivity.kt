@@ -97,20 +97,18 @@ class MainActivity : AppCompatActivity(), NavigationHost {
         statusScrim.setOnApplyWindowInsetsListener(HeightTopWindowInsetsListener)
 
         drawer = main_drawer_layout
-        appBarConfiguration = AppBarConfiguration(
-            TOP_LEVEL_DESTINATIONS,
-            drawer
-        )
-
         navigationView = navigation_view
         btmNavigationView = list_btm_nav_view
 
+        // Navigation view and Header
         val menuView = findViewById<RecyclerView>(R.id.design_navigation_view)
         navigationView.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
             // NavigationView doesn't dispatch insets to the menu view, so pad the bottom here.
             menuView?.updatePadding(bottom = insets.systemWindowInsetBottom)
         }
+
+        // Nav host and controller
         setupNavigation()
 
         val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
@@ -123,20 +121,6 @@ class MainActivity : AppCompatActivity(), NavigationHost {
         navBinding.lifecycleOwner = this
     }
 
-    /**
-     * Called when the hamburger menu or back button are pressed on the Toolbar
-     *
-     * Delegate this to Navigation.
-     */
-    override fun onSupportNavigateUp() =
-        navigateUp(
-            findNavController(R.id.nav_host_fragment),
-            appBarConfiguration
-        ) || super.onSupportNavigateUp()
-
-    /**
-     * Setup Navigation for this Activity
-     */
     private fun setupNavigation() {
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment?

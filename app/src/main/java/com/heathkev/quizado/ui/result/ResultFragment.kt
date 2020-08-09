@@ -2,40 +2,35 @@ package com.heathkev.quizado.ui.result
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.app.ShareCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.heathkev.quizado.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.User
-import com.heathkev.quizado.databinding.FragmentQuizBinding
 import com.heathkev.quizado.databinding.FragmentResultBinding
-import com.heathkev.quizado.firebase.FirebaseRepository
-import com.heathkev.quizado.ui.detail.DetailFragmentDirections
-import com.heathkev.quizado.ui.quiz.QuizViewModel
-import com.heathkev.quizado.ui.quiz.QuizViewModelFactory
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_result.*
+import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
-class ResultFragment : Fragment() {
+class ResultFragment : MainNavigationFragment() {
 
-    private lateinit var quizData: QuizListModel
     private var correct: Int = 0
+    private lateinit var quizData: QuizListModel
+    private lateinit var binding: FragmentResultBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentResultBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_result, container, false)
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_result, container, false)
 
         quizData = ResultFragmentArgs.fromBundle(
             requireArguments()
@@ -76,16 +71,24 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        results_share_btn.setOnClickListener{
+        binding.root.doOnApplyWindowInsets { _, insets, _ ->
+            binding.statusBar.run {
+                layoutParams.height = insets.systemWindowInsetTop
+                isVisible = layoutParams.height > 0
+                requestLayout()
+            }
+        }
+
+        binding.resultsShareBtn.setOnClickListener{
             shareSuccess()
         }
 
-        results_play_btn.setOnClickListener {
+        binding.resultsPlayBtn.setOnClickListener {
             this.findNavController().navigate(ResultFragmentDirections.actionResultFragmentToDetailFragment(quizData))
         }
 
-        results_home_btn.setOnClickListener {
-            this.findNavController().navigate(ResultFragmentDirections.actionResultFragmentToHomeFragment())
+        binding.resultsHomeBtn.setOnClickListener {
+            this.findNavController().navigateUp()
         }
     }
 

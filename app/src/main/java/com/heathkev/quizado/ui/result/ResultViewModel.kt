@@ -4,9 +4,11 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.User
+import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.coroutines.*
 
@@ -25,6 +27,7 @@ class ResultViewModel(
     private val _scoreProgress = MutableLiveData<Int>()
     private val _result = MutableLiveData<Boolean>()
     private val _correctScore = MutableLiveData<Int>()
+    private val _isLoading = MutableLiveData<Boolean>()
 
     val score: LiveData<String>
         get() = _score
@@ -38,6 +41,9 @@ class ResultViewModel(
     val correctScore: LiveData<Int>
         get() = _correctScore
 
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
 
     init {
         uiScope.launch {
@@ -47,30 +53,36 @@ class ResultViewModel(
 
     private suspend fun getResult() {
         withContext(Dispatchers.IO) {
-            firebaseRepository.getResultsByQuizId(quizData.quiz_id).document(currentUser.userId)
-                .get().addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val result = it.result
+            _isLoading.postValue(true)
 
-                    if (result != null) {
-                        val correct = result.getLong("correct")!!
-                        val wrong = result.getLong("wrong")!!
-                        val missed = result.getLong("unanswered")!!
+            val value = firebaseRepository.getResultsByQuizIdAsync(quizData.quiz_id, currentUser.userId)
 
-                        _correctScore.value = correct.toInt()
-                        val total = correct + wrong + missed
-                        _score.value =
-                            app.applicationContext.getString(R.string.score_over, correct, total)
+            val result = value?.toObject<Result>()
 
-                        val percent = (correct * 100) / total
-                        _scoreProgress.value = percent.toInt()
+            if (result != null) {
+                val correct = result.correct
+                val wrong = result.wrong
+                val missed = result.unanswered
 
-                        val passed = correct > (total / 2)
-                        _result.value = passed
+                _correctScore.postValue(correct.toInt())
+                val total = correct + wrong + missed
 
-                    }
-                }
+                val score = app.applicationContext.getString(R.string.score_over, correct, total)
+                _score.postValue(score)
+
+                val percent = (correct * 100) / total
+                _scoreProgress.postValue(percent.toInt())
+
+                val passed = correct > (total / 2)
+                _result.postValue(passed)
             }
+
+            _isLoading.postValue(false)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }
