@@ -9,29 +9,33 @@
             type="com.heathkev.quizado.ui.leaders.LeadersViewModel" />
     </data>
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true">
 
-    <View
-        android:id="@+id/status_bar"
-        style="@style/Widget.Quizado.AppBar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:visibility="gone" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            style="@style/Widget.Quizado.AppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/Widget.Quizado.AppBar"
-        android:layout_width="match_parent"
-        android:layout_height="?actionBarSize"
-        app:navigationIcon="@drawable/ic_menu"
-        app:title="@string/leaderboard" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:navigationContentDescription="@string/home"
+                app:navigationIcon="@drawable/ic_menu"
+                app:title="@string/leaderboard" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:paddingBottom="@dimen/bottom_nav_height"
         tools:context=".ui.leaders.LeadersFragment">
 
@@ -97,5 +101,5 @@
             app:srcCompat="@drawable/ic_cup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

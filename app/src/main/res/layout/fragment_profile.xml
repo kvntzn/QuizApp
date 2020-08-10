@@ -12,30 +12,34 @@
     </data>
 
 
-    <LinearLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:fitsSystemWindows="true">
 
-        <View
-            android:id="@+id/status_bar"
-            style="@style/Widget.Quizado.AppBar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"/>
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             style="@style/Widget.Quizado.AppBar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"
-            app:title="@string/profile"
-            app:navigationIcon="@drawable/ic_menu" />
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
 
-        <ScrollView
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                app:navigationContentDescription="@string/home"
+                app:navigationIcon="@drawable/ic_menu"
+                app:title="@string/profile" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:scrollbars="none">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -153,7 +157,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-    </LinearLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

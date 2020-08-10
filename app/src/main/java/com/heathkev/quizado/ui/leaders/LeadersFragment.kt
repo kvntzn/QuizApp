@@ -48,16 +48,4 @@ class LeadersFragment : MainNavigationFragment() {
 
         return binding.root
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        binding.root.doOnApplyWindowInsets { _, insets, _ ->
-            binding.statusBar.run {
-                layoutParams.height = insets.systemWindowInsetTop
-                isVisible = layoutParams.height > 0
-                requestLayout()
-            }
-        }
-    }
 }
