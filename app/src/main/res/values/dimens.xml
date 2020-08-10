@@ -45,6 +45,7 @@
 
     <dimen name="detail_padding_bottom">150dp</dimen>
     <dimen name="quiz_padding_bottom">150dp</dimen>
+    <dimen name="session_keyline">64dp</dimen>
 
     <!-- Search -->
     <dimen name="search_result_icon_size">24dp</dimen>

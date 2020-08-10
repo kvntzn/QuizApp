@@ -54,10 +54,12 @@ class DetailViewModel(private val quizListModel: QuizListModel, private val curr
             val result = value?.toObject<Result>()
 
             // calculate progress
-            val total = result!!.correct + result.wrong + result.unanswered
-            val percent = (result.correct * 100) / total
+            if(result != null){
+                val total = result.correct + result.wrong + result.unanswered
+                val percent = (result.correct * 100) / total
 
-            _resultPercentage.postValue(percent)
+                _resultPercentage.postValue(percent)
+            }
         }
     }
 

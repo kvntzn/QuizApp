@@ -52,10 +52,10 @@ class NavigationBarContentFrameLayout @JvmOverloads constructor(
             R.style.Widget_Quizado_NavigationBarContentFrameLayout
         )
 
-//        navigationBarDividerColor = a.getColor(
-//            R.styleable.NavigationBarContentFrameLayout_navigationBarBorderColor,
-//            Color.MAGENTA
-//        )
+        navigationBarDividerColor = a.getColor(
+            R.styleable.NavigationBarContentFrameLayout_navigationBarBorderColor,
+            Color.MAGENTA
+        )
         navigationBarDividerSize = a.getDimensionPixelSize(
             R.styleable.NavigationBarContentFrameLayout_navigationBarBorderSize,
             0

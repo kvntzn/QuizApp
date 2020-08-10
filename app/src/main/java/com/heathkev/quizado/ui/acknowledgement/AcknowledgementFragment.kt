@@ -20,16 +20,4 @@ class AcknowledgementFragment : MainNavigationFragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_acknowledgement, container, false)
     }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        view.doOnApplyWindowInsets { _, insets, _ ->
-            status_bar.run {
-                layoutParams.height = insets.systemWindowInsetTop
-                isVisible = layoutParams.height > 0
-                requestLayout()
-            }
-        }
-    }
 }

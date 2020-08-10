@@ -5,6 +5,6 @@
         <!-- We use a transparent nav bar on API 29, as the system is responsible for applying
              context background protection -->
         <item name="android:navigationBarColor">@color/transparent</item>
-<!--        <item name="ioschedNavigationBarDividerColor">@color/transparent</item>-->
+        <item name="ioschedNavigationBarDividerColor">@color/transparent</item>
     </style>
 </resources>

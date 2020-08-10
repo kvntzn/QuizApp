@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="color_control_light">#2EFFFFFF</color> <!-- 18% white -->
+    <color name="color_surface_secondary">#2a2b2e</color>
+
+    <!-- Scrim colors -->
+    <color name="system_ui_scrim_light">#2EFFFFFF</color> <!-- 18% white -->
+    <color name="system_ui_scrim_black">#B3000000</color> <!-- 70% black -->
+
     <!-- In dark mode without light status bar we can use transparent -->
-    <color name="status_bar_scrim">#00ffffff</color>
+    <color name="status_bar_scrim">@color/transparent</color>
 
     <color name="primaryColor">#b39ddb</color>
     <color name="primaryLightColor">#e6ceff</color>

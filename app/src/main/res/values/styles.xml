@@ -1,11 +1,23 @@
-<resources>
-
-    <style name="AppTheme" parent="Base.AppTheme" />
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Widget.Quizado" parent="@android:style/Widget.Material" />
 
     <!-- Navigation -->
     <style name="Widget.Quizado.NavigationBarContentFrameLayout" parent="android:Widget.Material">
         <item name="navigationBarBorderColor">?attr/ioschedNavigationBarDividerColor</item>
         <item name="navigationBarBorderSize">1dp</item>
+    </style>
+
+    <style name="Widget.Quizado.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextAppearance">@style/TextAppearance.Quizado.ToolbarTitle</item>
+        <item name="contentInsetStartWithNavigation">?sessionListKeyline</item>
+        <item name="popupTheme">@style/AppTheme.PopupTheme</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <!-- Header-->
+    <style name="TextAppearance.Quizado.ToolbarTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize" tools:ignore="SpUsage">20dp</item>
     </style>
 
     <!-- Filters -->
@@ -46,5 +58,7 @@
         <item name="cornerFamilyBottomRight">rounded</item>
         <item name="cornerSize">@dimen/corner_size_normal</item>
     </style>
+
+
 
 </resources>
