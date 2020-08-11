@@ -34,6 +34,11 @@ class HomeViewModel : ViewModel() {
     val navigateToQuizListModel: LiveData<QuizListModel>
         get() = _navigateToQuizListModel
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
+
     init {
         getResults()
     }
@@ -41,11 +46,14 @@ class HomeViewModel : ViewModel() {
 
     private fun getResults() {
         uiScope.launch {
+            _isLoading.value = true
+
             val value = withContext(Dispatchers.IO) {
                 firebaseRepository.getResultsByUserIdAsync(user.uid)
             }
 
             parseResults(value)
+            _isLoading.value = false
         }
     }
 

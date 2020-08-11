@@ -31,8 +31,8 @@
 
     <!-- Filters -->
     <style name="TextAppearance.Quizado.FilterChip.Selectable" parent="TextAppearance.MaterialComponents.Chip">
-        <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Widget.Quizado.AppBar" parent="@style/Widget.Design.AppBarLayout">

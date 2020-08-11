@@ -23,16 +23,22 @@ class LeadersViewModel : ViewModel() {
     val results: LiveData<List<Result>>
         get() = _results
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     init {
         initializeResults()
     }
 
     private fun initializeResults() {
         uiScope.launch {
+            _isLoading.value = true
             val value = withContext(Dispatchers.IO) {
                 firebaseRepository.getAllResultsAsync()
             }
             groupResults(value)
+            _isLoading.value = false
         }
     }
 

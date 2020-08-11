@@ -54,6 +54,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_recent_results_list"
+                app:goneUnless="@{!viewModel.isLoading}"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="@dimen/margin_small"
@@ -73,14 +74,15 @@
 
             <ProgressBar
                 android:id="@+id/home_progress"
+                app:goneUnless="@{viewModel.isLoading}"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
-                app:layout_constraintBottom_toBottomOf="@+id/home_recent_results_list"
-                app:layout_constraintEnd_toEndOf="@+id/home_recent_results_list"
-                app:layout_constraintStart_toStartOf="@+id/home_recent_results_list"
-                app:layout_constraintTop_toTopOf="@+id/home_recent_results_list" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/home_recent_results"

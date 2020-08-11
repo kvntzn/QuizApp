@@ -40,6 +40,10 @@ class QuizListViewModel : ViewModel() {
     val category: LiveData<String>
         get() = _category
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     private var isCategoryInitialized: Boolean = false;
 
     init {
@@ -79,6 +83,7 @@ class QuizListViewModel : ViewModel() {
 
     private fun onQueryChanged() {
         uiScope.launch {
+            _isLoading.value = true
             try {
                 _category.value = filter.currentValue
                 getQuizList(filter.currentValue)
@@ -87,6 +92,7 @@ class QuizListViewModel : ViewModel() {
                 _quizList.value = listOf()
                 Log.d(TAG, "Error : ${e.message}")
             }
+            _isLoading.value = false
         }
     }
 

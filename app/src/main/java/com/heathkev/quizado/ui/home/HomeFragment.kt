@@ -37,15 +37,8 @@ class HomeFragment : MainNavigationFragment() {
         val listView = binding.homeRecentResultsList
         listView.adapter = adapter
 
-        val fadeInAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_in)
-        val fadeOutAnimation = AnimationUtils.loadAnimation(context, R.anim.fade_out)
-        val listProgress = binding.homeProgress
-
         viewModel.resultList.observe(viewLifecycleOwner, Observer {
             it.let {
-                listView.startAnimation(fadeInAnimation)
-                listProgress.startAnimation(fadeOutAnimation)
-
                 adapter.submitList(it)
             }
         })
