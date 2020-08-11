@@ -1,7 +1,6 @@
 package com.heathkev.quizado.ui.acknowledgement
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,5 +18,17 @@ class AcknowledgementFragment : MainNavigationFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_acknowledgement, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        view.doOnApplyWindowInsets { _, insets, _ ->
+            status_bar.run {
+                layoutParams.height = insets.systemWindowInsetTop
+                isVisible = layoutParams.height > 0
+                requestLayout()
+            }
+        }
     }
 }
