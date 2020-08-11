@@ -1,4 +1,4 @@
-package com.heathkev.quizado
+package com.heathkev.quizado.ui
 
 import android.net.Uri
 import android.view.View
@@ -9,6 +9,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.ui.list.QuizListAdapter
 

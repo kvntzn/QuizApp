@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.core.view.updatePaddingRelative
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.heathkev.quizado.MainNavigationFragment
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentHomeBinding
-import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
 
 class HomeFragment : MainNavigationFragment() {

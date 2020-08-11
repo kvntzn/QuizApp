@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.heathkev.quizado.MainNavigationFragment
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentLeadersBinding
-import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
 class LeadersFragment : MainNavigationFragment() {
 

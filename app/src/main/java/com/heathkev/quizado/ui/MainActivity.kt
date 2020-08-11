@@ -1,4 +1,4 @@
-package com.heathkev.quizado
+package com.heathkev.quizado.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -6,7 +6,6 @@ import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -15,16 +14,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.NavHeaderBinding
 import com.heathkev.quizado.utils.HeightTopWindowInsetsListener
 import com.heathkev.quizado.utils.NoopWindowInsetsListener
@@ -34,7 +32,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 const val DARK_MODE = "darkmode"
 
-class MainActivity : AppCompatActivity(), NavigationHost {
+class MainActivity : AppCompatActivity(),
+    NavigationHost {
 
     private var doubleBackToExitPressedOnce = false
 
@@ -115,7 +114,8 @@ class MainActivity : AppCompatActivity(), NavigationHost {
 
         //Navigation Header
         val navBinding: NavHeaderBinding =
-            DataBindingUtil.inflate(layoutInflater, R.layout.nav_header, navigationView, false)
+            DataBindingUtil.inflate(layoutInflater,
+                R.layout.nav_header, navigationView, false)
         navigationView.addHeaderView(navBinding.root)
         navBinding.viewModel = viewModel
         navBinding.lifecycleOwner = this
@@ -152,7 +152,8 @@ class MainActivity : AppCompatActivity(), NavigationHost {
         val btmNavView = btmNavigationView
         if (btmNavView.visibility == View.VISIBLE) {
             if (btmNavView.selectedItemId != R.id.homeFragment) {
-                btmNavView.selectedItemId = R.id.homeFragment
+                btmNavView.selectedItemId =
+                    R.id.homeFragment
             } else {
                 if (doubleBackToExitPressedOnce) {
                     this@MainActivity.finish()

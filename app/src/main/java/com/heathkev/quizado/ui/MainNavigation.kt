@@ -1,10 +1,11 @@
-package com.heathkev.quizado
+package com.heathkev.quizado.ui
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import com.heathkev.quizado.R
 
 
 /**
@@ -29,7 +30,8 @@ interface NavigationDestination {
  * Fragment representing a main navigation destination. This class handles wiring up the [Toolbar]
  * navigation icon if the fragment is attached to a [NavigationHost].
  */
-open class MainNavigationFragment : Fragment(), NavigationDestination {
+open class MainNavigationFragment : Fragment(),
+    NavigationDestination {
 
     protected var navigationHost: NavigationHost? = null
 

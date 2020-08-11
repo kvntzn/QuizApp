@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
-import com.heathkev.quizado.MainNavigationFragment
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.User

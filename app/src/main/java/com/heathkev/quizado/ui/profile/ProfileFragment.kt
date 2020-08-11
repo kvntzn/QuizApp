@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.heathkev.quizado.MainNavigationFragment
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.User
-import com.heathkev.quizado.databinding.FragmentLeadersBinding
 import com.heathkev.quizado.databinding.FragmentProfileBinding
-import com.heathkev.quizado.utils.doOnApplyWindowInsets
 
 private lateinit var binding: FragmentProfileBinding
 

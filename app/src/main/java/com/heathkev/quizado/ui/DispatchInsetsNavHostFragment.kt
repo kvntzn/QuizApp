@@ -1,4 +1,4 @@
-package com.heathkev.quizado
+package com.heathkev.quizado.ui
 
 import android.os.Bundle
 import android.view.View

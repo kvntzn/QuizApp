@@ -2,14 +2,13 @@ package com.heathkev.quizado.ui.settings
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
-import com.heathkev.quizado.DARK_MODE
-import com.heathkev.quizado.MainNavigationFragment
+import com.heathkev.quizado.ui.DARK_MODE
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
 import kotlinx.android.synthetic.main.fragment_settings.*

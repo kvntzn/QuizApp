@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.heathkev.quizado.MainActivityViewModel" />
+            type="com.heathkev.quizado.ui.MainActivityViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

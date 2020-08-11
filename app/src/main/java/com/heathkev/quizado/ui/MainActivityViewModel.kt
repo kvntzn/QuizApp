@@ -1,4 +1,4 @@
-package com.heathkev.quizado
+package com.heathkev.quizado.ui
 
 import androidx.lifecycle.ViewModel
 import com.heathkev.quizado.firebase.FirebaseRepository
