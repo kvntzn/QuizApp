@@ -28,10 +28,12 @@ import com.heathkev.quizado.utils.HeightTopWindowInsetsListener
 import com.heathkev.quizado.utils.NoopWindowInsetsListener
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
 import com.heathkev.quizado.widget.NavigationBarContentFrameLayout
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 const val DARK_MODE = "darkmode"
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
     NavigationHost {
 

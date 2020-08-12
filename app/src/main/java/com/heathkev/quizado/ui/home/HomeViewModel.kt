@@ -1,11 +1,10 @@
 package com.heathkev.quizado.ui.home
 
-import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.QuizListModel
@@ -13,13 +12,13 @@ import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.utils.Utility
 import kotlinx.coroutines.*
-import kotlinx.coroutines.tasks.await
 
 private const val TAG = "HomeViewModel"
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel @ViewModelInject constructor(
+    private val firebaseRepository: FirebaseRepository
+): ViewModel() {
 
-    private val firebaseRepository = FirebaseRepository()
     val user = FirebaseAuth.getInstance().currentUser!!
 
     private var viewModelJob = Job()

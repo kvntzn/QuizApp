@@ -1,12 +1,14 @@
 package com.heathkev.quizado.firebase
 
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
+import javax.inject.Singleton
 
 private const val TAG = "FirebaseRepository"
 
-class FirebaseRepository {
+@Singleton
+class FirebaseRepository @Inject constructor(){
 
     private val firebaseFireStore = FirebaseFirestore.getInstance()
     private val quizRef =
