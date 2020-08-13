@@ -9,6 +9,7 @@ import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.coroutines.*
 
 private const val TAG = "SendQuestionViewModel"
+
 class SendQuestionViewModel : ViewModel() {
 
     private val firebaseRepository = FirebaseRepository()
@@ -25,7 +26,7 @@ class SendQuestionViewModel : ViewModel() {
         get() = _category
 
     val question: LiveData<QuestionsModel>
-            get() = _question
+        get() = _question
 
     val successSubmitEvent: LiveData<Boolean?>
         get() = _successSubmitEvent
@@ -44,9 +45,10 @@ class SendQuestionViewModel : ViewModel() {
 
     fun onSubmitQuestion(question: QuestionsModel, category: String) {
         uiScope.launch {
-            val isChoicesAvailable = checkChoices(question.option_b, question.option_c, question.option_d)
+            val isChoicesAvailable =
+                checkChoices(question.option_b, question.option_c, question.option_d)
 
-            if(question.question.isNotEmpty() && question.answer.isNotEmpty() && isChoicesAvailable){
+            if (question.question.isNotEmpty() && question.answer.isNotEmpty() && isChoicesAvailable) {
 
                 val questionMap = HashMap<String, Any?>()
                 questionMap["answer"] = question.answer
@@ -60,33 +62,36 @@ class SendQuestionViewModel : ViewModel() {
                 questionMap["category"] = category
 
                 submit(questionMap)
-            }
-            else{
+            } else {
                 _showSnackbarEvent.value = true
             }
         }
     }
 
     private suspend fun submit(questionMap: HashMap<String, Any?>) {
-        withContext(Dispatchers.IO){
-            firebaseRepository.getQuestionRequest().document().set(questionMap).addOnCompleteListener {
-                if (it.isSuccessful) {
-                    //SUCCESS
-                    _successSubmitEvent.value = true
-                    Log.d(TAG, "Successful Submit")
-                } else {
-                    // ERROR Occurred
-                    _successSubmitEvent.value = false
-                    Log.d(TAG, "Something went wrong ${it.exception}")
-                }
+        withContext(Dispatchers.IO) {
+            try {
+                firebaseRepository.sendQuestion(questionMap)
+
+                _successSubmitEvent.value = true
+                Log.d(TAG, "Successful Submit")
+            } catch (e: Exception) {
+
+                _successSubmitEvent.value = false
+                Log.d(TAG, "Something went wrong ${e.message}")
             }
         }
     }
 
 
-
     private fun checkChoices(option_a: String, option_b: String, option_c: String): Boolean {
-        return option_a.isNotEmpty() ||option_b.isNotEmpty() || option_c.isNotEmpty()
+        return option_a.isNotEmpty() || option_b.isNotEmpty() || option_c.isNotEmpty()
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 }
+
+

@@ -6,15 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.EventListener
+import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.data.User
 import com.heathkev.quizado.firebase.FirebaseRepository
+import kotlinx.coroutines.*
+import java.lang.Exception
 
 private const val TAG = "ProfileViewModel"
-class ProfileViewModel(private val currentUser: User) : ViewModel(){
+
+class ProfileViewModel(private val currentUser: User) : ViewModel() {
 
     private val firebaseRepository = FirebaseRepository()
-    private val NO_RECORD : Int = 0
+    private val NO_RECORD: Int = 0
+
+    private var viewModelJob = Job()
+    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     private val _user = MutableLiveData<User>()
     private val _quizzesNumber = MutableLiveData<Int>()
@@ -24,15 +31,15 @@ class ProfileViewModel(private val currentUser: User) : ViewModel(){
     val user: LiveData<User>
         get() = _user
 
-    val quizzesNumber: LiveData<String> = Transformations.map(_quizzesNumber){
+    val quizzesNumber: LiveData<String> = Transformations.map(_quizzesNumber) {
         it.toString()
     }
 
-    val passedNumber: LiveData<String> = Transformations.map(_passedNumber){
+    val passedNumber: LiveData<String> = Transformations.map(_passedNumber) {
         it.toString()
     }
 
-    val failedNumber: LiveData<String> = Transformations.map(_failedNumber){
+    val failedNumber: LiveData<String> = Transformations.map(_failedNumber) {
         it.toString()
     }
 
@@ -41,30 +48,28 @@ class ProfileViewModel(private val currentUser: User) : ViewModel(){
         getResult()
     }
 
-    private fun getResult(){
-        firebaseRepository.getResultsByUserId(currentUser.userId).addSnapshotListener(EventListener { value, e ->
-            if (e != null) {
-                Log.w(TAG, "Listen failed.", e)
-                setToZero()
-                return@EventListener
+    private fun getResult() {
+        uiScope.launch {
+            val value = withContext(Dispatchers.IO) {
+                firebaseRepository.getResultsByUserIdAsync(currentUser.userId)
             }
 
             val resultsList: MutableList<Result> = mutableListOf()
             for (doc in value!!) {
-                val resultItem = doc.toObject(Result::class.java)
+                val resultItem = doc.toObject<Result>()
 
                 resultsList.add(resultItem)
             }
 
             countQuizResult(resultsList)
-        })
+        }
     }
 
-    private fun countQuizResult(results: List<Result>){
+    private fun countQuizResult(results: List<Result>) {
         var passed = 0
         var failed = 0
 
-        for (i in results) if(i.correct > i.wrong) passed++ else failed++
+        for (i in results) if (i.correct > i.wrong) passed++ else failed++
 
         _passedNumber.value = passed
         _failedNumber.value = failed
@@ -72,9 +77,14 @@ class ProfileViewModel(private val currentUser: User) : ViewModel(){
 
     }
 
-    private fun setToZero(){
+    private fun setToZero() {
         _quizzesNumber.value = NO_RECORD
         _passedNumber.value = NO_RECORD
         _failedNumber.value = NO_RECORD
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 }

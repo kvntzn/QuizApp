@@ -11,11 +11,9 @@ private const val TAG = "FirebaseRepository"
 class FirebaseRepository @Inject constructor(){
 
     private val firebaseFireStore = FirebaseFirestore.getInstance()
-    private val quizRef =
-        firebaseFireStore.collection("QuizList").whereEqualTo("visibility", "public")
 
-    fun getUsers(): CollectionReference {
-        return firebaseFireStore.collection("Users")
+    suspend fun registerUser(userId: String, userMap: HashMap<String, Any?>): Void? {
+        return firebaseFireStore.collection("Users").document(userId).set(userMap).await()
     }
 
     suspend fun getQuizListAsync(): QuerySnapshot? {
@@ -34,10 +32,6 @@ class FirebaseRepository @Inject constructor(){
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Questions").get().await()
     }
 
-    fun getResultsByQuizId(quizId: String): CollectionReference {
-        return firebaseFireStore.collection("QuizList").document(quizId).collection("Results")
-    }
-
     suspend fun submitQuizResult(quizId: String, userId: String, result: HashMap<String, Any?>): Void? {
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Results").document(userId).set(result).await()
     }
@@ -50,17 +44,13 @@ class FirebaseRepository @Inject constructor(){
         return firebaseFireStore.collectionGroup("Results").get().await()
     }
 
-    fun getResultsByUserId(userId: String): Query {
-        return firebaseFireStore.collectionGroup("Results").whereEqualTo("player_id", userId)
-    }
-
     suspend fun getResultsByUserIdAsync(userId: String): QuerySnapshot? {
         return firebaseFireStore.collectionGroup("Results").whereEqualTo("player_id", userId)
             .get()
             .await()
     }
 
-    fun getQuestionRequest(): CollectionReference {
-        return firebaseFireStore.collection("QuestionRequest")
+    suspend fun sendQuestion(questionMap : HashMap<String, Any?>): Void? {
+        return firebaseFireStore.collection("QuestionRequest").document().set(questionMap).await()
     }
 }
