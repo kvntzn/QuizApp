@@ -56,7 +56,7 @@ class ResultViewModel(
     private suspend fun getResult() {
         withContext(Dispatchers.IO) {
 
-            val value = firebaseRepository.getResultsByQuizIdAsync(quizData.quiz_id, currentUser.userId)
+            val value = firebaseRepository.getResultsByQuizId(quizData.quiz_id, currentUser.userId)
 
             val result = value?.toObject<Result>()
 

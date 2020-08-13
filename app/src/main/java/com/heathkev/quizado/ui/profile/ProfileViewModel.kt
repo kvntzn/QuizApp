@@ -1,17 +1,14 @@
 package com.heathkev.quizado.ui.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.data.User
 import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.coroutines.*
-import java.lang.Exception
 
 private const val TAG = "ProfileViewModel"
 
@@ -51,7 +48,7 @@ class ProfileViewModel(private val currentUser: User) : ViewModel() {
     private fun getResult() {
         uiScope.launch {
             val value = withContext(Dispatchers.IO) {
-                firebaseRepository.getResultsByUserIdAsync(currentUser.userId)
+                firebaseRepository.getResultsByUserId(currentUser.userId)
             }
 
             val resultsList: MutableList<Result> = mutableListOf()

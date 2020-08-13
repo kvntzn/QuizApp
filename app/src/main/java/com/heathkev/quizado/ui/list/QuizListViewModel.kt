@@ -54,7 +54,7 @@ class QuizListViewModel : ViewModel() {
         withContext(Dispatchers.IO) {
             if (filter == DEFAULT_CATEGORY) {
                 if (_allQuizList.value == null) {
-                    parseQuizzes(firebaseRepository.getQuizListAsync())
+                    parseQuizzes(firebaseRepository.getQuizList())
                 } else {
                     _quizList.postValue(_allQuizList.value)
                 }

@@ -109,7 +109,7 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
 
     private suspend fun fetchQuestions() {
         withContext(Dispatchers.IO) {
-            val value = firebaseRepository.getQuestion(quizDetail.quiz_id)
+            val value = firebaseRepository.getQuizQuestions(quizDetail.quiz_id)
 
             val questionModelList: MutableList<QuestionsModel> = mutableListOf()
             for (doc in value!!) {

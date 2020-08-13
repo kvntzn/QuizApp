@@ -48,7 +48,7 @@ class HomeViewModel @ViewModelInject constructor(
             _isLoading.value = true
 
             val value = withContext(Dispatchers.IO) {
-                firebaseRepository.getResultsByUserIdAsync(user.uid)
+                firebaseRepository.getResultsByUserId(user.uid)
             }
 
             parseResults(value)

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.toObject
-import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.User
 import com.heathkev.quizado.data.Result
@@ -46,7 +45,7 @@ class DetailViewModel(private val quizListModel: QuizListModel, private val curr
     private suspend fun getResult() {
         withContext(Dispatchers.IO) {
             val value =
-                firebaseRepository.getResultsByQuizIdAsync(
+                firebaseRepository.getResultsByQuizId(
                     quizListModel.quiz_id,
                     currentUser.userId
                 )

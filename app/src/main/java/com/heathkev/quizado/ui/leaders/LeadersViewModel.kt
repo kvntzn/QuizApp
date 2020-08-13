@@ -35,7 +35,7 @@ class LeadersViewModel : ViewModel() {
         uiScope.launch {
             _isLoading.value = true
             val value = withContext(Dispatchers.IO) {
-                firebaseRepository.getAllResultsAsync()
+                firebaseRepository.getAllResults()
             }
             groupResults(value)
             _isLoading.value = false

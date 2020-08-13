@@ -16,11 +16,11 @@ class FirebaseRepository @Inject constructor(){
         return firebaseFireStore.collection("Users").document(userId).set(userMap).await()
     }
 
-    suspend fun getQuizListAsync(): QuerySnapshot? {
+    suspend fun getQuizList(): QuerySnapshot? {
         return firebaseFireStore.collection("QuizList").get().await()
     }
 
-    suspend fun getQuizListAsync(category: String?): QuerySnapshot? {
+    suspend fun getQuizList(category: String?): QuerySnapshot? {
         return firebaseFireStore.collection("QuizList").whereEqualTo("category", category).get().await()
     }
 
@@ -28,7 +28,7 @@ class FirebaseRepository @Inject constructor(){
         return firebaseFireStore.collection("QuizList").limit(1).get().await()
     }
 
-    suspend fun getQuestion(quizId: String): QuerySnapshot? {
+    suspend fun getQuizQuestions(quizId: String): QuerySnapshot? {
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Questions").get().await()
     }
 
@@ -36,15 +36,15 @@ class FirebaseRepository @Inject constructor(){
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Results").document(userId).set(result).await()
     }
 
-    suspend fun getResultsByQuizIdAsync(quizId: String, userId: String): DocumentSnapshot? {
+    suspend fun getResultsByQuizId(quizId: String, userId: String): DocumentSnapshot? {
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Results").document(userId).get().await()
     }
 
-    suspend fun getAllResultsAsync(): QuerySnapshot? {
+    suspend fun getAllResults(): QuerySnapshot? {
         return firebaseFireStore.collectionGroup("Results").get().await()
     }
 
-    suspend fun getResultsByUserIdAsync(userId: String): QuerySnapshot? {
+    suspend fun getResultsByUserId(userId: String): QuerySnapshot? {
         return firebaseFireStore.collectionGroup("Results").whereEqualTo("player_id", userId)
             .get()
             .await()
