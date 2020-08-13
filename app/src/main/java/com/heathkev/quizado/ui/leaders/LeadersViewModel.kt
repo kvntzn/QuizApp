@@ -1,6 +1,7 @@
 package com.heathkev.quizado.ui.leaders
 
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,9 +13,9 @@ import kotlinx.coroutines.*
 
 private const val TAG = "LeadersViewModel"
 
-class LeadersViewModel : ViewModel() {
-
-    private val firebaseRepository = FirebaseRepository()
+class LeadersViewModel @ViewModelInject constructor(
+    private val firebaseRepository: FirebaseRepository
+) : ViewModel() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
