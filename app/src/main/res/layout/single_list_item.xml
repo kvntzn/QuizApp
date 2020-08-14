@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/list_image"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="100dp"
                 android:contentDescription="@string/QuizTitle"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{quizListModel.image}"
@@ -51,8 +51,9 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="@{quizListModel.name}"
+                android:textStyle="bold"
                 android:textColor="@color/primaryColor"
-                android:textSize="24sp"
+                android:textAppearance="?textAppearanceListItem"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_image"
                 tools:text="@string/QuizTitle" />
@@ -70,7 +71,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_title"
-                app:lineHeight="28dp"
                 app:truncate="@{quizListModel.desc}"
                 tools:text="@string/quiz_description" />
 
