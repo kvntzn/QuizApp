@@ -1,6 +1,7 @@
 package com.heathkev.quizado.ui.list
 
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
@@ -13,9 +14,9 @@ import java.io.IOException
 
 private const val TAG = "QuizListViewModel"
 
-class QuizListViewModel : ViewModel() {
-
-    private var firebaseRepository = FirebaseRepository()
+class QuizListViewModel @ViewModelInject constructor(
+    private val firebaseRepository: FirebaseRepository
+) : ViewModel() {
 
     private val filter = FilterHolder()
 

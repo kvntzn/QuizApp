@@ -6,17 +6,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.children
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.chip.Chip
-import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentListBinding
+import com.heathkev.quizado.ui.MainNavigationFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListFragment : MainNavigationFragment() {
 
     companion object {
@@ -25,18 +26,18 @@ class ListFragment : MainNavigationFragment() {
 
     private lateinit var binding: FragmentListBinding
 
+    private val viewModel: QuizListViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_list, container, false
-        )
-
-        val viewModel = ViewModelProvider(this).get(QuizListViewModel::class.java)
-        binding.quizListViewModel = viewModel
-        binding.lifecycleOwner = this
+        binding = FragmentListBinding.inflate(
+            inflater, container, false
+        ).apply {
+            quizListViewModel = viewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         val adapter = QuizListAdapter(QuizListAdapter.OnClickListener {
             viewModel.displayQuizListModelDetails(it)
