@@ -144,6 +144,10 @@ class MainActivity : AppCompatActivity(),
         // then setup the action bar, tell it about the DrawerLayout
         navigationView.setupWithNavController(navController)
         btmNavigationView.setupWithNavController(navController)
+        btmNavigationView.setOnNavigationItemReselectedListener {
+            if(btmNavigationView.selectedItemId != it.itemId)
+                return@setOnNavigationItemReselectedListener
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
