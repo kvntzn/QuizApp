@@ -17,7 +17,7 @@ private const val TAG = "HomeViewModel"
 
 class HomeViewModel @ViewModelInject constructor(
     private val firebaseRepository: FirebaseRepository
-): ViewModel() {
+) : ViewModel() {
 
     val user = FirebaseAuth.getInstance().currentUser!!
 
@@ -46,13 +46,12 @@ class HomeViewModel @ViewModelInject constructor(
     private fun getResults() {
         uiScope.launch {
             _isLoading.value = true
-
             val value = withContext(Dispatchers.IO) {
                 firebaseRepository.getResultsByUserId(user.uid)
             }
+            _isLoading.value = false
 
             parseResults(value)
-            _isLoading.value = false
         }
     }
 

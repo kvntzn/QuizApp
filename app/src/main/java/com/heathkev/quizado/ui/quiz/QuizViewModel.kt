@@ -153,7 +153,6 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
                 if (currentUser.imageUrl != null && Uri.EMPTY != currentUser.imageUrl) currentUser.imageUrl.toString() else currentUser.imageUrl
 
             submit(resultMap)
-            isLoading(false)
         }
     }
 

@@ -55,7 +55,11 @@ class QuizListViewModel @ViewModelInject constructor(
         withContext(Dispatchers.IO) {
             if (filter == DEFAULT_CATEGORY) {
                 if (_allQuizList.value == null) {
+                    _isLoading.postValue(true)
+
                     parseQuizzes(firebaseRepository.getQuizList())
+
+                    _isLoading.postValue(false)
                 } else {
                     _quizList.postValue(_allQuizList.value)
                 }
@@ -84,7 +88,6 @@ class QuizListViewModel @ViewModelInject constructor(
 
     private fun onQueryChanged() {
         uiScope.launch {
-            _isLoading.value = true
             try {
                 _category.value = filter.currentValue
                 getQuizList(filter.currentValue)
@@ -93,7 +96,6 @@ class QuizListViewModel @ViewModelInject constructor(
                 _quizList.value = listOf()
                 Log.d(TAG, "Error : ${e.message}")
             }
-            _isLoading.value = false
         }
     }
 

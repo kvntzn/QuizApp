@@ -38,8 +38,9 @@ class LeadersViewModel @ViewModelInject constructor(
             val value = withContext(Dispatchers.IO) {
                 firebaseRepository.getAllResults()
             }
-            groupResults(value)
             _isLoading.value = false
+
+            groupResults(value)
         }
     }
 
