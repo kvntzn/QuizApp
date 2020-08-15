@@ -1,5 +1,5 @@
 # QuizApp
-Android quiz application. Users can choose what quiz they want and answer the questions within a limited time.
+Android quiz application. Play different quizzes to gain more scores and be in the leaderboards.
 
 # Tech
 * Mvvm
