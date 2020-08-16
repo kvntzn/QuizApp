@@ -78,4 +78,6 @@
     <string name="navigate_up">Navigate up</string>
     <string name="return_home">Return Home</string>
     <string name="Retry">retry</string>
+    <string name="welcome_to_quizado">Welcome to Quizado, \n Please select the Sign In button to get started.</string>
+    <string name="lady_with_paper">Lady with paper</string>
 </resources>
