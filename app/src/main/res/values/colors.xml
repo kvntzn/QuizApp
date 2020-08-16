@@ -30,5 +30,7 @@
 
     <color name="transparent">#0fff</color>
 
+    <color name="splashScreenColor">#673ab7</color>
+
     <item name="chip_bg_alpha_checked" format="float" type="dimen">0.18</item>
 </resources>

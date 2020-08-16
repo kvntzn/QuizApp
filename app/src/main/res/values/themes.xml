@@ -37,6 +37,10 @@
 
     <style name="AppTheme" parent="Base.AppTheme" />
 
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/preview_window</item>
+    </style>
+
     <style name="AppTheme.PopupTheme" parent="ThemeOverlay.Quizado.Light" />
 
 
