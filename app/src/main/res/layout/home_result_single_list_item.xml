@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/home_result_quiz_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
@@ -48,8 +48,10 @@
                 android:text="@{resultModel.quiz_name}"
                 android:textSize="@dimen/text_size_tiny"
                 app:layout_constraintBottom_toTopOf="@+id/home_result_score"
+                app:layout_constraintEnd_toStartOf="@+id/home_result_progress"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_result_title" />
+                app:layout_constraintTop_toBottomOf="@+id/home_result_title"
+                tools:text="@string/Title" />
 
             <TextView
                 android:id="@+id/home_result_score"

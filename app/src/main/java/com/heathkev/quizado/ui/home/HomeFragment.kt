@@ -7,8 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.heathkev.quizado.R
 import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.databinding.FragmentHomeBinding
+import com.heathkev.quizado.ui.MainActivityViewModel
+import com.heathkev.quizado.utils.asGlideTarget
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -17,6 +22,7 @@ class HomeFragment : MainNavigationFragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
     private val model: HomeViewModel by viewModels()
 
     override fun onCreateView(
@@ -52,6 +58,26 @@ class HomeFragment : MainNavigationFragment() {
                     )
                 )
                 model.playQuizComplete()
+            }
+        })
+
+        //TODO: Create extension for this
+        mainActivityViewModel.currentUser.observe(viewLifecycleOwner, Observer {
+            if(it!= null){
+                when (it.photoUrl) {
+                    null -> {
+                        Glide.with(binding.toolbar.context)
+                            .load(R.drawable.ic_default_profile_avatar)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(binding.toolbar.asGlideTarget())
+                    }
+                    else -> {
+                        Glide.with(binding.toolbar.context)
+                            .load(it.photoUrl)
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(binding.toolbar.asGlideTarget())
+                    }
+                }
             }
         })
 

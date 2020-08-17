@@ -6,12 +6,14 @@ import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -53,6 +55,8 @@ class MainActivity : AppCompatActivity(),
         R.id.leadersFragment,
         R.id.profileFragment
     )
+
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,15 +116,14 @@ class MainActivity : AppCompatActivity(),
         // Nav host and controller
         setupNavigation()
 
-        val viewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
-
         //Navigation Header
-        val navBinding: NavHeaderBinding =
-            DataBindingUtil.inflate(layoutInflater,
-                R.layout.nav_header, navigationView, false)
+        val navBinding =
+            NavHeaderBinding.inflate(layoutInflater, navigationView, false)
+            .apply {
+                viewModel = mainActivityViewModel
+                lifecycleOwner = this@MainActivity
+            }
         navigationView.addHeaderView(navBinding.root)
-        navBinding.viewModel = viewModel
-        navBinding.lifecycleOwner = this
     }
 
     private fun setupNavigation() {

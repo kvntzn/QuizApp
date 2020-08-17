@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.heathkev.quizado.ui.home.HomeViewModel" />
@@ -27,8 +26,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:navigationContentDescription="@string/home"
                 app:navigationIcon="@drawable/ic_menu"
+                app:navigationContentDescription="@string/home"
                 app:title="@string/home" />
 
         </com.google.android.material.appbar.AppBarLayout>
