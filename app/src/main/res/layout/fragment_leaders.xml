@@ -26,9 +26,23 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                app:navigationContentDescription="@string/home"
                 app:navigationIcon="@drawable/ic_menu"
-                app:title="@string/leaderboard" />
+                app:navigationContentDescription="@string/home"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+                    <ImageView
+                        android:id="@+id/hero_image"
+                        android:layout_width="150dp"
+                        android:tint="@color/primaryLightColor"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/logo"
+                        android:contentDescription="@string/app_name"/>
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 

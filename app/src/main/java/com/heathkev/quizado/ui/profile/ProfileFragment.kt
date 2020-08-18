@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +22,11 @@ class ProfileFragment : MainNavigationFragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+
+        (activity as AppCompatActivity?)!!.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar!!.setDisplayShowTitleEnabled(false)
+        }
 
         val firebaseAuth = FirebaseAuth.getInstance()
         val currentUser = if(firebaseAuth.currentUser != null){

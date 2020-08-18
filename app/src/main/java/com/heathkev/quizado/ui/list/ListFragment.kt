@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -37,6 +38,11 @@ class ListFragment : MainNavigationFragment() {
         ).apply {
             quizListViewModel = viewModel
             lifecycleOwner = viewLifecycleOwner
+        }
+
+        (activity as AppCompatActivity?)!!.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar!!.setDisplayShowTitleEnabled(false)
         }
 
         val adapter = QuizListAdapter(QuizListAdapter.OnClickListener {

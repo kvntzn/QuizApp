@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.heathkev.quizado.databinding.FragmentLeadersBinding
@@ -26,6 +27,11 @@ class LeadersFragment : MainNavigationFragment() {
                 viewModel = leadersViewModel
                 lifecycleOwner = viewLifecycleOwner
             }
+
+        (activity as AppCompatActivity?)!!.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar!!.setDisplayShowTitleEnabled(false)
+        }
 
         val adapter = LeadersListAdapter()
         val listView = binding.leadersList
