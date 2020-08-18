@@ -4,16 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.heathkev.quizado.R
-import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.databinding.FragmentHomeBinding
 import com.heathkev.quizado.ui.MainActivityViewModel
-import com.heathkev.quizado.utils.asGlideTarget
+import com.heathkev.quizado.ui.MainNavigationFragment
+import com.heathkev.quizado.ui.signin.setupProfileMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -35,6 +33,11 @@ class HomeFragment : MainNavigationFragment() {
                 lifecycleOwner = viewLifecycleOwner
                 viewModel = model
             }
+
+        (activity as AppCompatActivity?)!!.apply {
+            setSupportActionBar(binding.toolbar)
+            supportActionBar!!.setDisplayShowTitleEnabled(false)
+        }
 
         val adapter = HomeResultsListAdapter()
         val listView = binding.homeRecentResultsList
@@ -61,26 +64,12 @@ class HomeFragment : MainNavigationFragment() {
             }
         })
 
-        //TODO: Create extension for this
-        mainActivityViewModel.currentUser.observe(viewLifecycleOwner, Observer {
-            if(it!= null){
-                when (it.photoUrl) {
-                    null -> {
-                        Glide.with(binding.toolbar.context)
-                            .load(R.drawable.ic_default_profile_avatar)
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(binding.toolbar.asGlideTarget())
-                    }
-                    else -> {
-                        Glide.with(binding.toolbar.context)
-                            .load(it.photoUrl)
-                            .apply(RequestOptions.circleCropTransform())
-                            .into(binding.toolbar.asGlideTarget())
-                    }
-                }
-            }
-        })
-
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.setupProfileMenuItem(mainActivityViewModel, this)
     }
 }
