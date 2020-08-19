@@ -1,9 +1,7 @@
 package com.heathkev.quizado.ui.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -64,12 +62,13 @@ class HomeFragment : MainNavigationFragment() {
             }
         })
 
+        setHasOptionsMenu(true)
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
 
-        binding.toolbar.setupProfileMenuItem(mainActivityViewModel, this)
+        binding.toolbar.setupProfileMenuItem(menu, inflater, mainActivityViewModel, this)
     }
 }

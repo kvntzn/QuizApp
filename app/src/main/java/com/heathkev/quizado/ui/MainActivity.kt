@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -41,10 +42,14 @@ class MainActivity : AppCompatActivity(),
 
     private var doubleBackToExitPressedOnce = false
 
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
+
+    private lateinit var content: FrameLayout
     private lateinit var drawer: DrawerLayout
+    private lateinit var statusScrim: View
     private lateinit var navigationView: NavigationView
+    private lateinit var navHeaderBinding: NavHeaderBinding
     private lateinit var btmNavigationView: BottomNavigationView
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var navController: NavController
     private var navHostFragment: NavHostFragment? = null
 
@@ -55,8 +60,6 @@ class MainActivity : AppCompatActivity(),
         R.id.leadersFragment,
         R.id.profileFragment
     )
-
-    private val mainActivityViewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,40 +93,41 @@ class MainActivity : AppCompatActivity(),
             )
         }
 
-        val content = content_container
-
+        content = findViewById(R.id.content_container)
         content.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         // Make the content ViewGroup ignore insets so that it does not use the default padding
         content.setOnApplyWindowInsetsListener(NoopWindowInsetsListener)
 
-        val statusScrim = status_bar_scrim
+        statusScrim = findViewById(R.id.status_bar_scrim)
         statusScrim.setOnApplyWindowInsetsListener(HeightTopWindowInsetsListener)
 
-        drawer = main_drawer_layout
-        navigationView = navigation_view
-        btmNavigationView = list_btm_nav_view
+        drawer = findViewById(R.id.main_drawer_layout)
+        navigationView = findViewById(R.id.navigation_view)
+        btmNavigationView = findViewById(R.id.list_btm_nav_view)
+
+        //Navigation Header
+        navHeaderBinding = NavHeaderBinding.inflate(layoutInflater).apply {
+            viewModel = mainActivityViewModel
+            lifecycleOwner = this@MainActivity
+        }
 
         // Navigation view and Header
-        val menuView = findViewById<RecyclerView>(R.id.design_navigation_view)
-        navigationView.doOnApplyWindowInsets { v, insets, padding ->
-            v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
-            // NavigationView doesn't dispatch insets to the menu view, so pad the bottom here.
-            menuView?.updatePadding(bottom = insets.systemWindowInsetBottom)
+        navigationView.apply {
+            val menuView = findViewById<RecyclerView>(R.id.design_navigation_view)
+
+            navHeaderBinding.root.doOnApplyWindowInsets { v, insets, padding ->
+                v.updatePadding(top = padding.top + insets.systemWindowInsetTop)
+                // NavigationView doesn't dispatch insets to the menu view, so pad the bottom here.
+                menuView?.updatePadding(bottom = insets.systemWindowInsetBottom)
+            }
+
+            addHeaderView(navHeaderBinding.root)
         }
 
         // Nav host and controller
         setupNavigation()
-
-        //Navigation Header
-        val navBinding =
-            NavHeaderBinding.inflate(layoutInflater, navigationView, false)
-            .apply {
-                viewModel = mainActivityViewModel
-                lifecycleOwner = this@MainActivity
-            }
-        navigationView.addHeaderView(navBinding.root)
     }
 
     private fun setupNavigation() {
@@ -148,7 +152,7 @@ class MainActivity : AppCompatActivity(),
         navigationView.setupWithNavController(navController)
         btmNavigationView.setupWithNavController(navController)
         btmNavigationView.setOnNavigationItemReselectedListener {
-            if(btmNavigationView.selectedItemId != it.itemId)
+            if (btmNavigationView.selectedItemId != it.itemId)
                 return@setOnNavigationItemReselectedListener
         }
     }

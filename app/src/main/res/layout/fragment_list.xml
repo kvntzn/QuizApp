@@ -64,6 +64,14 @@
             </HorizontalScrollView>
         </com.google.android.material.appbar.AppBarLayout>
 
+        <!-- A view to draw above the AppBarLayout to mimic the status bar -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="?attr/colorSurface"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="com.heathkev.quizado.utils.StatusBarScrimBehavior" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

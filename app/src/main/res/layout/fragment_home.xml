@@ -28,6 +28,7 @@
                 android:layout_height="?actionBarSize"
                 app:navigationIcon="@drawable/ic_menu"
                 app:navigationContentDescription="@string/home"
+                app:title="@string/home"
                >
 
                 <RelativeLayout

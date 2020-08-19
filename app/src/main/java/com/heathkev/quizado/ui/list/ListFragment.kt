@@ -1,10 +1,7 @@
 package com.heathkev.quizado.ui.list
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
 import androidx.fragment.app.viewModels
@@ -15,7 +12,9 @@ import androidx.navigation.ui.NavigationUI
 import com.google.android.material.chip.Chip
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.FragmentListBinding
+import com.heathkev.quizado.ui.MainActivityViewModel
 import com.heathkev.quizado.ui.MainNavigationFragment
+import com.heathkev.quizado.ui.signin.setupProfileMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,6 +26,7 @@ class ListFragment : MainNavigationFragment() {
 
     private lateinit var binding: FragmentListBinding
 
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
     private val viewModel: QuizListViewModel by viewModels()
 
     override fun onCreateView(
@@ -107,7 +107,14 @@ class ListFragment : MainNavigationFragment() {
             }
         })
 
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        binding.toolbar.setupProfileMenuItem(menu, inflater, mainActivityViewModel, this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
