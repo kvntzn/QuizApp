@@ -116,9 +116,4 @@ class ListFragment : MainNavigationFragment() {
 
         binding.toolbar.setupProfileMenuItem(menu, inflater, mainActivityViewModel, this)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item,
-            requireView().findNavController()) || super.onOptionsItemSelected(item)
-    }
 }

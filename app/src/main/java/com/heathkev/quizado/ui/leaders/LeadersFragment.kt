@@ -1,14 +1,14 @@
 package com.heathkev.quizado.ui.leaders
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.heathkev.quizado.databinding.FragmentLeadersBinding
+import com.heathkev.quizado.ui.MainActivityViewModel
 import com.heathkev.quizado.ui.MainNavigationFragment
+import com.heathkev.quizado.ui.signin.setupProfileMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,6 +16,7 @@ class LeadersFragment : MainNavigationFragment() {
 
     private lateinit var binding: FragmentLeadersBinding
 
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
     private val leadersViewModel: LeadersViewModel by viewModels()
 
     override fun onCreateView(
@@ -44,6 +45,13 @@ class LeadersFragment : MainNavigationFragment() {
             }
         })
 
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        binding.toolbar.setupProfileMenuItem(menu, inflater, mainActivityViewModel, this)
     }
 }
