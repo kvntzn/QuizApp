@@ -54,7 +54,6 @@ class MainActivity : AppCompatActivity(),
     private var navHostFragment: NavHostFragment? = null
 
     private val TOP_LEVEL_DESTINATIONS = setOf(
-        R.id.startFragment,
         R.id.homeFragment,
         R.id.listFragment,
         R.id.leadersFragment,
@@ -139,7 +138,7 @@ class MainActivity : AppCompatActivity(),
             val currentNavId = destination.id
 
             val isTopLevelDestination = TOP_LEVEL_DESTINATIONS.contains(currentNavId)
-            if (isTopLevelDestination && currentNavId != R.id.startFragment) {
+            if (isTopLevelDestination) {
                 drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 btmNavigationView.visibility = View.VISIBLE
             } else {

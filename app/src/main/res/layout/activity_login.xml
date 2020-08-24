@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".ui.LoginActivity">
+
+<data>
+    <import type="com.heathkev.quizado.ui.start.LoginViewModel.AuthenticationState"/>
+    <import type="android.view.View"/>
+    <variable
+        name="viewModel"
+        type="com.heathkev.quizado.ui.start.LoginViewModel" />
+</data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/start_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/Title"
+        android:textColor="@color/primaryColor"
+        android:textSize="60sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/start_login_btn"
+        style="@style/Widget.Quizado.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/sign_in"
+        android:visibility="@{viewModel.authenticationState == AuthenticationState.UNAUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_feedback" />
+
+    <ProgressBar
+        android:id="@+id/start_progress"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="@{viewModel.authenticationState == AuthenticationState.AUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+        app:layout_constraintBottom_toBottomOf="@+id/start_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_title" />
+
+    <TextView
+        android:id="@+id/start_feedback"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:textAlignment="center"
+        android:visibility="@{viewModel.authenticationState == AuthenticationState.AUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_img"
+        tools:text="Initializing" />
+
+    <ImageView
+        android:id="@+id/start_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/character1"
+        android:contentDescription="@string/lady_with_paper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_title" />
+
+    <TextView
+        android:id="@+id/start_welcome_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textAlignment="center"
+        android:fontFamily="@font/merriweather"
+        android:textColor="@color/colorOnBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/start_img"
+        app:layout_constraintEnd_toEndOf="@+id/start_img"
+        app:layout_constraintStart_toStartOf="@+id/start_img"
+        android:text="@string/welcome_to_quizado" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

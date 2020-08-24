@@ -8,6 +8,7 @@ import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.firebase.FirebaseUserLiveData
 import kotlinx.coroutines.*
 
+//TODO HILT
 class LoginViewModel : ViewModel() {
 
     private var firebaseRepository = FirebaseRepository()

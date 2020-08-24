@@ -1,54 +1,36 @@
-package com.heathkev.quizado.ui.start
+package com.heathkev.quizado.ui
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.heathkev.quizado.R
-import com.heathkev.quizado.databinding.FragmentStartBinding
+import com.heathkev.quizado.databinding.ActivityLoginBinding
+import com.heathkev.quizado.ui.start.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
-private const val TAG = "START_LOG"
-
-class StartFragment : Fragment() {
-
+const val TAG = "LoginActivity"
+@AndroidEntryPoint
+class LoginActivity : AppCompatActivity() {
     companion object {
         const val SIGN_IN_REQUEST_CODE = 1001
     }
 
-    private val viewModel by viewModels<LoginViewModel>()
-    private lateinit var binding: FragmentStartBinding
+    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var binding: ActivityLoginBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_start, container, false)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-
-        (activity as AppCompatActivity).supportActionBar?.hide()
-
-        binding.startFeedback.text = getString(R.string.checking_user_account)
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.startLoginBtn.setOnClickListener {
             launchSignInFlow()
@@ -62,8 +44,7 @@ class StartFragment : Fragment() {
         if (currentUser != null) {
             binding.startFeedback.text = getString(R.string.logged_in)
 
-            requireView().findNavController()
-                .navigate(StartFragmentDirections.actionStartFragmentToHomeFragment())
+            enterMainActivity()
         }
     }
 
@@ -74,11 +55,9 @@ class StartFragment : Fragment() {
             if (resultCode == Activity.RESULT_OK) {
                 // User successfully signed in
 
-                binding.startFeedback.text = getString(R.string.account_created)
-                requireView().findNavController()
-                    .navigate(StartFragmentDirections.actionStartFragmentToHomeFragment())
+                binding.startFeedback.text = getString(R.string.logged_in)
+                enterMainActivity()
                 viewModel.registerUser()
-
                 Log.i(
                     TAG,
                     "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
@@ -109,5 +88,10 @@ class StartFragment : Fragment() {
                 .build(),
             SIGN_IN_REQUEST_CODE
         )
+    }
+
+    private fun enterMainActivity(){
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 }
