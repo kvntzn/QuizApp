@@ -1,51 +1,52 @@
 package com.heathkev.quizado.ui.profile
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.heathkev.quizado.ui.MainNavigationFragment
-import com.heathkev.quizado.R
-import com.heathkev.quizado.data.User
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.heathkev.quizado.databinding.FragmentProfileBinding
+import com.heathkev.quizado.ui.MainActivityViewModel
+import com.heathkev.quizado.ui.MainNavigationFragment
+import com.heathkev.quizado.ui.signin.setupProfileMenuItem
+import dagger.hilt.android.AndroidEntryPoint
 
-private lateinit var binding: FragmentProfileBinding
-
+@AndroidEntryPoint
 class ProfileFragment : MainNavigationFragment() {
+
+    private lateinit var binding: FragmentProfileBinding
+
+    private val mainActivityViewModel: MainActivityViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false)
+
+        profileViewModel.user.observe(viewLifecycleOwner, Observer {
+            if(it!=null){
+                profileViewModel.getResult(it)
+            }
+        })
+
+        binding = FragmentProfileBinding.inflate(inflater, container, false).apply {
+            viewModel = profileViewModel
+            lifecycleOwner = viewLifecycleOwner
+        }
 
         (activity as AppCompatActivity?)!!.apply {
             setSupportActionBar(binding.toolbar)
             supportActionBar!!.setDisplayShowTitleEnabled(false)
         }
 
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val currentUser = if(firebaseAuth.currentUser != null){
-            val authUser = firebaseAuth.currentUser!!
-            User(
-                authUser.uid,
-                authUser.displayName,
-                authUser.photoUrl,
-                authUser.email
-            )
-        }else{
-            User()
-        }
-
-        val viewModelFactory = ProfileViewModelFactory(currentUser)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(ProfileViewModel::class.java)
-        binding.viewModel = viewModel
-        binding.lifecycleOwner = this
-
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        binding.toolbar.setupProfileMenuItem(menu, inflater, mainActivityViewModel, this)
     }
 }

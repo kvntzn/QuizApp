@@ -28,21 +28,8 @@
                 android:layout_height="?actionBarSize"
                 app:navigationIcon="@drawable/ic_menu"
                 app:navigationContentDescription="@string/home"
-                >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center">
-                    <ImageView
-                        android:id="@+id/hero_image"
-                        android:layout_width="150dp"
-                        android:tint="@color/primaryLightColor"
-                        android:layout_height="match_parent"
-                        app:srcCompat="@drawable/logo"
-                        android:contentDescription="@string/app_name"/>
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
+                app:title="@string/leaderboard"
+                />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -55,40 +42,17 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/leaders_list"
-            app:goneUnless="@{!viewModel.isLoading}"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginBottom="32dp"
+            app:goneUnless="@{!viewModel.isLoading}"
+            android:layout_marginTop="@dimen/margin_large"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/leaders_img_cup"
+            app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="16"
             tools:listitem="@layout/leaders_single_list_item" />
-
-        <TextView
-            android:id="@+id/leaders_text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
-            android:layout_marginEnd="@dimen/margin_large"
-            android:text="@string/Title"
-            android:textColor="@color/primaryColor"
-            android:textSize="@dimen/text_size_h1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/leaders_text_title_desc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/leaderboard"
-            android:textColor="@color/colorOnBackground"
-            app:layout_constraintStart_toStartOf="@+id/leaders_text_title"
-            app:layout_constraintTop_toBottomOf="@+id/leaders_text_title"
-            app:lineHeight="28dp" />
 
         <ProgressBar
             android:id="@+id/leaders_progress"
@@ -102,17 +66,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
-
-        <ImageView
-            android:id="@+id/leaders_img_cup"
-            android:layout_width="@dimen/normal_size_image"
-            android:layout_height="@dimen/normal_size_image"
-            android:layout_marginStart="@dimen/margin_large"
-            android:contentDescription="@string/cup"
-            android:tint="@color/primaryColor"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/leaders_text_title"
-            app:srcCompat="@drawable/ic_cup" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
