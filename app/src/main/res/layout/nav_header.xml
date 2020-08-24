@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:textColor="@color/colorOnBackground"
-            android:textSize="@dimen/text_size_h2"
+            android:textSize="@dimen/text_size_h3"
             app:playerNames="@{viewModel.currentUser.displayName}"
             android:textStyle="bold"
             tools:text="@string/app_name" />
@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
             android:layout_marginBottom="@dimen/margin_normal"
+            android:textSize="@dimen/text_size_tiny"
             android:fontFamily="@font/merriweather"
             app:playerNames="@{viewModel.currentUser.email}"
             tools:text="@string/app_name" />
