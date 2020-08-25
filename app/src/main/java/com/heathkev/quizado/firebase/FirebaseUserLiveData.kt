@@ -6,7 +6,6 @@ import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class FirebaseUserLiveData @Inject constructor() : LiveData<FirebaseUser?>(){
     private val firebaseAuth = FirebaseAuth.getInstance()
 
