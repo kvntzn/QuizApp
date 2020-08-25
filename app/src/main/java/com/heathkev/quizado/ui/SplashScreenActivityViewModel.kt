@@ -17,7 +17,6 @@ class SplashScreenActivityViewModel @ViewModelInject constructor(
             LaunchDestination.LOGIN
         }
     }
-
 }
 
 enum class LaunchDestination {

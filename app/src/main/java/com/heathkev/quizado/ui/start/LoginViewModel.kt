@@ -1,6 +1,7 @@
 package com.heathkev.quizado.ui.start
 
 import android.net.Uri
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations.map
 import androidx.lifecycle.ViewModel
@@ -8,11 +9,10 @@ import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.firebase.FirebaseUserLiveData
 import kotlinx.coroutines.*
 
-//TODO HILT
-class LoginViewModel : ViewModel() {
-
-    private var firebaseRepository = FirebaseRepository()
-    val currentUser = FirebaseUserLiveData()
+class LoginViewModel @ViewModelInject constructor(
+    private val firebaseRepository: FirebaseRepository,
+    private val currentUser: FirebaseUserLiveData
+) : ViewModel() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
