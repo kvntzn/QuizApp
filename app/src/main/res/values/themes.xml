@@ -28,7 +28,7 @@
         <item name="sessionListKeyline">@dimen/session_keyline</item>
 
         <!-- Custom theme attrs -->
-        <item name="ioschedNavigationBarDividerColor">?attr/colorControlLight</item>
+        <item name="quizadoNavigationBarDividerColor">?attr/colorControlLight</item>
     </style>
     <style name="ThemeOverlay.Quizado.Light" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="colorPrimary">@color/primaryColor</item>

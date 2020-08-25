@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.signin.SignOutDialogFragment">
+    <data>
+
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_start"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="?dialogPreferredPadding" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_end"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="?dialogPreferredPadding" />
+
+        <LinearLayout
+            android:id="@+id/username_email_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_small"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/profile_dialog_header_height"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/margin_normal"
+            android:paddingTop="@dimen/margin_normal"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@id/user_avatar"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:textAppearance="@style/TextAppearance.Quizado.AccountDialog.Username"
+                tools:text="User Name" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                tools:text="user@email.com" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/user_avatar"
+            android:layout_width="@dimen/profile_dialog_account_image_size"
+            android:layout_height="@dimen/profile_dialog_account_image_size"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toBottomOf="@id/username_email_container"
+            app:layout_constraintStart_toEndOf="@id/guideline_start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:clipToCircle="@{true}"
+            android:src="@drawable/ic_default_profile_avatar"
+            tools:src="@drawable/ic_default_profile_avatar" />
+
+        <View
+            android:id="@+id/divider1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/list_divider"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/username_email_container" />
+
+
+        <TextView
+            android:id="@+id/message"
+            style="?materialAlertDialogBodyTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:text="@string/dialog_sign_out_content"
+            app:layout_constraintEnd_toStartOf="@id/guideline_end"
+            app:layout_constraintStart_toEndOf="@id/guideline_start"
+            app:layout_constraintTop_toBottomOf="@id/divider1"
+            tools:ignore="PrivateResource" />
+
+        <TextView
+            android:id="@+id/sign_out"
+            style="@style/Widget.Quizado.AccountDialog.ActionButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:drawableStart="@drawable/ic_logout"
+            android:text="@string/sign_out"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/message" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@drawable/list_divider"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sign_out" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

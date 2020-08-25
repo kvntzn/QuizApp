@@ -3,7 +3,7 @@
 
     <!-- Navigation -->
     <style name="Widget.Quizado.NavigationBarContentFrameLayout" parent="android:Widget.Material">
-        <item name="navigationBarBorderColor">?attr/ioschedNavigationBarDividerColor</item>
+        <item name="navigationBarBorderColor">?attr/quizadoNavigationBarDividerColor</item>
         <item name="navigationBarBorderSize">1dp</item>
     </style>
 
@@ -56,6 +56,23 @@
         <item name="cornerFamilyTopRight">rounded</item>
         <item name="cornerFamilyBottomRight">rounded</item>
         <item name="cornerSize">@dimen/corner_size_normal</item>
+    </style>
+
+    <!-- Account dialogs -->
+    <style name="TextAppearance.Quizado.AccountDialog.Username" parent="@style/TextAppearance.Quizado.ListPrimary" />
+
+    <style name="Widget.Quizado.AccountDialog.ActionButton" parent="">
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:drawablePadding">@dimen/margin_normal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">?listPreferredItemHeightSmall</item>
+        <item name="android:paddingBottom">@dimen/spacing_normal</item>
+        <item name="android:paddingRight">?listPreferredItemPaddingEnd</item>
+        <item name="android:paddingStart">?listPreferredItemPaddingStart</item>
+        <item name="android:paddingTop">@dimen/spacing_normal</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Text Appearance-->

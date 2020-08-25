@@ -80,4 +80,6 @@
     <string name="Retry">retry</string>
     <string name="welcome_to_quizado">Welcome to Quizado, \n Please select the Sign In button to get started.</string>
     <string name="lady_with_paper">Lady with paper</string>
+    <string name="dialog_sign_out_content">All saved data remain synced to your account.</string>
+    <string name="sign_out">Sign out</string>
 </resources>

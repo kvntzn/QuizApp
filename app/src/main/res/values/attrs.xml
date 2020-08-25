@@ -7,7 +7,7 @@
 
     <declare-styleable name="Theme">
         <!-- Navigation bar divider color, used by NavigationBarContentFrameLayout -->
-        <attr name="ioschedNavigationBarDividerColor" format="color" />
+        <attr name="quizadoNavigationBarDividerColor" format="color" />
 
         <attr name="colorControlLight" format="color" />
 

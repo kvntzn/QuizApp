@@ -1,5 +1,6 @@
 package com.heathkev.quizado.ui
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
@@ -13,6 +14,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.ui.list.QuizListAdapter
+import com.heathkev.quizado.utils.CircularOutlineProvider
+
+@BindingAdapter("clipToCircle")
+fun clipToCircle(view: View, clip: Boolean) {
+    view.clipToOutline = clip
+    view.outlineProvider = if (clip) CircularOutlineProvider else null
+}
 
 @BindingAdapter("goneUnless")
 fun goneUnless(view: View, visible: Boolean) {

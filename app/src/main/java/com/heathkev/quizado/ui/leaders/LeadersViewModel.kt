@@ -67,10 +67,10 @@ class LeadersViewModel @ViewModelInject constructor(
             }
 
         Log.d(TAG, "Results Grouped:$grouped")
-        _results.postValue(grouped.values.toList().sortedByDescending { it.correct })
+        _results.postValue(grouped.values.take(10).toList().sortedByDescending { it.correct })
     }
 
-    override fun onCleared() {
+override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
