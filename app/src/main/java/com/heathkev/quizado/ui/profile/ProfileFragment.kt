@@ -3,6 +3,7 @@ package com.heathkev.quizado.ui.profile
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.heathkev.quizado.databinding.FragmentProfileBinding
@@ -16,7 +17,7 @@ class ProfileFragment : MainNavigationFragment() {
 
     private lateinit var binding: FragmentProfileBinding
 
-    private val mainActivityViewModel: MainActivityViewModel by viewModels()
+    private val mainActivityViewModel: MainActivityViewModel by activityViewModels()
     private val profileViewModel: ProfileViewModel by viewModels()
 
     override fun onCreateView(
