@@ -26,6 +26,10 @@
         <!-- Widget styles -->
         <item name="toolbarStyle">@style/Widget.Quizado.Toolbar</item>
         <item name="sessionListKeyline">@dimen/session_keyline</item>
+        <item name="navigationViewStyle">@style/Widget.Quizado.NavigationView</item>
+
+        <!-- Dialogs -->
+        <item name="materialAlertDialogTheme">@style/AlertDialog.Theme</item>
 
         <!-- Custom theme attrs -->
         <item name="quizadoNavigationBarDividerColor">?attr/colorControlLight</item>
@@ -43,5 +47,20 @@
 
     <style name="AppTheme.PopupTheme" parent="ThemeOverlay.Quizado.Light" />
 
+    <style name="AlertDialog.Theme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/AlertDialog.Style</item>
+        <item name="buttonBarStyle">@style/AlertDialog.ButtonBar</item>
+        <item name="dialogPreferredPadding">@dimen/dialogPreferredPadding</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AlertDialog.TitleText</item>
+        <item name="materialAlertDialogTitlePanelStyle">@style/AlertDialog.TitlePanel</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AlertDialog.BodyText</item>
+    </style>
 
+    <style name="AlertDialog.Style" parent="MaterialAlertDialog.MaterialComponents">
+        <item name="shapeAppearance">@style/AlertDialog.ShapeAppearance</item>
+    </style>
+
+    <style name="AlertDialog.ShapeAppearance" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerSize">@dimen/dialog_corner_radius</item>
+    </style>
 </resources>

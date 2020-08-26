@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.os.BuildCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
 
 /**
@@ -26,6 +27,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 val <T> T.checkAllMatched: T
     get() = this
 
+
+inline fun <T : ViewDataBinding> T.executeAfter(block: T.() -> Unit) {
+    block()
+    executePendingBindings()
+}
 
 private fun createStateForView(view: View) = ViewPaddingState(view.paddingLeft,
     view.paddingTop, view.paddingRight, view.paddingBottom, view.paddingStart, view.paddingEnd)

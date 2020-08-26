@@ -110,10 +110,6 @@ class MainActivity : AppCompatActivity(),
         navigationView = findViewById(R.id.navigation_view)
         btmNavigationView = findViewById(R.id.list_btm_nav_view)
 
-        mainActivityViewModel.navigateToSignOutDialogAction.observe(this, EventObserver {
-            openSignOutDialog()
-        })
-
         //Navigation Header
         navHeaderBinding = NavHeaderBinding.inflate(layoutInflater).apply {
             viewModel = mainActivityViewModel
@@ -134,6 +130,10 @@ class MainActivity : AppCompatActivity(),
         }
         // Nav host and controller
         setupNavigation()
+
+        mainActivityViewModel.navigateToSignOutDialogAction.observe(this, EventObserver {
+            openSignOutDialog()
+        })
     }
 
     private fun openSignOutDialog() {

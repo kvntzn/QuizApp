@@ -1,10 +1,37 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Widget.Quizado" parent="@android:style/Widget.Material" />
 
+    <!-- Dialog-->
+    <style name="AlertDialog.TitleText" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="AlertDialog.TitlePanel" parent="MaterialAlertDialog.MaterialComponents.Title.Panel">
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">?attr/dialogPreferredPadding</item>
+    </style>
+
+    <style name="AlertDialog.BodyText" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">viewStart</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="AlertDialog.ButtonBar" parent="@style/Widget.AppCompat.ButtonBar.AlertDialog">
+        <item name="android:paddingBottom">@dimen/margin_small</item>
+        <item name="android:paddingTop">@dimen/margin_small</item>
+    </style>
+
     <!-- Navigation -->
     <style name="Widget.Quizado.NavigationBarContentFrameLayout" parent="android:Widget.Material">
         <item name="navigationBarBorderColor">?attr/quizadoNavigationBarDividerColor</item>
         <item name="navigationBarBorderSize">1dp</item>
+    </style>
+
+    <style name="Widget.Quizado.NavigationView" parent="@style/Widget.MaterialComponents.NavigationView">
+        <item name="itemHorizontalPadding">@dimen/nav_item_horizontal_padding</item>
     </style>
 
     <style name="Widget.Quizado.Toolbar" parent="Widget.MaterialComponents.Toolbar">
