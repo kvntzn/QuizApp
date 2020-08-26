@@ -84,8 +84,11 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
     kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
-    // LiveData
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha07'
+    // Lifecycle
+    def lifecycle_version = "2.2.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'

@@ -3,6 +3,7 @@ package com.heathkev.quizado.ui.home
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -18,7 +19,7 @@ class HomeFragment : MainNavigationFragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    private val mainActivityViewModel: MainActivityViewModel by viewModels()
+    private val mainActivityViewModel: MainActivityViewModel by activityViewModels()
     private val model: HomeViewModel by viewModels()
 
     override fun onCreateView(

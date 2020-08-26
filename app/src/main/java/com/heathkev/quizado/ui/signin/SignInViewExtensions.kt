@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuItemCompat
@@ -19,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.heathkev.quizado.R
 import com.heathkev.quizado.ui.MainActivityViewModel
 import com.heathkev.quizado.utils.asGlideTarget
-import java.util.zip.Inflater
 
 fun Toolbar.setupProfileMenuItem(
     menu: Menu,
@@ -31,7 +29,7 @@ fun Toolbar.setupProfileMenuItem(
 
     val profileItem = menu.findItem(R.id.action_profile) ?: return
     profileItem.setOnMenuItemClickListener {
-        Toast.makeText(context,"Test",Toast.LENGTH_SHORT).show()
+        viewModel.onProfileClicked()
         true
     }
 

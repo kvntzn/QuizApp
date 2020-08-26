@@ -11,11 +11,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.core.view.updatePadding
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -27,18 +25,24 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.NavHeaderBinding
+import com.heathkev.quizado.result.EventObserver
+import com.heathkev.quizado.ui.signin.SignOutDialogFragment
 import com.heathkev.quizado.utils.HeightTopWindowInsetsListener
 import com.heathkev.quizado.utils.NoopWindowInsetsListener
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
+import com.heathkev.quizado.utils.shouldCloseDrawerFromBackPress
 import com.heathkev.quizado.widget.NavigationBarContentFrameLayout
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 const val DARK_MODE = "darkmode"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
     NavigationHost {
+
+    companion object {
+        private const val DIALOG_SIGN_OUT = "dialog_sign_out"
+    }
 
     private var doubleBackToExitPressedOnce = false
 
@@ -106,6 +110,10 @@ class MainActivity : AppCompatActivity(),
         navigationView = findViewById(R.id.navigation_view)
         btmNavigationView = findViewById(R.id.list_btm_nav_view)
 
+        mainActivityViewModel.navigateToSignOutDialogAction.observe(this, EventObserver {
+            openSignOutDialog()
+        })
+
         //Navigation Header
         navHeaderBinding = NavHeaderBinding.inflate(layoutInflater).apply {
             viewModel = mainActivityViewModel
@@ -124,9 +132,12 @@ class MainActivity : AppCompatActivity(),
 
             addHeaderView(navHeaderBinding.root)
         }
-
         // Nav host and controller
         setupNavigation()
+    }
+
+    private fun openSignOutDialog() {
+        SignOutDialogFragment().show(supportFragmentManager, DIALOG_SIGN_OUT)
     }
 
     private fun setupNavigation() {
@@ -161,28 +172,37 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun onBackPressed() {
-        val btmNavView = btmNavigationView
-        if (btmNavView.visibility == View.VISIBLE) {
-            if (btmNavView.selectedItemId != R.id.homeFragment) {
-                btmNavView.selectedItemId =
-                    R.id.homeFragment
-            } else {
-                if (doubleBackToExitPressedOnce) {
-                    this@MainActivity.finish()
-                    return
-                }
-
-                this.doubleBackToExitPressedOnce = true
-                Toast.makeText(
-                    this,
-                    getString(R.string.please_click_back_again),
-                    Toast.LENGTH_SHORT
-                ).show()
-                Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
-            }
+        if (drawer.isDrawerOpen(navigationView) && drawer.shouldCloseDrawerFromBackPress()) {
+            closeDrawer()
+        } else if (btmNavigationView.visibility == View.VISIBLE) {
+            closeApp(btmNavigationView)
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun closeApp(btmNavView: BottomNavigationView) {
+        if (btmNavView.selectedItemId != R.id.homeFragment) {
+            btmNavView.selectedItemId =
+                R.id.homeFragment
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                this@MainActivity.finish()
+                return
+            }
+
+            this.doubleBackToExitPressedOnce = true
+            Toast.makeText(
+                this,
+                getString(R.string.please_click_back_again),
+                Toast.LENGTH_SHORT
+            ).show()
+            Handler().postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+        }
+    }
+
+    private fun closeDrawer() {
+        drawer.closeDrawer(GravityCompat.START)
     }
 
     override fun registerToolbarWithNavigation(toolbar: Toolbar) {
