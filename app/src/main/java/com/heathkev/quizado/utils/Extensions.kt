@@ -2,11 +2,14 @@ package com.heathkev.quizado.utils
 
 import android.annotation.SuppressLint
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.BuildCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.ViewDataBinding
 import androidx.drawerlayout.widget.DrawerLayout
+import com.heathkev.quizado.model.Theme
 
 /**
  * Helper to force a when statement to assert all options are matched in a when statement.
@@ -88,3 +91,11 @@ fun DrawerLayout.shouldCloseDrawerFromBackPress(): Boolean {
     // On P and earlier, always close the drawer
     return true
 }
+
+fun AppCompatActivity.updateForTheme(theme: Theme) = when (theme) {
+    Theme.DARK -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_YES
+    Theme.LIGHT -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_NO
+    Theme.SYSTEM -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+    Theme.BATTERY_SAVER -> delegate.localNightMode = AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+}
+

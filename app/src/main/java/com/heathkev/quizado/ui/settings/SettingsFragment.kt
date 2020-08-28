@@ -1,20 +1,22 @@
 package com.heathkev.quizado.ui.settings
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
-import com.heathkev.quizado.ui.DARK_MODE
-import com.heathkev.quizado.ui.MainNavigationFragment
+import androidx.fragment.app.viewModels
 import com.heathkev.quizado.R
+import com.heathkev.quizado.model.Theme
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-
+@AndroidEntryPoint
 class SettingsFragment : MainNavigationFragment() {
+
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,22 +36,23 @@ class SettingsFragment : MainNavigationFragment() {
             }
         }
 
-        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        settings_switch.isChecked = viewModel.currentTheme == Theme.DARK
 
-        val isDarkMode = sharedPref.getBoolean(DARK_MODE, false)
-        settings_switch.isChecked = isDarkMode
-
-        settings_switch.setOnCheckedChangeListener { buttonView, isChecked ->
+        settings_switch.setOnCheckedChangeListener { _, isChecked ->
             if(isChecked){
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                viewModel.setTheme(Theme.DARK)
             }else{
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                viewModel.setTheme(Theme.LIGHT)
             }
 
-            with(sharedPref.edit()){
-                putBoolean(DARK_MODE, isChecked)
-                apply()
-            }
         }
+    }
+
+    //TODO Multiple themes
+    private fun getTitleForTheme(theme: Theme) = when (theme) {
+        Theme.LIGHT -> getString(R.string.settings_theme_light)
+        Theme.DARK -> getString(R.string.settings_theme_dark)
+        Theme.SYSTEM -> getString(R.string.settings_theme_system)
+        Theme.BATTERY_SAVER -> getString(R.string.settings_theme_battery)
     }
 }

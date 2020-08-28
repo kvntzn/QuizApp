@@ -14,6 +14,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.core.view.updatePadding
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -27,14 +28,10 @@ import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.NavHeaderBinding
 import com.heathkev.quizado.result.EventObserver
 import com.heathkev.quizado.ui.signin.SignOutDialogFragment
-import com.heathkev.quizado.utils.HeightTopWindowInsetsListener
-import com.heathkev.quizado.utils.NoopWindowInsetsListener
-import com.heathkev.quizado.utils.doOnApplyWindowInsets
-import com.heathkev.quizado.utils.shouldCloseDrawerFromBackPress
+import com.heathkev.quizado.utils.*
 import com.heathkev.quizado.widget.NavigationBarContentFrameLayout
 import dagger.hilt.android.AndroidEntryPoint
 
-const val DARK_MODE = "darkmode"
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
@@ -66,15 +63,8 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Update dark mode
-        val sharedPref = getPreferences(Context.MODE_PRIVATE) ?: return
-        val isDarkMode = sharedPref.getBoolean(DARK_MODE, false)
 
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
+        updateForTheme(mainActivityViewModel.currentTheme)
 
         setContentView(R.layout.activity_main)
 
@@ -130,6 +120,8 @@ class MainActivity : AppCompatActivity(),
         }
         // Nav host and controller
         setupNavigation()
+
+        mainActivityViewModel.theme.observe(this, Observer(::updateForTheme))
 
         mainActivityViewModel.navigateToSignOutDialogAction.observe(this, EventObserver {
             openSignOutDialog()

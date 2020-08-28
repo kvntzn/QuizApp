@@ -82,4 +82,8 @@
     <string name="lady_with_paper">Lady with paper</string>
     <string name="dialog_sign_out_content">All saved data remain synced to your account.</string>
     <string name="sign_out">Sign out</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_system">System default</string>
+    <string name="settings_theme_battery">Set by Battery Saver</string>
 </resources>
