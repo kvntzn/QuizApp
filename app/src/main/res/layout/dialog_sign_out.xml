@@ -45,13 +45,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="1"
-                android:text="@{viewModel.currentUser.name}"
+                app:playerNames="@{viewModel.currentUser.name}"
                 android:textAppearance="@style/TextAppearance.Quizado.AccountDialog.Username"
                 tools:text="User Name" />
 
             <TextView
                 android:id="@+id/email"
-                android:text="@{viewModel.currentUser.email}"
+                app:playerNames="@{viewModel.currentUser.email}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="1"
