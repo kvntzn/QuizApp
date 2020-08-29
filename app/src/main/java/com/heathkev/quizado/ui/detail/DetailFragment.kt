@@ -66,13 +66,6 @@ class DetailFragment : MainNavigationFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.root.doOnApplyWindowInsets { _, insets, _ ->
-            binding.statusBar.run {
-                layoutParams.height = insets.systemWindowInsetTop
-                isVisible = layoutParams.height > 0
-                requestLayout()
-            }
-        }
 
         binding.detailsScroll.doOnApplyWindowInsets { v, insets, padding ->
             v.updatePaddingRelative(bottom = padding.bottom + insets.systemWindowInsetBottom)
