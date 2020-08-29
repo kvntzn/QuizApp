@@ -3,85 +3,108 @@ package com.heathkev.quizado.ui.quiz
 import android.net.Uri
 import android.os.CountDownTimer
 import android.util.Log
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.QuestionsModel
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.data.User
 import com.heathkev.quizado.firebase.FirebaseRepository
+import com.heathkev.quizado.firebase.FirebaseUserLiveData
 import kotlinx.coroutines.*
 
 private const val TAG = "QuizViewModel"
 
-class QuizViewModel(private val quizListModel: QuizListModel, private val currentUser: User) :
-    ViewModel() {
-
-    private var firebaseRepository = FirebaseRepository()
+class QuizViewModel @ViewModelInject constructor (
+    private val firebaseRepository: FirebaseRepository,
+    firebaseUser: FirebaseUserLiveData
+) : ViewModel() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val quizDetail = quizListModel
+    private lateinit var currentUser: User
+    lateinit var quizDetail: QuizListModel
+    private var totalQuestionToAnswer: Long = 0
 
     private var allQuestionList = mutableListOf<QuestionsModel>()
-    private val totalQuestionToAnswer = quizListModel.questions
     private val questionsToAnswer = mutableListOf<QuestionsModel>()
 
     private val _isLoading = MutableLiveData<Boolean>()
+    private val _quizTitle = MutableLiveData<String>()
+    private val _questionNumber = MutableLiveData<Int>()
+    private val _questionsTotalNumber = MutableLiveData<Long>()
+    private val _questionTime = MutableLiveData<String>()
+    private val _questionProgress = MutableLiveData<Int>()
+    private val _questionText = MutableLiveData<String>()
+    private val _optionA = MutableLiveData<String>()
+    private val _optionB = MutableLiveData<String>()
+    private val _optionC = MutableLiveData<String>()
+    private val _optionD = MutableLiveData<String>()
+    private val _isTimeUp = MutableLiveData<Boolean>()
+    private val _shouldNavigateToResult = MutableLiveData<Boolean>()
+
+    val user: LiveData<User> = Transformations.map(firebaseUser){ user ->
+        if(user != null){
+            User(
+                user.uid,
+                user.displayName,
+                user.photoUrl,
+                user.email
+            )
+        }else{
+            User()
+        }
+    }
+
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
     // Question Title
-    private val _quizTitle = MutableLiveData<String>()
     val quizTitle: LiveData<String>
         get() = _quizTitle
 
     // Question number
-    private val _questionNumber = MutableLiveData<Int>()
     val questionNumber: LiveData<Int>
         get() = _questionNumber
+
+    // Question total number
+    val questionsTotalNumber: LiveData<Long>
+        get() = _questionsTotalNumber
 
     // Question time
     private lateinit var timer: CountDownTimer
 
-    private val _questionTime = MutableLiveData<String>()
     val questionTime: LiveData<String>
         get() = _questionTime
 
     // Question time Progress bar
-    private val _questionProgress = MutableLiveData<Int>()
     val questionProgress: LiveData<Int>
         get() = _questionProgress
 
     // Question text
-    private val _questionText = MutableLiveData<String>()
     val questionText: LiveData<String>
         get() = _questionText
 
     // Options
-    private val _optionA = MutableLiveData<String>()
     val optionA: LiveData<String>
         get() = _optionA
 
-    private val _optionB = MutableLiveData<String>()
     val optionB: LiveData<String>
         get() = _optionB
 
-    private val _optionC = MutableLiveData<String>()
     val optionC: LiveData<String>
         get() = _optionC
 
-    private val _optionD = MutableLiveData<String>()
     val optionD: LiveData<String>
         get() = _optionD
 
-    private val _isTimeUp = MutableLiveData<Boolean>()
     val isTimeUp: LiveData<Boolean>
         get() = _isTimeUp
 
-    private val _shouldNavigateToResult = MutableLiveData<Boolean>()
     val shouldNavigateToResult: LiveData<Boolean>
         get() = _shouldNavigateToResult
 
@@ -92,20 +115,22 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
     private var currentQuestionNumber: Int = 1
     private var notAnswered: Int = 0
 
-    init {
-        _quizTitle.value = quizDetail.name
-        initializeQuestions()
-    }
-
-    private fun initializeQuestions() {
+    fun initializeQuestions(quizListModel: QuizListModel, user: User) {
         uiScope.launch {
             isLoading(true)
+
+            quizDetail = quizListModel
+            currentUser = user
+            totalQuestionToAnswer = quizListModel.questions
+
+            _quizTitle.value = quizListModel.name
+            _questionsTotalNumber.value = quizListModel.questions
+
             fetchQuestions()
+
             isLoading(false)
         }
     }
-
-
 
     private suspend fun fetchQuestions() {
         withContext(Dispatchers.IO) {
@@ -160,7 +185,7 @@ class QuizViewModel(private val quizListModel: QuizListModel, private val curren
         withContext(Dispatchers.IO) {
             try {
                 firebaseRepository.submitQuizResult(
-                    quizListModel.quiz_id,
+                    quizDetail.quiz_id,
                     currentUser.userId,
                     resultMap
                 )

@@ -9,7 +9,7 @@
         <import type="android.view.View" />
 
         <variable
-            name="quizViewModel"
+            name="viewModel"
             type="com.heathkev.quizado.ui.quiz.QuizViewModel" />
     </data>
 
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/status_bar"
             app:navigationContentDescription="@string/navigate_up"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="@{@string/title_quiz_question(quizViewModel.quizTitle, (quizViewModel.questionNumber != null ? quizViewModel.questionNumber : 0) , quizViewModel.quizDetail.questions)}" />
+            app:title="@{@string/title_quiz_question(viewModel.quizTitle, (viewModel.questionNumber != null ? viewModel.questionNumber : 0) , viewModel.questionsTotalNumber)}" />
 
         <ScrollView
             android:id="@+id/quiz_scroll"
@@ -53,7 +53,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:goneUnless="@{!quizViewModel.isLoading}"
+                app:goneUnless="@{!viewModel.isLoading}"
                 android:paddingBottom="@dimen/quiz_padding_bottom">
 
                 <ProgressBar
@@ -64,9 +64,9 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
-                    android:progress="@{quizViewModel.questionProgress}"
+                    android:progress="@{viewModel.questionProgress}"
                     android:progressDrawable="@drawable/circular_progess"
-                    android:visibility="@{(quizViewModel.questionProgress > 0) ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{(viewModel.questionProgress > 0) ? View.VISIBLE : View.INVISIBLE}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -76,7 +76,7 @@
                     android:id="@+id/quiz_question_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{quizViewModel.questionTime}"
+                    android:text="@{viewModel.questionTime}"
                     android:textColor="@color/colorOnBackground"
                     android:textSize="36sp"
                     app:layout_constraintBottom_toBottomOf="@+id/quiz_question_progress"
@@ -93,7 +93,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
-                    android:text="@{quizViewModel.questionText}"
+                    android:text="@{viewModel.questionText}"
                     android:textAlignment="center"
                     android:textColor="@color/colorOnBackground"
                     android:textSize="18sp"
@@ -111,7 +111,7 @@
                     android:layout_marginTop="32dp"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
-                    android:text="@{quizViewModel.optionA}"
+                    android:text="@{viewModel.optionA}"
                     android:textAllCaps="false"
                     android:textColor="@color/colorOnBackground"
                     app:backgroundTint="@color/colorBackground"
@@ -129,7 +129,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
-                    android:text="@{quizViewModel.optionB}"
+                    android:text="@{viewModel.optionB}"
                     android:textAllCaps="false"
                     android:textColor="@color/colorOnBackground"
                     app:backgroundTint="@color/colorBackground"
@@ -147,10 +147,10 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
                     android:fontFamily="@font/merriweather"
-                    android:text="@{quizViewModel.optionC}"
+                    android:text="@{viewModel.optionC}"
                     android:textAllCaps="false"
                     android:textColor="@color/colorOnBackground"
-                    android:visibility="@{(quizViewModel.optionC != null) ? View.VISIBLE :  View.INVISIBLE }"
+                    android:visibility="@{(viewModel.optionC != null) ? View.VISIBLE :  View.INVISIBLE }"
                     app:backgroundTint="@color/colorBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,10 +165,10 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
-                    android:text="@{quizViewModel.optionD}"
+                    android:text="@{viewModel.optionD}"
                     android:textAllCaps="false"
                     android:textColor="@color/colorOnBackground"
-                    android:visibility="@{(quizViewModel.optionD != null) ? View.VISIBLE :  View.INVISIBLE }"
+                    android:visibility="@{(viewModel.optionD != null) ? View.VISIBLE :  View.INVISIBLE }"
                     app:backgroundTint="@color/colorBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -197,7 +197,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            app:goneUnless="@{quizViewModel.isLoading}"
+            app:goneUnless="@{viewModel.isLoading}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

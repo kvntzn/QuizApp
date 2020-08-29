@@ -6,55 +6,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.heathkev.quizado.ui.MainNavigationFragment
+import androidx.navigation.fragment.navArgs
 import com.heathkev.quizado.R
-import com.heathkev.quizado.data.User
 import com.heathkev.quizado.databinding.FragmentQuizBinding
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_quiz.*
 
+@AndroidEntryPoint
 class QuizFragment : MainNavigationFragment() {
 
-
     private lateinit var binding: FragmentQuizBinding
+
+    private val args: QuizFragmentArgs by navArgs()
+    private val quizViewModel: QuizViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_quiz, container, false)
+        quizViewModel.user.observe(viewLifecycleOwner, Observer { user ->
+            quizViewModel.initializeQuestions(args.quizData, user)
+        })
 
-        val quizData = QuizFragmentArgs.fromBundle(requireArguments()).quizData
-
-        val firebaseAuth = FirebaseAuth.getInstance()
-
-        val currentUser = if(firebaseAuth.currentUser != null){
-            val authUser = firebaseAuth.currentUser!!
-           User(
-               authUser.uid,
-               authUser.displayName,
-               authUser.photoUrl,
-               authUser.email
-           )
-        }else{
-            User()
-            // go to home page
+        binding = FragmentQuizBinding.inflate(inflater, container, false)
+            .apply {
+            viewModel = quizViewModel
+            lifecycleOwner = viewLifecycleOwner
         }
-
-        val viewModelFactory = QuizViewModelFactory(quizData, currentUser)
-        val viewModel = ViewModelProvider(this, viewModelFactory).get(QuizViewModel::class.java)
-        binding.quizViewModel = viewModel
-        binding.lifecycleOwner = this
-
-//        viewModel.questionNumber.observe(viewLifecycleOwner, Observer {
-//            binding.toolbar.title = getString(R.string.title_quiz_question, quizData.name, it ?: 0, quizData.questions)
-//        })
 
         setButtonVisibility(binding.quizOptionA,View.VISIBLE, true)
         setButtonVisibility(binding.quizOptionB,View.VISIBLE, true)
@@ -64,48 +48,47 @@ class QuizFragment : MainNavigationFragment() {
         binding.quizOptionA.setOnClickListener{
             val btn = it as Button
 
-            validateOptionSelected(viewModel, btn, binding)
+            validateOptionSelected(quizViewModel, btn, binding)
         }
 
         binding.quizOptionB.setOnClickListener{
             val btn = it as Button
 
-            validateOptionSelected(viewModel, btn, binding)
+            validateOptionSelected(quizViewModel, btn, binding)
         }
 
         binding.quizOptionC.setOnClickListener{
             val btn = it as Button
 
-            validateOptionSelected(viewModel, btn, binding)
+            validateOptionSelected(quizViewModel, btn, binding)
         }
 
         binding.quizOptionD.setOnClickListener{
             val btn = it as Button
 
-            validateOptionSelected(viewModel, btn, binding)
+            validateOptionSelected(quizViewModel, btn, binding)
         }
 
-
         binding.quizNextBtn.setOnClickListener{
-            viewModel.loadNextQuestion()
+            quizViewModel.loadNextQuestion()
             resetOptions(binding)
         }
 
-        viewModel.isTimeUp.observe(viewLifecycleOwner, Observer {
+        quizViewModel.isTimeUp.observe(viewLifecycleOwner, Observer {
             if(it){
 
                 // Empty string no answer was selected
-                val correctAnswer = viewModel.getCorrectAnswer("")
+                val correctAnswer = quizViewModel.getCorrectAnswer("")
                 highlightCorrectAnswer(correctAnswer)
                 setButtonVisibility(binding.quizNextBtn, View.VISIBLE, true)
-                viewModel.onTimeUpComplete()
+                quizViewModel.onTimeUpComplete()
             }
         })
 
-        viewModel.shouldNavigateToResult.observe(viewLifecycleOwner, Observer {
+        quizViewModel.shouldNavigateToResult.observe(viewLifecycleOwner, Observer {
             if(it){
-                this.findNavController().navigate(QuizFragmentDirections.actionQuizFragmentToResultFragment(quizData))
-                viewModel.navigateToResultPageComplete()
+                this.findNavController().navigate(QuizFragmentDirections.actionQuizFragmentToResultFragment(args.quizData))
+                quizViewModel.navigateToResultPageComplete()
             }
         })
 
@@ -138,9 +121,9 @@ class QuizFragment : MainNavigationFragment() {
         setButtonVisibility(binding.quizNextBtn, View.INVISIBLE, false)
     }
 
-    private fun validateOptionSelected(viewModel: QuizViewModel, option: Button, binding: FragmentQuizBinding){
-        if(viewModel.canAnswer()){
-            val correctAnswer = viewModel.getCorrectAnswer(option.text.toString())
+    private fun validateOptionSelected(quizViewModel: QuizViewModel, option: Button, binding: FragmentQuizBinding){
+        if(quizViewModel.canAnswer()){
+            val correctAnswer = quizViewModel.getCorrectAnswer(option.text.toString())
 
             option.setTextColor(resources.getColor(R.color.primaryTextColor, null))
 
