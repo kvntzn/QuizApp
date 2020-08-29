@@ -39,16 +39,6 @@
             app:layout_constraintEnd_toStartOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@id/user_avatar"
             app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                app:playerNames="@{viewModel.currentUser.name}"
-                android:textAppearance="@style/TextAppearance.Quizado.AccountDialog.Username"
-                tools:text="User Name" />
-
             <TextView
                 android:id="@+id/email"
                 app:playerNames="@{viewModel.currentUser.email}"
@@ -84,10 +74,10 @@
 
         <TextView
             android:id="@+id/message"
-            style="?materialAlertDialogBodyTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_normal"
+            android:fontFamily="@font/merriweather"
             android:text="@string/dialog_sign_out_content"
             app:layout_constraintEnd_toStartOf="@id/guideline_end"
             app:layout_constraintStart_toEndOf="@id/guideline_start"

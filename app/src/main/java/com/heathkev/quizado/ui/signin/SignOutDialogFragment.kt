@@ -43,12 +43,12 @@ class SignOutDialogFragment : AppCompatDialogFragment() {
         super.onActivityCreated(savedInstanceState)
 
         signOutViewModel.onSignOutAction.observe(viewLifecycleOwner, Observer {
-            FirebaseAuth.getInstance().signOut()
-
             activity?.run {
                 finish()
                 overridePendingTransition(R.anim.slide_up, R.anim.slide_down)
             }
+
+            FirebaseAuth.getInstance().signOut()
 
             startActivity(Intent(context, LoginActivity::class.java))
         })
