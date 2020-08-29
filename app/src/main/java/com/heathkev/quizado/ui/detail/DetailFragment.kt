@@ -4,21 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.core.view.updatePaddingRelative
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.heathkev.quizado.data.User
-import com.heathkev.quizado.ui.MainNavigationFragment
+import androidx.navigation.fragment.navArgs
 import com.heathkev.quizado.databinding.FragmentDetailBinding
+import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : MainNavigationFragment() {
 
+    private val args: DetailFragmentArgs by navArgs()
     private lateinit var binding: FragmentDetailBinding
 
     private val detailViewModel: DetailViewModel by viewModels()
@@ -28,21 +27,11 @@ class DetailFragment : MainNavigationFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val quizData = DetailFragmentArgs.fromBundle(requireArguments()).quizData
-
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val currentUser = if(firebaseAuth.currentUser != null){
-            val authUser = firebaseAuth.currentUser!!
-            User(
-                authUser.uid,
-                authUser.displayName,
-                authUser.photoUrl,
-                authUser.email
-            )
-        }else{
-            User()
-        }
-        detailViewModel.setQuizDetail(quizData, currentUser)
+        detailViewModel.currentUser.observe(viewLifecycleOwner, Observer {user ->
+            if(user != null){
+                detailViewModel.setQuizDetail(args.quizData, user)
+            }
+        })
 
         binding = FragmentDetailBinding.inflate(inflater, container, false)
             .apply {
@@ -51,12 +40,12 @@ class DetailFragment : MainNavigationFragment() {
             }
 
         binding.detailsStartBtn.setOnClickListener{
-            detailViewModel.startQuiz(quizData)
+            detailViewModel.startQuiz(args.quizData)
         }
 
         detailViewModel.startQuizData.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                this.findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToQuizFragment(quizData))
+                this.findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToQuizFragment(args.quizData))
                 detailViewModel.startQuizComplete()
             }
         })

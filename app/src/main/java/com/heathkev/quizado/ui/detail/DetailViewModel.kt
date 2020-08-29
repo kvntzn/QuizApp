@@ -14,17 +14,29 @@ import com.heathkev.quizado.firebase.FirebaseUserLiveData
 import kotlinx.coroutines.*
 
 class DetailViewModel @ViewModelInject constructor (
-    private var firebaseRepository: FirebaseRepository
+    private var firebaseRepository: FirebaseRepository,
+    firebaseUser: FirebaseUserLiveData
 ) : ViewModel() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    val currentUser: LiveData<User> = Transformations.map(firebaseUser){ user ->
+        if(user != null){
+            User(
+                user.uid,
+                user.displayName,
+                user.photoUrl,
+                user.email
+            )
+        }else{
+            User()
+        }
+    }
+
     private val _quizListModel = MutableLiveData<QuizListModel>()
     val quiz: LiveData<QuizListModel>
         get() = _quizListModel
-
-    private val _currentUser = MutableLiveData<User>()
 
     private val _startQuizData = MutableLiveData<QuizListModel>()
     private val _resultPercentage = MutableLiveData<Long>()
@@ -35,12 +47,9 @@ class DetailViewModel @ViewModelInject constructor (
     val resultPercentage: LiveData<Long>
         get() = _resultPercentage
 
-    fun setQuizDetail(quizListModel: QuizListModel, currentUser: User){
-        _quizListModel.value = quizListModel
-        _currentUser.value = currentUser
-
+    fun setQuizDetail(quizListModel: QuizListModel, user: User){
         uiScope.launch {
-            getResult()
+            getResult(quizListModel, user)
         }
     }
 
@@ -52,12 +61,14 @@ class DetailViewModel @ViewModelInject constructor (
         _startQuizData.value = null
     }
 
-    private suspend fun getResult() {
+    private suspend fun getResult(quizListModel: QuizListModel, user: User) {
+        _quizListModel.value = quizListModel
+
         withContext(Dispatchers.IO) {
             val value =
                 firebaseRepository.getResultsByQuizId(
-                    _quizListModel.value!!.quiz_id,
-                    _currentUser.value!!.userId
+                    quizListModel.quiz_id,
+                    user.userId
                 )
 
             val result = value?.toObject<Result>()
