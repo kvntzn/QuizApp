@@ -1,7 +1,7 @@
 # Quizado 🔨 
 Android quiz application. Play different quizzes to gain more scores and be in the leaderboards.
 
-Soon to playstore 🚩 
+ <!--- Soon to playstore 🚩  ---> 
 Click [here](https://github.com/kvntzn/QuizApp/raw/master/quizado.apk) to download. 
 
 
