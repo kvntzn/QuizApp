@@ -1,4 +1,4 @@
-package com.heathkev.quizado.ui.home
+package com.heathkev.quizado.ui.profile
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,7 +10,9 @@ import com.heathkev.quizado.R
 import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.databinding.HomeResultSingleListItemBinding
 
-class HomeResultsListAdapter() : ListAdapter<Result, HomeResultsListAdapter.ResultsViewHolder>(DiffCallback){
+class ProfileResultsListAdapter() : ListAdapter<Result, ProfileResultsListAdapter.ResultsViewHolder>(
+    DiffCallback
+){
 
     class ResultsViewHolder(private var binding: HomeResultSingleListItemBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(result: Result) {
@@ -40,7 +42,10 @@ class HomeResultsListAdapter() : ListAdapter<Result, HomeResultsListAdapter.Resu
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsViewHolder {
         val view = HomeResultSingleListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
-        return ResultsViewHolder(view, parent.context)
+        return ResultsViewHolder(
+            view,
+            parent.context
+        )
     }
 
     override fun onBindViewHolder(holder: ResultsViewHolder, position: Int) {

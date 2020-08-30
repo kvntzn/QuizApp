@@ -55,14 +55,6 @@ class HomeFragment : MainNavigationFragment() {
             }
         })
 
-//        val adapter = HomeResultsListAdapter()
-//        binding.homeRecentResultsList.adapter = adapter
-//        homeViewModel.resultList.observe(viewLifecycleOwner, Observer {
-//            it.let {
-//                adapter.submitList(it)
-//            }
-//        })
-
         binding.homePlayButton.setOnClickListener {
             homeViewModel.playQuiz()
         }

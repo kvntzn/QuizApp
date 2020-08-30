@@ -41,6 +41,14 @@ class ProfileFragment : MainNavigationFragment() {
             supportActionBar!!.setDisplayShowTitleEnabled(false)
         }
 
+        val adapter = ProfileResultsListAdapter()
+        binding.profileRecentResultsList.adapter = adapter
+        profileViewModel.resultList.observe(viewLifecycleOwner, Observer {
+            it.let {
+                adapter.submitList(it)
+            }
+        })
+
         setHasOptionsMenu(true)
         return binding.root
     }

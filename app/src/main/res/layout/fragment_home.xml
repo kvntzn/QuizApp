@@ -186,41 +186,6 @@
                     tools:itemCount="16"
                     tools:listitem="@layout/home_quiz_single_list_item" />
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/home_recent_results"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginStart="@dimen/margin_normal"-->
-                <!--                    android:layout_marginTop="@dimen/margin_large"-->
-                <!--                    android:text="@string/recent_results"-->
-                <!--                    android:textColor="@color/colorOnBackground"-->
-                <!--                    android:textSize="@dimen/text_size_h3"-->
-                <!--                    android:textStyle="bold"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/home_trending_list" />-->
-
-                <!--                <androidx.recyclerview.widget.RecyclerView-->
-                <!--                    android:id="@+id/home_recent_results_list"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginStart="@dimen/margin_small"-->
-                <!--                    android:layout_marginTop="@dimen/margin_normal"-->
-                <!--                    android:layout_marginEnd="@dimen/margin_small"-->
-                <!--                    android:clipToPadding="false"-->
-                <!--                    android:visibility="invisible"-->
-                <!--                    app:goneUnless="@{!viewModel.isLoading}"-->
-                <!--                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/home_recent_results"-->
-                <!--                    app:spanCount="2"-->
-                <!--                    tools:itemCount="6"-->
-                <!--                    tools:listitem="@layout/home_result_single_list_item"-->
-                <!--                    tools:visibility="visible" />-->
-
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -231,8 +196,7 @@
             android:layout_height="wrap_content"
             android:indeterminate="true"
             app:goneUnless="@{viewModel.isLoading}"
-            android:layout_gravity="center"
-             />
+            android:layout_gravity="center"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
