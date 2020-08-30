@@ -70,7 +70,11 @@
     <dimen name="profile_photo_normal">50dp</dimen>
     <dimen name="text_size_tiny">11sp</dimen>
 
-    <!-- elevation for Plant Detail toolbar - used to convert to pixels when hiding/showing -->
+    <!-- elevation for Quiz Detail toolbar - used to convert to pixels when hiding/showing -->
     <dimen name="toolbar_elevation">5dp</dimen>
     <dimen name="quiz_detail_app_bar_height">278dp</dimen>
+
+    <dimen name="featured_image">200dp</dimen>
+    <dimen name="home_quiz_card">300dp</dimen>
+    <dimen name="quizado_toolbar_size">120dp</dimen>
 </resources>

@@ -86,4 +86,7 @@
     <string name="settings_theme_dark">Dark</string>
     <string name="settings_theme_system">System default</string>
     <string name="settings_theme_battery">Set by Battery Saver</string>
+    <string name="featured_quiz">Featured Quiz</string>
+    <string name="for_you">For You</string>
+    <string name="trending_today">Trending Today</string>
 </resources>

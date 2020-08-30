@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="quizListModel"
+            type="com.heathkev.quizado.data.QuizListModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/quiz_card"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/home_quiz_card"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="6dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/list_image"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:contentDescription="@string/QuizTitle"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{quizListModel.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/list_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="24dp"
+                android:text="@{quizListModel.name}"
+                android:textAppearance="?textAppearanceListItem"
+                android:textColor="@color/primaryColor"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_image"
+                tools:text="@string/QuizTitle" />
+
+            <TextView
+                android:id="@+id/list_desc"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/merriweather"
+                android:textSize="@dimen/text_size_tiny"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_title"
+                app:truncate="@{quizListModel.desc}"
+                tools:text="@string/quiz_description" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

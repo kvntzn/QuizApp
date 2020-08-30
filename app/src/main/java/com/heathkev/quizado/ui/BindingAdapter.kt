@@ -15,6 +15,7 @@ import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.ui.list.QuizListAdapter
 import com.heathkev.quizado.utils.CircularOutlineProvider
+import timber.log.Timber
 
 @BindingAdapter("clipToCircle")
 fun clipToCircle(view: View, clip: Boolean) {
@@ -67,6 +68,29 @@ fun bindImageUri(imgView: ImageView, imgUrl: Uri?) {
                 .placeholder(R.drawable.placeholder_image)
         )
         .into(imgView)
+}
+
+@BindingAdapter(value = ["defaultImageUri", "placeholder"], requireAll = false)
+fun imageUri(imageView: ImageView, imageUri: Uri?, placeholder: Drawable?) {
+    when (imageUri) {
+        null -> {
+            Timber.d("Unsetting image url")
+            Glide.with(imageView)
+                .load(placeholder)
+                .into(imageView)
+        }
+        else -> {
+            Glide.with(imageView)
+                .load(imageUri)
+                .apply(RequestOptions().placeholder(placeholder))
+                .into(imageView)
+        }
+    }
+}
+
+@BindingAdapter(value = ["defaultImageUrl", "placeholder"], requireAll = false)
+fun defaultImageUrl(imageView: ImageView, imageUrl: String?, placeholder: Drawable?) {
+    imageUri(imageView, imageUrl?.toUri(), placeholder)
 }
 
 @BindingAdapter("truncate")

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.heathkev.quizado.ui.home.HomeViewModel" />
@@ -28,80 +29,210 @@
                 android:layout_height="?actionBarSize"
                 app:navigationContentDescription="@string/home"
                 app:navigationIcon="@drawable/ic_menu">
+
                 <ImageView
-                    android:layout_width="120dp"
+                    android:layout_width="@dimen/quizado_toolbar_size"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:tint="@color/primaryLightColor"
                     android:contentDescription="@string/Title"
-                    android:src="@drawable/quizado" />
+                    android:src="@drawable/quizado"
+                    app:tint="@color/primaryLightColor" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/home_container"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context=".ui.home.HomeFragment">
+            app:goneUnless="@{!viewModel.isLoading}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <Button
-                android:id="@+id/home_play_button"
-                style="@style/Widget.Quizado.Button"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/margin_large"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:text="@string/play_quiz"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_recent_results_list"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/home_container"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_normal"
-                android:layout_marginEnd="@dimen/margin_small"
-                android:clipToPadding="false"
-                android:visibility="invisible"
-                app:goneUnless="@{!viewModel.isLoading}"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_recent_results"
-                app:spanCount="2"
-                tools:itemCount="6"
-                tools:listitem="@layout/home_result_single_list_item"
-                tools:visibility="visible" />
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/detail_padding_bottom"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context=".ui.home.HomeFragment">
 
-            <ProgressBar
-                android:id="@+id/home_progress"
-                style="?android:attr/progressBarStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:goneUnless="@{viewModel.isLoading}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <ImageView
+                    android:id="@+id/home_featured_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/featured_image"
+                    android:contentDescription="@string/QuizTitle"
+                    android:scaleType="centerCrop"
+                    app:defaultImageUrl="@{viewModel.featuredQuiz.image}"
+                    app:layout_constraintBottom_toTopOf="@id/home_featured_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_success" />
 
-            <TextView
-                android:id="@+id/home_recent_results"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_normal"
-                android:layout_marginTop="@dimen/margin_large"
-                android:text="@string/recent_results"
-                android:textColor="@color/colorOnBackground"
-                android:textSize="@dimen/text_size_h3"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_play_button" />
+                <TextView
+                    android:id="@+id/home_featured_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="@string/featured_quiz"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_featured_image" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/home_featured_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_normal"
+                    android:text="@{viewModel.featuredQuiz.name}"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="@dimen/text_size_h1"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_featured_text"
+                    tools:text="Featured Quiz Title" />
+
+                <TextView
+                    android:id="@+id/home_featured_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:text="@{viewModel.featuredQuiz.desc}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_featured_title"
+                    tools:text="@string/quiz_description" />
+
+                <Button
+                    android:id="@+id/home_play_button"
+                    style="@style/Widget.Quizado.Button"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="@string/play_quiz"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_featured_desc"
+                    tools:layout_editor_absoluteY="16dp" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toTopOf="@+id/home_for_you_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_play_button" />
+
+                <TextView
+                    android:id="@+id/home_for_you_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="@string/for_you"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="@dimen/text_size_h3"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_play_button" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_for_you_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_for_you_text"
+                    tools:itemCount="16"
+                    tools:listitem="@layout/home_quiz_single_list_item" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?android:attr/listDivider"
+                    app:layout_constraintBottom_toTopOf="@+id/home_trending_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_for_you_list" />
+
+                <TextView
+                    android:id="@+id/home_trending_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:text="@string/trending_today"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="@dimen/text_size_h3"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/home_for_you_list" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_trending_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/home_trending_text"
+                    tools:itemCount="16"
+                    tools:listitem="@layout/home_quiz_single_list_item" />
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/home_recent_results"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="@dimen/margin_normal"-->
+                <!--                    android:layout_marginTop="@dimen/margin_large"-->
+                <!--                    android:text="@string/recent_results"-->
+                <!--                    android:textColor="@color/colorOnBackground"-->
+                <!--                    android:textSize="@dimen/text_size_h3"-->
+                <!--                    android:textStyle="bold"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/home_trending_list" />-->
+
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                    android:id="@+id/home_recent_results_list"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="@dimen/margin_small"-->
+                <!--                    android:layout_marginTop="@dimen/margin_normal"-->
+                <!--                    android:layout_marginEnd="@dimen/margin_small"-->
+                <!--                    android:clipToPadding="false"-->
+                <!--                    android:visibility="invisible"-->
+                <!--                    app:goneUnless="@{!viewModel.isLoading}"-->
+                <!--                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/home_recent_results"-->
+                <!--                    app:spanCount="2"-->
+                <!--                    tools:itemCount="6"-->
+                <!--                    tools:listitem="@layout/home_result_single_list_item"-->
+                <!--                    tools:visibility="visible" />-->
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <ProgressBar
+            android:id="@+id/home_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:goneUnless="@{viewModel.isLoading}"
+            android:layout_gravity="center"
+             />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

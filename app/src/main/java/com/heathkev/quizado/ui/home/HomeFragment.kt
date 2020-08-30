@@ -12,6 +12,7 @@ import com.heathkev.quizado.ui.MainActivityViewModel
 import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.ui.signin.setupProfileMenuItem
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -20,7 +21,7 @@ class HomeFragment : MainNavigationFragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val mainActivityViewModel: MainActivityViewModel by activityViewModels()
-    private val model: HomeViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +31,7 @@ class HomeFragment : MainNavigationFragment() {
             FragmentHomeBinding.inflate(inflater, container, false)
                 .apply{
                 lifecycleOwner = viewLifecycleOwner
-                viewModel = model
+                viewModel = homeViewModel
             }
 
         (activity as AppCompatActivity?)!!.apply {
@@ -38,28 +39,42 @@ class HomeFragment : MainNavigationFragment() {
             supportActionBar!!.setDisplayShowTitleEnabled(false)
         }
 
-        val adapter = HomeResultsListAdapter()
-        val listView = binding.homeRecentResultsList
-        listView.adapter = adapter
-
-        model.resultList.observe(viewLifecycleOwner, Observer {
-            it.let {
-                adapter.submitList(it)
+        val quizAdapter = HomeQuizListAdapter(HomeQuizListAdapter.OnClickListener {
+            Timber.d("Quiz Clicked")
+            this.findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                    it
+                )
+            )
+        })
+        binding.homeForYouList.adapter = quizAdapter
+        binding.homeTrendingList.adapter = quizAdapter
+        homeViewModel.quizList.observe(viewLifecycleOwner, Observer {
+            it.let{
+                quizAdapter.submitList(it)
             }
         })
 
+//        val adapter = HomeResultsListAdapter()
+//        binding.homeRecentResultsList.adapter = adapter
+//        homeViewModel.resultList.observe(viewLifecycleOwner, Observer {
+//            it.let {
+//                adapter.submitList(it)
+//            }
+//        })
+
         binding.homePlayButton.setOnClickListener {
-            model.playQuiz()
+            homeViewModel.playQuiz()
         }
 
-        model.navigateToQuizListModel.observe(viewLifecycleOwner, Observer {
+        homeViewModel.navigateToQuizListModel.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 this.findNavController().navigate(
                     HomeFragmentDirections.actionHomeFragmentToDetailFragment(
                         it
                     )
                 )
-                model.playQuizComplete()
+                homeViewModel.playQuizComplete()
             }
         })
 
