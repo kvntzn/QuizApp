@@ -108,6 +108,9 @@ dependencies {
 
     //Circle Image
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }
 
 kapt{

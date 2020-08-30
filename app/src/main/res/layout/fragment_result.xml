@@ -6,7 +6,9 @@
     <data>
 
         <import type="android.view.View" />
-
+        <variable
+            name="quizDetail"
+            type="com.heathkev.quizado.data.QuizListModel" />
         <variable
             name="viewModel"
             type="com.heathkev.quizado.ui.result.ResultViewModel" />
@@ -90,7 +92,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@font/merriweather"
-                        android:text="@{viewModel.result ? @string/congrats_message(viewModel.quizData.name) : @string/failed_message(viewModel.quizData.name)}"
+                        android:text="@{viewModel.result ? @string/congrats_message(quizDetail.name) : @string/failed_message(quizDetail.name)}"
                         android:textAlignment="center"
                         android:textColor="@color/colorOnBackground"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +104,6 @@
                         android:id="@+id/results_score"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.score}"
                         android:textColor="@color/colorOnBackground"
                         android:textSize="@dimen/text_size_h1"
                         app:layout_constraintBottom_toBottomOf="@+id/results_progress"

@@ -1,36 +1,43 @@
 package com.heathkev.quizado.ui.result
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.toObject
-import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
-import com.heathkev.quizado.data.User
 import com.heathkev.quizado.data.Result
+import com.heathkev.quizado.data.User
 import com.heathkev.quizado.firebase.FirebaseRepository
+import com.heathkev.quizado.firebase.FirebaseUserLiveData
 import kotlinx.coroutines.*
 
-class ResultViewModel(
-    private val app: Application,
-    private val currentUser: User,
-    val quizData: QuizListModel
-) : AndroidViewModel(app) {
-
-    private val firebaseRepository = FirebaseRepository()
+class ResultViewModel @ViewModelInject constructor(
+    private val firebaseRepository: FirebaseRepository,
+    firebaseUser: FirebaseUserLiveData
+) : ViewModel() {
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _score = MutableLiveData<String>()
     private val _scoreProgress = MutableLiveData<Int>()
     private val _result = MutableLiveData<Boolean>()
     private val _correctScore = MutableLiveData<Int>()
     private val _isLoading = MutableLiveData<Boolean>()
 
-    val score: LiveData<String>
-        get() = _score
+    val currentUser: LiveData<User> = Transformations.map(firebaseUser){ user ->
+        if(user != null){
+            User(
+                user.uid,
+                user.displayName,
+                user.photoUrl,
+                user.email
+            )
+        }else{
+            User()
+        }
+    }
 
     val scoreProgress: LiveData<Int>
         get() = _scoreProgress
@@ -45,18 +52,18 @@ class ResultViewModel(
         get() = _isLoading
 
 
-    init {
+    fun fetchQuizResult(quizListModel: QuizListModel, user: User){
         uiScope.launch {
             _isLoading.value = true
-            getResult()
+            getResult(quizListModel, user)
             _isLoading.value = false
         }
     }
 
-    private suspend fun getResult() {
+    private suspend fun getResult(quizListModel: QuizListModel, user: User)  {
         withContext(Dispatchers.IO) {
 
-            val value = firebaseRepository.getResultsByQuizId(quizData.quiz_id, currentUser.userId)
+            val value = firebaseRepository.getResultsByQuizId(quizListModel.quiz_id, user.userId)
 
             val result = value?.toObject<Result>()
 
@@ -67,9 +74,6 @@ class ResultViewModel(
 
                 _correctScore.postValue(correct.toInt())
                 val total = correct + wrong + missed
-
-                val score = app.applicationContext.getString(R.string.score_over, correct, total)
-                _score.postValue(score)
 
                 val percent = (correct * 100) / total
                 _scoreProgress.postValue(percent.toInt())
