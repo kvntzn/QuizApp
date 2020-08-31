@@ -77,4 +77,6 @@
     <dimen name="featured_image">200dp</dimen>
     <dimen name="home_quiz_card">300dp</dimen>
     <dimen name="quizado_toolbar_size">120dp</dimen>
+    <dimen name="leaderboards_top_card_width">100dp</dimen>
+    <dimen name="leaderboards_top_card_height">150dp</dimen>
 </resources>

@@ -13,7 +13,9 @@
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        tools:context=".ui.leaders.LeadersFragment"
+        >
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -33,40 +35,208 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:paddingBottom="@dimen/bottom_nav_height"
-        tools:context=".ui.leaders.LeadersFragment">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/leaders_list"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:goneUnless="@{!viewModel.isLoading}"
-            android:layout_marginBottom="@dimen/margin_large"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="16"
-            tools:listitem="@layout/leaders_single_list_item" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="@dimen/detail_padding_bottom"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/leaders_first_card"
+                    android:layout_width="@dimen/leaderboards_top_card_width"
+                    android:layout_height="@dimen/leaderboards_top_card_height"
+                    android:layout_margin="@dimen/margin_large"
+                    app:cardCornerRadius="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/margin_small">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/leaders_first_image"
+                            android:layout_width="@dimen/profile_photo_normal"
+                            android:layout_height="@dimen/profile_photo_normal"
+                            app:civ_border_color="@color/primaryColor"
+                            app:civ_border_width="2dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/leaders_first_fullname"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_small"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOnBackground"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/leaders_first_image"
+                            tools:text="@string/profile" />
+
+                        <TextView
+                            android:id="@+id/leaders_first_score"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryColor"
+                            android:textSize="@dimen/text_size_h2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/leaders_first_fullname"
+                            tools:text="@string/score" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/leaders_second_card"
+                    android:layout_width="@dimen/leaderboards_top_card_width"
+                    android:layout_height="@dimen/leaderboards_top_card_height"
+                    android:layout_marginHorizontal="@dimen/margin_large"
+                    android:layout_marginVertical="@dimen/margin_large"
+                    app:cardCornerRadius="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/leaders_first_card"
+                    app:layout_constraintTop_toTopOf="@+id/leaders_first_card">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/margin_small">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/leaders_second_image"
+                            android:layout_width="@dimen/profile_photo_normal"
+                            android:layout_height="@dimen/profile_photo_normal"
+                            app:civ_border_color="@color/primaryColor"
+                            app:civ_border_width="2dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/leaders_second_fullname"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_small"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOnBackground"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/leaders_second_image"
+                            tools:text="@string/profile" />
+
+                        <TextView
+                            android:id="@+id/leaders_second_score"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryColor"
+                            android:textSize="@dimen/text_size_h2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/leaders_second_fullname"
+                            tools:text="@string/score" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/leaders_third_card"
+                    android:layout_width="@dimen/leaderboards_top_card_width"
+                    android:layout_height="@dimen/leaderboards_top_card_height"
+                    android:layout_marginHorizontal="@dimen/margin_large"
+                    android:layout_marginVertical="@dimen/margin_large"
+                    app:cardCornerRadius="6dp"
+                    app:layout_constraintEnd_toStartOf="@+id/leaders_first_card"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/leaders_first_card">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/margin_small">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/leaders_third_image"
+                            android:layout_width="@dimen/profile_photo_normal"
+                            android:layout_height="@dimen/profile_photo_normal"
+                            app:civ_border_color="@color/primaryColor"
+                            app:civ_border_width="2dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/leaders_third_fullname"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_small"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOnBackground"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/leaders_third_image"
+                            tools:text="@string/profile" />
+
+                        <TextView
+                            android:id="@+id/leaders_third_score"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryColor"
+                            android:textSize="@dimen/text_size_h2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/leaders_third_fullname"
+                            tools:text="@string/score" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/leaders_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/margin_normal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/leaders_second_card"
+                    tools:itemCount="8"
+                    tools:listitem="@layout/leaders_single_list_item" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
         <ProgressBar
             android:id="@+id/leaders_progress"
-            app:goneUnless="@{viewModel.isLoading}"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:goneUnless="@{viewModel.isLoading}"
+            android:layout_gravity="center"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

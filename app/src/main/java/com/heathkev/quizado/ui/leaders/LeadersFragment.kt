@@ -37,7 +37,6 @@ class LeadersFragment : MainNavigationFragment() {
 
         val adapter = LeadersListAdapter()
         val listView = binding.leadersList
-        listView.setHasFixedSize(true)
         listView.adapter = adapter
 
         leadersViewModel.results.observe(viewLifecycleOwner, Observer {
