@@ -133,10 +133,9 @@
                     android:id="@+id/leaders_second_card"
                     android:layout_width="@dimen/leaderboards_top_card_width"
                     android:layout_height="@dimen/leaderboards_top_card_height"
-                    android:layout_marginHorizontal="@dimen/margin_normal"
                     android:layout_marginVertical="@dimen/margin_large"
                     app:cardCornerRadius="6dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/leaders_third_card"
+                    app:layout_constraintBottom_toBottomOf="@+id/leaders_first_card"
                     app:layout_constraintEnd_toStartOf="@+id/leaders_first_card"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/leaders_first_card">
@@ -203,10 +202,8 @@
                     android:id="@+id/leaders_third_card"
                     android:layout_width="@dimen/leaderboards_top_card_width"
                     android:layout_height="@dimen/leaderboards_top_card_height"
-                    android:layout_marginHorizontal="@dimen/margin_normal"
                     android:layout_marginVertical="@dimen/margin_large"
                     app:cardCornerRadius="6dp"
-
                     app:layout_constraintBottom_toBottomOf="@+id/leaders_first_card"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/leaders_first_card"

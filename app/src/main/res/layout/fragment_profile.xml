@@ -44,8 +44,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingBottom="@dimen/detail_padding_bottom"
-                >
+                android:paddingBottom="@dimen/detail_padding_bottom">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_photo"
@@ -87,6 +86,30 @@
                     app:playerNames="@{viewModel.user.email}"
                     tools:text="@string/app_name" />
 
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_photo"
+                    />
+
+                <TextView
+                    android:id="@+id/profile_all_time_results"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="@string/all_time"
+                    android:textColor="@color/colorOnBackground"
+                    android:textSize="@dimen/text_size_h3"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/view" />
+
                 <TextView
                     android:id="@+id/profile_quizzes_text"
                     android:layout_width="wrap_content"
@@ -123,10 +146,10 @@
                     android:text="@{viewModel.passedNumber}"
                     android:textColor="@color/primaryColor"
                     android:textSize="@dimen/text_size_h2"
-                    app:layout_constraintTop_toBottomOf="@+id/guideline2"
+                    android:layout_marginTop="@dimen/margin_normal"
                     app:layout_constraintEnd_toStartOf="@+id/profile_failed_number"
                     app:layout_constraintStart_toEndOf="@+id/profile_quizzes_number"
-                    tools:layout_editor_absoluteY="116dp" />
+                    app:layout_constraintTop_toBottomOf="@+id/profile_all_time_results" />
 
                 <TextView
                     android:id="@+id/profile_failed_text"
@@ -148,6 +171,16 @@
                     app:layout_constraintEnd_toEndOf="@+id/profile_failed_text"
                     app:layout_constraintStart_toStartOf="@+id/profile_failed_text" />
 
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="?android:attr/listDivider"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_text" />
+
                 <TextView
                     android:id="@+id/profile_recent_results"
                     android:layout_width="wrap_content"
@@ -159,7 +192,7 @@
                     android:textSize="@dimen/text_size_h3"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_text"
+                    app:layout_constraintTop_toBottomOf="@+id/view2"
                     app:layout_constraintBottom_toTopOf="@+id/profile_recent_results_list"/>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -178,13 +211,6 @@
                     tools:itemCount="6"
                     tools:listitem="@layout/home_result_single_list_item"
                     tools:visibility="visible" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintGuide_percent=".28" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
