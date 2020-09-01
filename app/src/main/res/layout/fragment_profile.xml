@@ -53,39 +53,37 @@
                     android:layout_height="@dimen/profile_photo_large"
                     android:layout_marginStart="@dimen/margin_large"
                     android:layout_marginTop="@dimen/margin_large"
-                    android:layout_marginEnd="@dimen/margin_large"
                     app:civ_border_color="@color/primaryColor"
                     app:civ_border_width="2dp"
                     app:imageUrl="@{viewModel.user.imageUrl}"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:src="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/profile_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginHorizontal="@dimen/margin_small"
                     android:textColor="@color/colorOnBackground"
                     android:textSize="@dimen/text_size_h1"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/profile_photo"
-                    app:layout_constraintStart_toStartOf="@+id/profile_photo"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_photo"
+                    app:layout_constraintBottom_toTopOf="@+id/profile_email"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/profile_photo"
                     app:playerNames="@{viewModel.user.name}"
                     tools:text="@string/app_name" />
 
                 <TextView
                     android:id="@+id/profile_email"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:layout_marginHorizontal="@dimen/margin_small"
                     android:fontFamily="@font/merriweather"
-                    android:textColor="@color/colorOnBackground"
-                    app:layout_constraintEnd_toEndOf="@+id/profile_photo"
-                    app:layout_constraintStart_toStartOf="@+id/profile_photo"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/profile_photo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/profile_photo"
                     app:playerNames="@{viewModel.user.email}"
                     tools:text="@string/app_name" />
 
@@ -94,9 +92,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_large"
-                    android:fontFamily="@font/merriweather"
                     android:text="@string/quizzes"
-                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_number" />
 
@@ -115,9 +111,7 @@
                     android:id="@+id/profile_passed_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/merriweather"
                     android:text="@string/passed"
-                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintEnd_toEndOf="@+id/profile_passed_number"
                     app:layout_constraintStart_toStartOf="@+id/profile_passed_number"
                     app:layout_constraintTop_toBottomOf="@+id/profile_passed_number" />
@@ -126,22 +120,20 @@
                     android:id="@+id/profile_passed_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_large"
                     android:text="@{viewModel.passedNumber}"
                     android:textColor="@color/primaryColor"
                     android:textSize="@dimen/text_size_h2"
-                    app:layout_constraintEnd_toEndOf="@+id/profile_name"
-                    app:layout_constraintStart_toStartOf="@+id/profile_name"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_email" />
+                    app:layout_constraintTop_toBottomOf="@+id/guideline2"
+                    app:layout_constraintEnd_toStartOf="@+id/profile_failed_number"
+                    app:layout_constraintStart_toEndOf="@+id/profile_quizzes_number"
+                    tools:layout_editor_absoluteY="116dp" />
 
                 <TextView
                     android:id="@+id/profile_failed_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/margin_large"
-                    android:fontFamily="@font/merriweather"
                     android:text="@string/failed"
-                    android:textColor="@color/colorOnBackground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/profile_failed_number" />
 
@@ -167,7 +159,8 @@
                     android:textSize="@dimen/text_size_h3"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_text" />
+                    app:layout_constraintTop_toBottomOf="@+id/profile_quizzes_text"
+                    app:layout_constraintBottom_toTopOf="@+id/profile_recent_results_list"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/profile_recent_results_list"
@@ -185,6 +178,13 @@
                     tools:itemCount="6"
                     tools:listitem="@layout/home_result_single_list_item"
                     tools:visibility="visible" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent=".28" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
