@@ -89,4 +89,7 @@
     <string name="featured_quiz">Featured Quiz</string>
     <string name="for_you">For You</string>
     <string name="trending_today">Trending Today</string>
+    <string name="first">1</string>
+    <string name="second">2</string>
+    <string name="third">3</string>
 </resources>

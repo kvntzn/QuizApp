@@ -1,6 +1,5 @@
 package com.heathkev.quizado.ui.leaders
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +9,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.data.Result
 import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 private const val TAG = "LeadersViewModel"
 
@@ -19,6 +19,18 @@ class LeadersViewModel @ViewModelInject constructor(
 
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    private val _first = MutableLiveData<Result>()
+    val first: LiveData<Result>
+        get() = _first
+
+    private val _second = MutableLiveData<Result>()
+    val second: LiveData<Result>
+        get() = _second
+
+    private val _third = MutableLiveData<Result>()
+    val third: LiveData<Result>
+        get() = _third
 
     private val _results = MutableLiveData<List<Result>>()
     val results: LiveData<List<Result>>
@@ -38,9 +50,9 @@ class LeadersViewModel @ViewModelInject constructor(
             val value = withContext(Dispatchers.IO) {
                 firebaseRepository.getAllResults()
             }
-            _isLoading.value = false
-
             groupResults(value)
+
+            _isLoading.value = false
         }
     }
 
@@ -66,11 +78,17 @@ class LeadersViewModel @ViewModelInject constructor(
                 )
             }
 
-        Log.d(TAG, "Results Grouped:$grouped")
-        _results.postValue(grouped.values.take(10).toList().sortedByDescending { it.correct })
+        Timber.d("Results Grouped:$grouped")
+
+        val results: MutableList<Result> = grouped.values.take(10).sortedByDescending { it.correct }.toMutableList()
+        _first.postValue(results[0])
+        _second.postValue(results[1])
+        _third.postValue(results[2])
+
+        _results.postValue(results.drop(3))
     }
 
-override fun onCleared() {
+    override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }

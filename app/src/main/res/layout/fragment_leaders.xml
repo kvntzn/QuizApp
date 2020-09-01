@@ -36,9 +36,11 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:goneUnless="@{!viewModel.isLoading}"
+            app:layout_anchorGravity="center"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,10 +49,22 @@
                 android:paddingBottom="@dimen/detail_padding_bottom"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/first"
+                    android:textSize="@dimen/text_size_h3"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/leaders_first_card"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/leaders_first_card"
-                    android:layout_width="@dimen/leaderboards_top_card_width"
-                    android:layout_height="@dimen/leaderboards_top_card_height"
+                    android:layout_width="@dimen/leaderboards_top_card_width_large"
+                    android:layout_height="@dimen/leaderboards_top_card_height_large"
                     android:layout_margin="@dimen/margin_large"
                     app:cardCornerRadius="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -64,10 +78,11 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/leaders_first_image"
-                            android:layout_width="@dimen/profile_photo_normal"
-                            android:layout_height="@dimen/profile_photo_normal"
+                            android:layout_width="@dimen/profile_photo_large"
+                            android:layout_height="@dimen/profile_photo_large"
                             app:civ_border_color="@color/primaryColor"
                             app:civ_border_width="2dp"
+                            app:imageUrl="@{viewModel.first.player_photo}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -76,14 +91,16 @@
                         <TextView
                             android:id="@+id/leaders_first_fullname"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_marginEnd="@dimen/margin_small"
                             android:textAlignment="center"
                             android:textColor="@color/colorOnBackground"
+                            app:layout_constraintBottom_toTopOf="@+id/leaders_first_score"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/leaders_first_image"
+                            app:playerNames="@{viewModel.first.player_name}"
                             tools:text="@string/profile" />
 
                         <TextView
@@ -93,78 +110,33 @@
                             android:textAlignment="center"
                             android:textColor="@color/primaryColor"
                             android:textSize="@dimen/text_size_h2"
+                            app:convertLong="@{viewModel.first.correct}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/leaders_first_fullname"
                             tools:text="@string/score" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/second"
+                    android:textSize="@dimen/text_size_h3"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/leaders_second_card"
+                    app:layout_constraintEnd_toEndOf="@+id/leaders_second_card"
+                    app:layout_constraintStart_toStartOf="@+id/leaders_second_card" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/leaders_second_card"
                     android:layout_width="@dimen/leaderboards_top_card_width"
                     android:layout_height="@dimen/leaderboards_top_card_height"
-                    android:layout_marginHorizontal="@dimen/margin_large"
+                    android:layout_marginHorizontal="@dimen/margin_normal"
                     android:layout_marginVertical="@dimen/margin_large"
                     app:cardCornerRadius="6dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/leaders_first_card"
-                    app:layout_constraintTop_toTopOf="@+id/leaders_first_card">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/margin_small">
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/leaders_second_image"
-                            android:layout_width="@dimen/profile_photo_normal"
-                            android:layout_height="@dimen/profile_photo_normal"
-                            app:civ_border_color="@color/primaryColor"
-                            app:civ_border_width="2dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:src="@tools:sample/avatars" />
-
-                        <TextView
-                            android:id="@+id/leaders_second_fullname"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_small"
-                            android:layout_marginEnd="@dimen/margin_small"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorOnBackground"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/leaders_second_image"
-                            tools:text="@string/profile" />
-
-                        <TextView
-                            android:id="@+id/leaders_second_score"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:textColor="@color/primaryColor"
-                            android:textSize="@dimen/text_size_h2"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/leaders_second_fullname"
-                            tools:text="@string/score" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/leaders_third_card"
-                    android:layout_width="@dimen/leaderboards_top_card_width"
-                    android:layout_height="@dimen/leaderboards_top_card_height"
-                    android:layout_marginHorizontal="@dimen/margin_large"
-                    android:layout_marginVertical="@dimen/margin_large"
-                    app:cardCornerRadius="6dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/leaders_third_card"
                     app:layout_constraintEnd_toStartOf="@+id/leaders_first_card"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/leaders_first_card">
@@ -175,11 +147,83 @@
                         android:padding="@dimen/margin_small">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/leaders_third_image"
-                            android:layout_width="@dimen/profile_photo_normal"
-                            android:layout_height="@dimen/profile_photo_normal"
+                            android:id="@+id/leaders_second_image"
+                            android:layout_width="@dimen/normal_size_image"
+                            android:layout_height="@dimen/normal_size_image"
                             app:civ_border_color="@color/primaryColor"
                             app:civ_border_width="2dp"
+                            app:imageUrl="@{viewModel.second.player_photo}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@tools:sample/avatars" />
+
+                        <TextView
+                            android:id="@+id/leaders_second_fullname"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="@dimen/margin_small"
+                            android:layout_marginEnd="@dimen/margin_small"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorOnBackground"
+                            app:layout_constraintBottom_toTopOf="@+id/leaders_second_score"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/leaders_second_image"
+                            app:playerNames="@{viewModel.second.player_name}"
+                            tools:text="@string/profile" />
+
+                        <TextView
+                            android:id="@+id/leaders_second_score"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textColor="@color/primaryColor"
+                            android:textSize="@dimen/text_size_h2"
+                            app:convertLong="@{viewModel.second.correct}"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="@string/score" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/third"
+                    android:textSize="@dimen/text_size_h3"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/leaders_third_card"
+                    app:layout_constraintEnd_toEndOf="@+id/leaders_third_card"
+                    app:layout_constraintStart_toStartOf="@+id/leaders_third_card" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/leaders_third_card"
+                    android:layout_width="@dimen/leaderboards_top_card_width"
+                    android:layout_height="@dimen/leaderboards_top_card_height"
+                    android:layout_marginHorizontal="@dimen/margin_normal"
+                    android:layout_marginVertical="@dimen/margin_large"
+                    app:cardCornerRadius="6dp"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/leaders_first_card"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/leaders_first_card"
+                    app:layout_constraintTop_toTopOf="@+id/leaders_first_card">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/margin_small">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/leaders_third_image"
+                            android:layout_width="@dimen/normal_size_image"
+                            android:layout_height="@dimen/normal_size_image"
+                            app:civ_border_color="@color/primaryColor"
+                            app:civ_border_width="2dp"
+                            app:imageUrl="@{viewModel.third.player_photo}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -188,14 +232,16 @@
                         <TextView
                             android:id="@+id/leaders_third_fullname"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
                             android:layout_marginStart="@dimen/margin_small"
                             android:layout_marginEnd="@dimen/margin_small"
                             android:textAlignment="center"
                             android:textColor="@color/colorOnBackground"
+                            app:layout_constraintBottom_toTopOf="@+id/leaders_third_score"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/leaders_third_image"
+                            app:playerNames="@{viewModel.third.player_name}"
                             tools:text="@string/profile" />
 
                         <TextView
@@ -205,10 +251,10 @@
                             android:textAlignment="center"
                             android:textColor="@color/primaryColor"
                             android:textSize="@dimen/text_size_h2"
+                            app:convertLong="@{viewModel.third.correct}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/leaders_third_fullname"
                             tools:text="@string/score" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -222,7 +268,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/leaders_second_card"
+                    app:layout_constraintTop_toBottomOf="@+id/leaders_first_card"
                     tools:itemCount="8"
                     tools:listitem="@layout/leaders_single_list_item" />
 

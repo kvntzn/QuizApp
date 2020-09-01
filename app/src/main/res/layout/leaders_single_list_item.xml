@@ -16,8 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_normal"
         android:layout_marginLeft="@dimen/margin_normal"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_tiny"
+        android:layout_marginBottom="@dimen/margin_tiny"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginRight="@dimen/margin_normal"
         app:cardCornerRadius="6dp">
