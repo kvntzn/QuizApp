@@ -23,6 +23,10 @@ class ListFragment : MainNavigationFragment() {
 
     companion object {
         const val DEFAULT_CATEGORY = "All"
+
+        enum class Level {
+            BEGINNER
+        }
     }
 
     private lateinit var binding: FragmentListBinding
@@ -60,7 +64,7 @@ class ListFragment : MainNavigationFragment() {
             }
         })
 
-        viewModel.categoryList.observe(viewLifecycleOwner, object: Observer<List<String>> {
+        viewModel.categoryList.observe(viewLifecycleOwner, object : Observer<List<String>> {
             override fun onChanged(data: List<String>?) {
                 data ?: return
                 val chipGroup = binding.catergoryList
@@ -90,7 +94,7 @@ class ListFragment : MainNavigationFragment() {
 
         viewModel.category.observe(viewLifecycleOwner, Observer {
             val chips = binding.catergoryList.children
-            val ids= chips.map { chip -> chip.id }
+            val ids = chips.map { chip -> chip.id }
             for (id in ids) {
                 val chip: Chip = binding.catergoryList.findViewById(id)
                 chip.isChecked = chip.tag == it

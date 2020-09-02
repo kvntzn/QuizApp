@@ -34,16 +34,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
-            <View
-                android:id="@+id/image_cover_view"
-                android:layout_width="0dp"
-                android:layout_height="56dp"
-                android:background="@drawable/image_cover"
-                android:translationZ="10dp"
-                app:layout_constraintBottom_toBottomOf="@id/list_image"
-                app:layout_constraintEnd_toEndOf="@id/list_image"
-                app:layout_constraintStart_toStartOf="@id/list_image" />
-
             <TextView
                 android:id="@+id/list_title"
                 android:layout_width="wrap_content"
@@ -65,16 +55,37 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/merriweather"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_title"
                 app:truncate="@{quizListModel.desc}"
                 tools:text="@string/quiz_description" />
 
+            <TextView
+                android:id="@+id/list_difficulty_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:fontFamily="@font/merriweather"
+                android:textSize="@dimen/text_size_tiny"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:text="@string/difficulty"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_desc" />
+
+            <RatingBar
+                android:id="@+id/list_difficulty_ratingBar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numStars="3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/list_difficulty_txt"
+                app:layout_constraintTop_toBottomOf="@+id/list_desc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
