@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.widget.ImageView
+import android.widget.RatingBar
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
@@ -13,9 +14,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heathkev.quizado.R
 import com.heathkev.quizado.data.QuizListModel
+import com.heathkev.quizado.ui.list.ListFragment
+import com.heathkev.quizado.ui.list.ListFragment.Companion.Level
+import com.heathkev.quizado.ui.list.ListFragment.Companion.Level.*
 import com.heathkev.quizado.ui.list.QuizListAdapter
 import com.heathkev.quizado.utils.CircularOutlineProvider
 import timber.log.Timber
+import java.util.*
 
 @BindingAdapter("clipToCircle")
 fun clipToCircle(view: View, clip: Boolean) {
@@ -113,5 +118,13 @@ fun bindTextViewName(textView: TextView, name: String?) {
         "anonymous"
     } else {
         name
+    }
+}
+
+@BindingAdapter("levelRate")
+fun bindRatingBar(ratingBar: RatingBar, level: String?) {
+    ratingBar.rating = when (level?.toUpperCase(Locale.ROOT)) {
+        BEGINNER.toString() -> 1.0f
+        else -> 0f
     }
 }

@@ -47,6 +47,11 @@
         <item name="android:textSize" tools:ignore="SpUsage">20dp</item>
     </style>
 
+    <!--RatingBar-->
+    <style name="Widget.Quizado.RatingBar" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="android:numStars">3</item>
+    </style>
+
     <!-- Filters -->
     <!-- Easier to extend Chip.Choice because it includes some desired color effects. -->
     <style name="Widget.Quizado.FilterChip" parent="Widget.MaterialComponents.Chip.Choice">

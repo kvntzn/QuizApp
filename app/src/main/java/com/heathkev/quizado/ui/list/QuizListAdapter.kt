@@ -18,12 +18,6 @@ class QuizListAdapter(val onClickListener: OnClickListener) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(quizListModel: QuizListModel) {
             binding.quizListModel = quizListModel
-
-            binding.listDifficultyRatingBar.rating =
-                when (quizListModel.level.toUpperCase(Locale.ROOT)) {
-                    BEGINNER.toString() -> 1.0f
-                    else -> 0f
-                }
             binding.executePendingBindings()
         }
     }

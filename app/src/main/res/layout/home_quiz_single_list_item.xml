@@ -53,17 +53,40 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginVertical="@dimen/margin_small"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/merriweather"
                 android:textSize="@dimen/text_size_tiny"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/list_difficulty_ratingBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/list_title"
                 app:truncate="@{quizListModel.desc}"
                 tools:text="@string/quiz_description" />
+
+            <RatingBar
+                android:id="@+id/list_difficulty_ratingBar"
+                style="@style/Widget.Quizado.RatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:layout_marginHorizontal="24dp"
+                app:levelRate="@{quizListModel.level}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/list_category_desc_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:layout_marginHorizontal="24dp"
+                android:text="@{quizListModel.category}"
+                android:textColor="@color/colorOnBackground"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="@string/congratulations" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
