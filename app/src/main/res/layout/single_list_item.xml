@@ -68,7 +68,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:fontFamily="@font/merriweather"
                 android:textSize="@dimen/text_size_tiny"
                 android:layout_marginVertical="@dimen/margin_small"
                 android:text="@string/difficulty"
@@ -86,6 +85,32 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/list_difficulty_txt"
                 app:layout_constraintTop_toBottomOf="@+id/list_desc" />
+
+            <TextView
+                android:id="@+id/list_category_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:layout_marginHorizontal="@dimen/margin_small"
+                android:text="@string/category"
+                android:textSize="@dimen/text_size_tiny"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/list_category_desc_txt"
+                app:layout_constraintTop_toBottomOf="@+id/list_desc" />
+            <TextView
+                android:id="@+id/list_category_desc_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/margin_small"
+                android:layout_marginEnd="24dp"
+                android:textColor="@color/colorOnBackground"
+                android:textStyle="bold"
+                android:text="@{quizListModel.category}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_desc"
+                tools:text="@string/congratulations"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
