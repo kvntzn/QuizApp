@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
 import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.R
-import com.heathkev.quizado.data.QuestionsModel
+import com.heathkev.quizado.model.QuestionsModel
 import com.heathkev.quizado.databinding.FragmentSendQuestionBinding
 import com.heathkev.quizado.utils.doOnApplyWindowInsets
 

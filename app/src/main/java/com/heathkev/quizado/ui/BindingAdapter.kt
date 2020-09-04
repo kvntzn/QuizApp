@@ -6,16 +6,13 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.heathkev.quizado.R
-import com.heathkev.quizado.data.QuizListModel
-import com.heathkev.quizado.ui.list.ListFragment
-import com.heathkev.quizado.ui.list.ListFragment.Companion.Level
+import com.heathkev.quizado.model.QuizListModel
 import com.heathkev.quizado.ui.list.ListFragment.Companion.Level.*
 import com.heathkev.quizado.ui.list.QuizListAdapter
 import com.heathkev.quizado.utils.CircularOutlineProvider

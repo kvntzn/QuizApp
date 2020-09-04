@@ -5,7 +5,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
-import com.heathkev.quizado.data.QuizListModel
+import com.heathkev.quizado.model.QuizListModel
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.ui.list.ListFragment.Companion.DEFAULT_CATEGORY
 import com.heathkev.quizado.utils.Utility.Companion.Categories

@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.heathkev.quizado.data.QuizListModel
+import com.heathkev.quizado.model.QuizListModel
 import com.heathkev.quizado.databinding.SingleListItemBinding
-import com.heathkev.quizado.ui.list.ListFragment.Companion.Level.BEGINNER
 import kotlinx.android.synthetic.main.single_list_item.view.*
-import java.util.*
 
 class QuizListAdapter(val onClickListener: OnClickListener) :
     ListAdapter<QuizListModel, QuizListAdapter.QuizViewHolder>(DiffCallback) {

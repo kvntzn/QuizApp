@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.heathkev.quizado.data.Result
+import com.heathkev.quizado.model.Result
 import com.heathkev.quizado.databinding.LeadersSingleListItemBinding
 
 class LeadersListAdapter : ListAdapter<Result, LeadersListAdapter.LeadersViewHolder>(DiffCallback){

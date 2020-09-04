@@ -32,7 +32,7 @@
             app:popExitAnim="@anim/slide_down" />
         <argument
             android:name="quiz_data"
-            app:argType="com.heathkev.quizado.data.QuizListModel" />
+            app:argType="com.heathkev.quizado.model.QuizListModel" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
@@ -48,7 +48,7 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="quiz_data"
-            app:argType="com.heathkev.quizado.data.QuizListModel" />
+            app:argType="com.heathkev.quizado.model.QuizListModel" />
     </fragment>
     <fragment
         android:id="@+id/resultFragment"
@@ -57,7 +57,7 @@
         tools:layout="@layout/fragment_result">
         <argument
             android:name="quiz_data"
-            app:argType="com.heathkev.quizado.data.QuizListModel" />
+            app:argType="com.heathkev.quizado.model.QuizListModel" />
         <action
             android:id="@+id/action_resultFragment_to_detailFragment"
             app:destination="@id/detailFragment"

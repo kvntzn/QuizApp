@@ -7,7 +7,7 @@
 
         <variable
             name="quizListModel"
-            type="com.heathkev.quizado.data.QuizListModel" />
+            type="com.heathkev.quizado.model.QuizListModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

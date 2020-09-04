@@ -7,7 +7,7 @@
     <data>
         <variable
             name="resultModel"
-            type="com.heathkev.quizado.data.Result" />
+            type="com.heathkev.quizado.model.Result" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

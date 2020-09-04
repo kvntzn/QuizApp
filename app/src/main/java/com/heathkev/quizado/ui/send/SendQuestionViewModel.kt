@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.heathkev.quizado.data.QuestionsModel
+import com.heathkev.quizado.model.QuestionsModel
 import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.coroutines.*
 

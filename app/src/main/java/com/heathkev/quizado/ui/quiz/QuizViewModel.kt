@@ -9,9 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.toObject
-import com.heathkev.quizado.data.QuestionsModel
-import com.heathkev.quizado.data.QuizListModel
-import com.heathkev.quizado.data.User
+import com.heathkev.quizado.model.QuestionsModel
+import com.heathkev.quizado.model.QuizListModel
+import com.heathkev.quizado.model.User
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.firebase.FirebaseUserLiveData
 import kotlinx.coroutines.*

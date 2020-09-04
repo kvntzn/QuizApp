@@ -2,8 +2,8 @@
 //
 //import androidx.lifecycle.ViewModel
 //import androidx.lifecycle.ViewModelProvider
-//import com.heathkev.quizado.data.QuizListModel
-//import com.heathkev.quizado.data.User
+//import com.heathkev.quizado.model.QuizListModel
+//import com.heathkev.quizado.model.User
 //import com.heathkev.quizado.ui.quiz.QuizViewModel
 //
 //

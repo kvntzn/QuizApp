@@ -1,6 +1,6 @@
 package com.heathkev.quizado.utils
 
-import com.heathkev.quizado.data.Result
+import com.heathkev.quizado.model.Result
 
 class Utility {
     companion object{

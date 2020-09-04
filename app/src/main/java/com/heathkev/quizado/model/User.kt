@@ -1,4 +1,4 @@
-package com.heathkev.quizado.data
+package com.heathkev.quizado.model
 
 import android.net.Uri
 

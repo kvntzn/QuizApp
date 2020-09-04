@@ -13,7 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.heathkev.quizado.R
-import com.heathkev.quizado.data.QuizListModel
 import com.heathkev.quizado.databinding.FragmentResultBinding
 import com.heathkev.quizado.ui.MainNavigationFragment
 import com.heathkev.quizado.utils.doOnApplyWindowInsets

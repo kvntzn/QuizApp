@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
-import com.heathkev.quizado.data.Result
+import com.heathkev.quizado.model.Result
 import com.heathkev.quizado.firebase.FirebaseRepository
 import kotlinx.coroutines.*
 import timber.log.Timber
