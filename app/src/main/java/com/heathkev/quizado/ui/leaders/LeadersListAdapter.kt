@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.heathkev.quizado.databinding.ItemLeaderboardsBinding
 import com.heathkev.quizado.model.Result
-import com.heathkev.quizado.databinding.LeadersSingleListItemBinding
 
 class LeadersListAdapter : ListAdapter<Result, LeadersListAdapter.LeadersViewHolder>(DiffCallback){
 
-    class LeadersViewHolder(private var binding: LeadersSingleListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class LeadersViewHolder(private var binding: ItemLeaderboardsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(result: Result) {
             binding.resultModel = result
             binding.executePendingBindings()
@@ -18,7 +18,7 @@ class LeadersListAdapter : ListAdapter<Result, LeadersListAdapter.LeadersViewHol
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeadersViewHolder {
-        val view = LeadersSingleListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val view = ItemLeaderboardsBinding.inflate(LayoutInflater.from(parent.context),parent, false)
         return LeadersViewHolder(view)
     }
 

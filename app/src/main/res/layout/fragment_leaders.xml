@@ -267,7 +267,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/leaders_first_card"
                     tools:itemCount="8"
-                    tools:listitem="@layout/leaders_single_list_item" />
+                    tools:listitem="@layout/item_leaderboards" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
