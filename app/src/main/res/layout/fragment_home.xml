@@ -197,7 +197,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_for_you_text"
                     tools:itemCount="16"
-                    tools:listitem="@layout/home_quiz_single_list_item" />
+                    tools:listitem="@layout/item_home_quiz" />
 
                 <View
                     android:layout_width="match_parent"
@@ -231,7 +231,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/home_trending_text"
                     tools:itemCount="16"
-                    tools:listitem="@layout/home_quiz_single_list_item" />
+                    tools:listitem="@layout/item_home_quiz" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

@@ -6,12 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heathkev.quizado.model.QuizListModel
-import com.heathkev.quizado.databinding.HomeQuizSingleListItemBinding
+import com.heathkev.quizado.databinding.ItemHomeQuizBinding
 import kotlinx.android.synthetic.main.item_quiz.view.*
 
 class HomeQuizListAdapter(private val onClickListener: OnClickListener) : ListAdapter<QuizListModel, HomeQuizListAdapter.HomeQuizViewHolder>(DiffCallback){
 
-    class HomeQuizViewHolder(private var binding: HomeQuizSingleListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class HomeQuizViewHolder(private var binding: ItemHomeQuizBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(quizListModel: QuizListModel) {
             binding.quizListModel = quizListModel
             binding.executePendingBindings()
@@ -19,7 +19,7 @@ class HomeQuizListAdapter(private val onClickListener: OnClickListener) : ListAd
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeQuizViewHolder {
-        val view = HomeQuizSingleListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val view = ItemHomeQuizBinding.inflate(LayoutInflater.from(parent.context),parent, false)
         return HomeQuizViewHolder(view)
     }
 
