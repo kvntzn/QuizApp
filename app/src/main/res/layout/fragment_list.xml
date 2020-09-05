@@ -77,7 +77,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="16"
-                tools:listitem="@layout/single_list_item" />
+                tools:listitem="@layout/item_quiz" />
 
             <ProgressBar
                 android:id="@+id/list_progress"

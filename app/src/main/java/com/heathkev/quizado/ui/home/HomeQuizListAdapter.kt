@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heathkev.quizado.model.QuizListModel
 import com.heathkev.quizado.databinding.HomeQuizSingleListItemBinding
-import kotlinx.android.synthetic.main.single_list_item.view.*
+import kotlinx.android.synthetic.main.item_quiz.view.*
 
 class HomeQuizListAdapter(private val onClickListener: OnClickListener) : ListAdapter<QuizListModel, HomeQuizListAdapter.HomeQuizViewHolder>(DiffCallback){
 
