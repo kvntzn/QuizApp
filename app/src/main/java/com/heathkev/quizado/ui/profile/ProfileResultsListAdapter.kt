@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heathkev.quizado.R
 import com.heathkev.quizado.model.Result
-import com.heathkev.quizado.databinding.HomeResultSingleListItemBinding
+import com.heathkev.quizado.databinding.ItemProfileResultBinding
 
 class ProfileResultsListAdapter() : ListAdapter<Result, ProfileResultsListAdapter.ResultsViewHolder>(
     DiffCallback
 ){
 
-    class ResultsViewHolder(private var binding: HomeResultSingleListItemBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+    class ResultsViewHolder(private var binding: ItemProfileResultBinding, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
         fun bind(result: Result) {
             binding.resultModel = result
 
@@ -41,7 +41,7 @@ class ProfileResultsListAdapter() : ListAdapter<Result, ProfileResultsListAdapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsViewHolder {
-        val view = HomeResultSingleListItemBinding.inflate(LayoutInflater.from(parent.context),parent, false)
+        val view = ItemProfileResultBinding.inflate(LayoutInflater.from(parent.context),parent, false)
         return ResultsViewHolder(
             view,
             parent.context

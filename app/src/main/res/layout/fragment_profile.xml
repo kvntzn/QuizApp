@@ -209,7 +209,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/profile_recent_results"
                     app:spanCount="2"
                     tools:itemCount="6"
-                    tools:listitem="@layout/home_result_single_list_item"
+                    tools:listitem="@layout/item_profile_result"
                     tools:visibility="visible" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
