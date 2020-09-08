@@ -14,6 +14,7 @@ import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.ActivityLoginBinding
 import com.heathkev.quizado.ui.start.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 const val TAG = "LoginActivity"
 @AndroidEntryPoint
@@ -57,14 +58,10 @@ class LoginActivity : AppCompatActivity() {
 
                 binding.startFeedback.text = getString(R.string.logged_in)
                 enterMainActivity()
-                viewModel.registerUser()
-                Log.i(
-                    TAG,
-                    "Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
+                Timber.d("Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
                 )
             } else {
-
-                Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
+                Timber.d("Sign in unsuccessful ${response?.error?.errorCode}")
             }
         }
     }

@@ -10,12 +10,10 @@ import com.heathkev.quizado.firebase.FirebaseUserLiveData
 import kotlinx.coroutines.*
 
 class LoginViewModel @ViewModelInject constructor(
-    private val firebaseRepository: FirebaseRepository,
     private val currentUser: FirebaseUserLiveData
 ) : ViewModel() {
 
     private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     enum class AuthenticationState {
         AUTHENTICATED, UNAUTHENTICATED, INVALID_AUTHENTICATION
@@ -26,28 +24,6 @@ class LoginViewModel @ViewModelInject constructor(
             AuthenticationState.AUTHENTICATED
         } else {
             AuthenticationState.UNAUTHENTICATED
-        }
-    }
-
-    fun registerUser() {
-        uiScope.launch {
-            currentUser.value?.let {
-                val userMap = HashMap<String, Any?>()
-                userMap["name"] = it.displayName
-                userMap["email"] = it.email
-                userMap["image"] =
-                    if (Uri.EMPTY != it.photoUrl) it.photoUrl.toString() else it.photoUrl
-
-
-                register(it.uid, userMap)
-            }
-
-        }
-    }
-
-    private suspend fun register(userId: String, userMap: HashMap<String, Any?>) {
-        withContext(Dispatchers.IO) {
-            firebaseRepository.registerUser(userId, userMap)
         }
     }
 
