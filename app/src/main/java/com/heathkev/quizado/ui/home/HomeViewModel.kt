@@ -3,31 +3,52 @@ package com.heathkev.quizado.ui.home
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.model.QuizListModel
 import com.heathkev.quizado.firebase.FirebaseRepository
+import com.heathkev.quizado.firebase.FirebaseUserLiveData
+import com.heathkev.quizado.model.User
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.io.IOException
+import kotlin.random.Random
 
 private const val TAG = "HomeViewModel"
 
 class HomeViewModel @ViewModelInject constructor(
-    private val firebaseRepository: FirebaseRepository
+    private val firebaseRepository: FirebaseRepository,
+    firebaseUser: FirebaseUserLiveData
 ) : ViewModel() {
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    val currentUser: LiveData<User> = Transformations.map(firebaseUser){ user ->
+        if(user != null){
+            User(
+                user.uid,
+                user.displayName,
+                user.photoUrl,
+                user.email
+            )
+        }else{
+            User()
+        }
+    }
 
     private val _featuredQuiz = MutableLiveData<QuizListModel>()
     val featuredQuiz: LiveData<QuizListModel>
         get() = _featuredQuiz
 
-    // TODO: update queries to get recommended and trending
-    private val _quizList = MutableLiveData<List<QuizListModel>>()
-    val quizList: LiveData<List<QuizListModel>>
-        get() = _quizList
+    private val _recommendedQuizList = MutableLiveData<List<QuizListModel>>()
+    val recommendedQuizList: LiveData<List<QuizListModel>>
+        get() = _recommendedQuizList
+
+    private val _popularQuizList = MutableLiveData<List<QuizListModel>>()
+    val popularQuizList: LiveData<List<QuizListModel>>
+        get() = _popularQuizList
 
     private val _navigateToQuizListModel = MutableLiveData<QuizListModel>()
     val navigateToQuizListModel: LiveData<QuizListModel>
@@ -37,40 +58,44 @@ class HomeViewModel @ViewModelInject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-
-    init {
-        fetchQuizList()
-    }
-
-    private fun fetchQuizList() {
+    fun fetchQuizList(userId: String) {
         uiScope.launch {
             try {
-                getQuizList()
+                getQuizList(userId)
             } catch (e: IOException) {
-                _quizList.value = listOf()
+                _recommendedQuizList.value = listOf()
+                _popularQuizList.value = listOf()
+
                 Timber.d("No quizzes retrieved")
             }
         }
     }
 
-    private suspend fun getQuizList() {
+    private suspend fun getQuizList(userId: String) {
         withContext(Dispatchers.IO) {
             _isLoading.postValue(true)
-            parseQuizzes(firebaseRepository.getQuizList())
+
+            val recommendedQuizzes = parseQuizzes(firebaseRepository.getRecommendedQuiz(userId))
+            val popularQuizzes = parseQuizzes(firebaseRepository.getMostPopularQuiz(userId))
+
+            _recommendedQuizList.postValue(recommendedQuizzes)
+            _popularQuizList.postValue(popularQuizzes)
+
+            _featuredQuiz.postValue(popularQuizzes[1])
 
             _isLoading.postValue(false)
         }
     }
 
-    private fun parseQuizzes(value: QuerySnapshot?) {
+    private fun parseQuizzes(value: QuerySnapshot?) : MutableList<QuizListModel> {
         val quizListModelList: MutableList<QuizListModel> = mutableListOf()
         for (doc in value!!) {
             val quizItem = doc.toObject<QuizListModel>()
             quizListModelList.add(quizItem)
         }
 
-        _featuredQuiz.postValue(quizListModelList.first())
-        _quizList.postValue(quizListModelList)
+        Timber.d("$quizListModelList")
+        return quizListModelList;
     }
 
     fun playQuiz() {

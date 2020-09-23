@@ -27,6 +27,13 @@ class HomeFragment : MainNavigationFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        homeViewModel.currentUser.observe(viewLifecycleOwner, Observer {
+            if(it.userId.isNotEmpty()) {
+                homeViewModel.fetchQuizList(it.userId)
+            }
+        })
+
         binding =
             FragmentHomeBinding.inflate(inflater, container, false)
                 .apply{
@@ -39,7 +46,7 @@ class HomeFragment : MainNavigationFragment() {
             supportActionBar!!.setDisplayShowTitleEnabled(false)
         }
 
-        val quizAdapter = HomeQuizListAdapter(HomeQuizListAdapter.OnClickListener {
+        val recommendedQuizListAdapter = HomeQuizListAdapter(HomeQuizListAdapter.OnClickListener {
             Timber.d("Quiz Clicked")
             this.findNavController().navigate(
                 HomeFragmentDirections.actionHomeFragmentToDetailFragment(
@@ -47,11 +54,28 @@ class HomeFragment : MainNavigationFragment() {
                 )
             )
         })
-        binding.homeForYouList.adapter = quizAdapter
-        binding.homeTrendingList.adapter = quizAdapter
-        homeViewModel.quizList.observe(viewLifecycleOwner, Observer {
+
+        val popularQuizListAdapter = HomeQuizListAdapter(HomeQuizListAdapter.OnClickListener {
+            Timber.d("Quiz Clicked")
+            this.findNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToDetailFragment(
+                    it
+                )
+            )
+        })
+
+        // TODO : Change naming convention for the list
+        binding.homeForYouList.adapter = recommendedQuizListAdapter
+        homeViewModel.recommendedQuizList.observe(viewLifecycleOwner, Observer {
             it.let{
-                quizAdapter.submitList(it)
+                recommendedQuizListAdapter.submitList(it)
+            }
+        })
+
+        binding.homeTrendingList.adapter = popularQuizListAdapter
+        homeViewModel.popularQuizList.observe(viewLifecycleOwner, Observer {
+            it.let{
+                popularQuizListAdapter.submitList(it)
             }
         })
 

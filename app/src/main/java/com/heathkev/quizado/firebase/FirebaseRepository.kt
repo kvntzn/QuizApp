@@ -20,6 +20,13 @@ class FirebaseRepository @Inject constructor(){
         return firebaseFireStore.collection("QuizList").get().await()
     }
 
+    suspend fun getRecommendedQuiz(userId: String): QuerySnapshot? {
+        return firebaseFireStore.collection("feeds").document(userId).collection("recommedations").get().await()
+    }
+    suspend fun getMostPopularQuiz(userId: String): QuerySnapshot? {
+        return firebaseFireStore.collection("feeds").document(userId).collection("popular").get().await()
+    }
+
     suspend fun getQuizList(category: String?): QuerySnapshot? {
         return firebaseFireStore.collection("QuizList").whereEqualTo("category", category).get().await()
     }
