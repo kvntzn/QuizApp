@@ -78,10 +78,16 @@ class HomeViewModel @ViewModelInject constructor(
             val recommendedQuizzes = parseQuizzes(firebaseRepository.getRecommendedQuiz(userId))
             val popularQuizzes = parseQuizzes(firebaseRepository.getMostPopularQuiz(userId))
 
-            _recommendedQuizList.postValue(recommendedQuizzes)
-            _popularQuizList.postValue(popularQuizzes)
+            if(recommendedQuizzes.size > 0 && popularQuizzes.size > 0){
+                _recommendedQuizList.postValue(recommendedQuizzes)
+                _popularQuizList.postValue(popularQuizzes)
 
-            _featuredQuiz.postValue(popularQuizzes[1])
+                val randomInt = Random.nextInt(0, popularQuizzes.size)
+                _featuredQuiz.postValue(popularQuizzes[randomInt])
+            }else{
+                getQuizList(userId)
+                Timber.d("Retry retrieving quiz")
+            }
 
             _isLoading.postValue(false)
         }
