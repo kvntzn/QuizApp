@@ -12,19 +12,15 @@ class FirebaseRepository @Inject constructor(){
 
     private val firebaseFireStore = FirebaseFirestore.getInstance()
 
-    suspend fun registerUser(userId: String, userMap: HashMap<String, Any?>): Void? {
-        return firebaseFireStore.collection("Users").document(userId).set(userMap).await()
-    }
-
     suspend fun getQuizList(): QuerySnapshot? {
         return firebaseFireStore.collection("QuizList").get().await()
     }
 
     suspend fun getRecommendedQuiz(userId: String): QuerySnapshot? {
-        return firebaseFireStore.collection("feeds").document(userId).collection("recommedations").get().await()
+        return firebaseFireStore.collection("feeds").document(userId).collection("recommedations").orderBy("rankRecommendation", Query.Direction.ASCENDING) .get().await()
     }
     suspend fun getMostPopularQuiz(userId: String): QuerySnapshot? {
-        return firebaseFireStore.collection("feeds").document(userId).collection("popular").get().await()
+        return firebaseFireStore.collection("feeds").document(userId).collection("recommedations").orderBy("taken", Query.Direction.DESCENDING).get().await()
     }
 
     suspend fun getQuizList(category: String?): QuerySnapshot? {
