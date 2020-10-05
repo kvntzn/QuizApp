@@ -53,6 +53,10 @@ class FirebaseRepository @Inject constructor(){
             .await()
     }
 
+    suspend fun getLeaderboards(): QuerySnapshot? {
+        return firebaseFireStore.collection("leaderboard").get().await()
+    }
+
     suspend fun sendQuestion(questionMap : HashMap<String, Any?>): Void? {
         return firebaseFireStore.collection("QuestionRequest").document().set(questionMap).await()
     }

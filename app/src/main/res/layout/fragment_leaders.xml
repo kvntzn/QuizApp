@@ -82,7 +82,7 @@
                             android:layout_height="@dimen/profile_photo_large"
                             app:civ_border_color="@color/primaryColor"
                             app:civ_border_width="2dp"
-                            app:imageUrl="@{viewModel.first.player_photo}"
+                            app:imageUrl="@{viewModel.first.photo}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -100,7 +100,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/leaders_first_image"
-                            app:playerNames="@{viewModel.first.player_name}"
+                            app:playerNames="@{viewModel.first.name}"
                             tools:text="@string/profile" />
 
                         <TextView
@@ -110,7 +110,7 @@
                             android:textAlignment="center"
                             android:textColor="@color/primaryColor"
                             android:textSize="@dimen/text_size_h2"
-                            app:convertLong="@{viewModel.first.correct}"
+                            app:convertLong="@{viewModel.first.score}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -151,7 +151,7 @@
                             android:layout_height="@dimen/normal_size_image"
                             app:civ_border_color="@color/primaryColor"
                             app:civ_border_width="2dp"
-                            app:imageUrl="@{viewModel.second.player_photo}"
+                            app:imageUrl="@{viewModel.second.photo}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -169,7 +169,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/leaders_second_image"
-                            app:playerNames="@{viewModel.second.player_name}"
+                            app:playerNames="@{viewModel.second.name}"
                             tools:text="@string/profile" />
 
                         <TextView
@@ -179,7 +179,7 @@
                             android:textAlignment="center"
                             android:textColor="@color/primaryColor"
                             android:textSize="@dimen/text_size_h2"
-                            app:convertLong="@{viewModel.second.correct}"
+                            app:convertLong="@{viewModel.second.score}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -220,7 +220,7 @@
                             android:layout_height="@dimen/normal_size_image"
                             app:civ_border_color="@color/primaryColor"
                             app:civ_border_width="2dp"
-                            app:imageUrl="@{viewModel.third.player_photo}"
+                            app:imageUrl="@{viewModel.third.photo}"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
@@ -238,7 +238,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/leaders_third_image"
-                            app:playerNames="@{viewModel.third.player_name}"
+                            app:playerNames="@{viewModel.third.name}"
                             tools:text="@string/profile" />
 
                         <TextView
@@ -248,7 +248,7 @@
                             android:textAlignment="center"
                             android:textColor="@color/primaryColor"
                             android:textSize="@dimen/text_size_h2"
-                            app:convertLong="@{viewModel.third.correct}"
+                            app:convertLong="@{viewModel.third.score}"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

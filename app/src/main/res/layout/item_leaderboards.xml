@@ -6,8 +6,8 @@
 
     <data>
         <variable
-            name="resultModel"
-            type="com.heathkev.quizado.model.Result" />
+            name="leaderBoard"
+            type="com.heathkev.quizado.model.Leaderboard" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -35,7 +35,7 @@
                 android:layout_height="@dimen/profile_photo_normal"
                 app:civ_border_color="@color/primaryColor"
                 app:civ_border_width="2dp"
-                app:imageUrl="@{resultModel.player_photo}"
+                app:imageUrl="@{leaderBoard.photo}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
                 android:layout_marginStart="@dimen/margin_small"
                 android:layout_marginEnd="@dimen/margin_small"
                 android:textColor="@color/colorOnBackground"
-                app:playerNames="@{resultModel.player_name}"
+                app:playerNames="@{leaderBoard.name}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/leaders_list_score"
                 app:layout_constraintStart_toEndOf="@+id/leaders_list_image"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/margin_small"
                 android:textSize="@dimen/text_size_h2"
-                app:convertLong="@{resultModel.correct}"
+                app:convertLong="@{leaderBoard.score}"
                 android:textColor="@color/primaryColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

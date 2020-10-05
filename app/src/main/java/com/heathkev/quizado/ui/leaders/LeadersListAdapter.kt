@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.heathkev.quizado.databinding.ItemLeaderboardsBinding
-import com.heathkev.quizado.model.Result
+import com.heathkev.quizado.model.Leaderboard
 
-class LeadersListAdapter : ListAdapter<Result, LeadersListAdapter.LeadersViewHolder>(DiffCallback){
+class LeadersListAdapter : ListAdapter<Leaderboard, LeadersListAdapter.LeadersViewHolder>(DiffCallback){
 
     class LeadersViewHolder(private var binding: ItemLeaderboardsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(result: Result) {
-            binding.resultModel = result
+        fun bind(leaderBoard: Leaderboard) {
+            binding.leaderBoard = leaderBoard
             binding.executePendingBindings()
         }
     }
@@ -27,13 +27,13 @@ class LeadersListAdapter : ListAdapter<Result, LeadersListAdapter.LeadersViewHol
         holder.bind(result)
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<Result>() {
-        override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<Leaderboard>() {
+        override fun areItemsTheSame(oldItem: Leaderboard, newItem: Leaderboard): Boolean {
             return oldItem === newItem
         }
 
-        override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
-            return oldItem.user_id == newItem.user_id
+        override fun areContentsTheSame(oldItem: Leaderboard, newItem: Leaderboard): Boolean {
+            return oldItem.userId == newItem.userId
         }
     }
 }
