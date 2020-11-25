@@ -54,7 +54,7 @@ class FirebaseRepository @Inject constructor(){
     }
 
     suspend fun getLeaderboards(): QuerySnapshot? {
-        return firebaseFireStore.collection("leaderboard").get().await()
+        return firebaseFireStore.collection("leaderboard").orderBy("score", Query.Direction.DESCENDING).get().await()
     }
 
     suspend fun sendQuestion(questionMap : HashMap<String, Any?>): Void? {

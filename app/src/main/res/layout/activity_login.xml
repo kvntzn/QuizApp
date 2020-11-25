@@ -28,99 +28,70 @@ tools:context=".ui.LoginActivity">
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/start_progress"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:visibility="@{viewModel.authenticationState == AuthenticationState.AUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteY="116dp" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/start_email_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_large"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:hint="@string/email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/start_title"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/start_email_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/start_password_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_normal"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:hint="@string/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/start_email_layout"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/start_password_txt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/start_login_btn"
         style="@style/Widget.Quizado.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/margin_large"
-        android:layout_marginHorizontal="@dimen/margin_large"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/sign_in"
         android:visibility="@{viewModel.authenticationState == AuthenticationState.UNAUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_password_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/start_feedback" />
+
+    <ProgressBar
+        android:id="@+id/start_progress"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:visibility="@{viewModel.authenticationState == AuthenticationState.AUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+        app:layout_constraintBottom_toBottomOf="@+id/start_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_title" />
 
     <TextView
+        android:id="@+id/start_feedback"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:textAlignment="center"
+        android:visibility="@{viewModel.authenticationState == AuthenticationState.AUTHENTICATED ? View.VISIBLE: View.INVISIBLE}"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_img"
+        tools:text="Initializing" />
+
+    <ImageView
+        android:id="@+id/start_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don't have an account?"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/character1"
+        android:contentDescription="@string/lady_with_paper"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/start_title" />
+
+    <TextView
+        android:id="@+id/start_welcome_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:textAlignment="center"
         android:fontFamily="@font/merriweather"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:layout_marginVertical="@dimen/margin_small"
-        app:layout_constraintBottom_toTopOf="@id/start_signup"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-<!--   TODO: arrow and strings-->
-    <TextView
-        android:id="@+id/start_signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:textStyle="bold"
-        android:drawableEnd="@drawable/ic_arrow_back"
-        android:drawablePadding="10dp"
-        android:textSize="@dimen/text_size_h3"
-        android:layout_marginHorizontal="@dimen/margin_large"
-        android:layout_marginVertical="@dimen/margin_large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-
-
-
+        android:textColor="@color/colorOnBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/start_img"
+        app:layout_constraintEnd_toEndOf="@+id/start_img"
+        app:layout_constraintStart_toStartOf="@+id/start_img"
+        android:text="@string/welcome_to_quizado" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
