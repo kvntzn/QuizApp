@@ -11,7 +11,7 @@ Click [here](https://github.com/kvntzn/QuizApp/raw/master/quizado.apk) to downlo
 * LiveData and Lifecycle 📱
 * Navigation Component 🚗
 * Dagger & Hilt 💉
-* [Cloud Functions](https://github.com/kvntzn/quizado-firebase-functions) 
+* [Cloud Functions](https://github.com/kvntzn/quizado-firebase-functions) ☁️
 * and More... 💥
 
 # Screenshots 📷
