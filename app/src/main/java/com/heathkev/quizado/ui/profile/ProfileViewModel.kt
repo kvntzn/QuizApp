@@ -45,6 +45,7 @@ class ProfileViewModel @ViewModelInject constructor(
         }
     }
 
+
     val quizzesNumber: LiveData<String> = Transformations.map(_quizzesNumber) {
         it.toString()
     }
