@@ -1,0 +1,174 @@
+[33ma322a47[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m master@{0}: commit: Updated feed view in home page
+[33m0f1ee0b[m master@{1}: commit: remove registration front end
+[33m64d2bd9[m master@{2}: commit: Rename home quiz item
+[33m9899a15[m master@{3}: commit: Rename leaderboards item
+[33mbb6d300[m master@{4}: commit: Rename quiz item
+[33mb01cfa0[m master@{5}: commit: Rename profile result item
+[33m0aae3a9[m master@{6}: commit: Updates apk file
+[33mc934495[m master@{7}: commit: Moved model class to model folder
+[33m16a7637[m master@{8}: commit: Update apk file
+[33maf44a0b[m master@{9}: commit: update home quiz list
+[33m2d40320[m master@{10}: commit: Update UI on list for quiz list and home page list
+[33m54a7695[m master@{11}: commit: Update UI list item on quiz list
+[33m6573f4a[m master@{12}: commit: Added a rating bar on qui list
+[33m61540e5[m master@{13}: commit: Update UI profile fragment and leaderboards
+[33mf262f63[m master@{14}: commit: Update UI profile fragment
+[33ma3d92bf[m master@{15}: commit: Update UI for leaderboards and view models
+[33macccaa8[m master@{16}: commit: Update UI for leader boards
+[33m0e7216c[m master@{17}: pull: Merge made by the 'recursive' strategy.
+[33m87a8cc3[m master@{18}: commit: Update ProfileFragment.kt
+[33me1ac065[m master@{19}: commit: Updated home page UI and Viewmodel
+[33m2a5955b[m master@{20}: commit: Update architecture for ResultFragment.kt
+[33mb1670bc[m master@{21}: commit: Fix UI issue on physical device
+[33ma871900[m master@{22}: commit: Update architecture for quiz fragment
+[33mebe11b1[m master@{23}: commit: update detail fragment architecture
+[33m826fa66[m master@{24}: commit: Update dialog fragment UI
+[33m4a00003[m master@{25}: commit: Added show toolbar animation
+[33m7693fd6[m master@{26}: pull: Merge made by the 'recursive' strategy.
+[33mc7e72a4[m master@{27}: commit: update email and name binding on dialog sign out
+[33m93066e9[m master@{28}: commit: Implemented dependency injection on SettingsFragment.kt
+[33mf71c993[m master@{29}: commit: Added experiment coroutines
+[33m59b93dd[m master@{30}: pull: Merge made by the 'recursive' strategy.
+[33m65f9812[m master@{31}: commit: upload new build
+[33m04cb50e[m master@{32}: commit: Implemented log out functionality
+[33m1f1f7da[m master@{33}: commit: update top level fragments viewmodels
+[33me374ba1[m master@{34}: commit: Added modal fragment for the home page only
+[33m8dc99a2[m master@{35}: commit: Added event class helper
+[33m98111c8[m master@{36}: commit: Update leaderboards
+[33m3dda629[m master@{37}: commit: Create a dialog sign out
+[33me917c6d[m master@{38}: commit: Update viewmodels
+[33m28b4c1b[m master@{39}: commit: Remove start fragment
+[33m66512e6[m master@{40}: commit: Update UI
+[33m01e46bc[m master@{41}: commit: Update UI
+[33m0e9ea5b[m master@{42}: commit: update list
+[33m3be0c76[m master@{43}: commit: remove factory
+[33m8bab257[m master@{44}: commit: update list
+[33m5a88730[m master@{45}: commit: Added image on menu home fragment
+[33m200d077[m master@{46}: commit: update top levels
+[33mf6f5b39[m master@{47}: commit: Update home page
+[33m5912a10[m master@{48}: commit: Update UI and home page
+[33mfceb6f7[m master@{49}: commit: update apk
+[33mc613802[m master@{50}: commit: Added splash screen
+[33m73cb254[m master@{51}: commit: Updated start page
+[33mef1ba96[m master@{52}: commit: Added app icon
+[33m74352b7[m master@{53}: pull: Fast-forward
+[33m5429172[m master@{54}: pull: Fast-forward
+[33m1189e0b[m master@{55}: pull: Merge made by the 'recursive' strategy.
+[33md455047[m master@{56}: commit: Added screen shots
+[33mbb19457[m master@{57}: commit: Update detail fragmennt
+[33m46894ef[m master@{58}: commit: update loading
+[33m0a62404[m master@{59}: commit: Added btm navigation listener to prevent same fragment recreation
+[33m8d25bdc[m master@{60}: commit: Update style quizlist
+[33mf1b2f5f[m master@{61}: commit: Update list fragment
+[33m1b71b2e[m master@{62}: commit: update leader fragment
+[33m8d20dc2[m master@{63}: commit: rename firebase repository methods
+[33m99695cf[m master@{64}: commit: Finished update firestore DAO to await
+[33mc9a09e9[m master@{65}: commit: Implemented hilt on home fragment
+[33m8c6c09d[m master@{66}: commit: started implementing hilt
+[33m6610ba2[m master@{67}: commit: update loading on top levels
+[33m7011175[m master@{68}: commit: update AcknowledgementFragment
+[33m69b4773[m master@{69}: commit: Update top level destinations toolbar
+[33m0c3a74d[m master@{70}: commit: Update toolbar design
+[33m29772a3[m master@{71}: commit: update quiz loading and navigation
+[33mc8d5b86[m master@{72}: commit: update result fragment
+[33me38a3bb[m master@{73}: commit: Update quiz fragment
+[33md49be76[m master@{74}: commit: Update detail page and view model
+[33ma4a9d45[m master@{75}: commit: Update button styles
+[33m7060eb4[m master@{76}: commit: Update results fragment
+[33mdf19518[m master@{77}: commit: Update buttons and optimized quiz list
+[33m444b360[m master@{78}: commit: Fixed navigations
+[33m43a0916[m master@{79}: commit: update AcknowledgementFragment and AboutFragment
+[33mb7b29e4[m master@{80}: commit: update settings page
+[33m4536789[m master@{81}: commit: Update send question
+[33madfee03[m master@{82}: commit: Update profile fragment
+[33m7c9c4a8[m master@{83}: commit: Update quiz list
+[33m2c2238f[m master@{84}: commit: Update leader boards page
+[33mca34e65[m master@{85}: commit: update home page
+[33m200f6c5[m master@{86}: commit: Update quiz fragment
+[33mf072d35[m master@{87}: commit: Update detail fragment
+[33m0b0ca4d[m master@{88}: commit: Update navigation style
+[33mb2707d2[m master@{89}: commit: revert
+[33m7a30752[m master@{90}: commit: Update navigation implementation
+[33m22fb458[m master@{91}: commit: update home view model
+[33m7490c24[m master@{92}: commit: update home view model
+[33mab42631[m master@{93}: commit: update coroutines home and leaders
+[33m3bdb0db[m master@{94}: commit: update quiz list view model and coroutines
+[33m47b9057[m master@{95}: commit: update coroutines
+[33m4985f38[m master@{96}: commit: update home and leaders page
+[33m08be906[m master@{97}: commit: Update coroutines on home view and firebase repository
+[33m194268a[m master@{98}: commit: Added firebase coroutines for homeonly
+[33m87c740b[m master@{99}: commit: Update loading of fragments
+[33m3b235d4[m master@{100}: commit: Hid the loading indicator
+[33m2a56511[m master@{101}: commit: Update UI navigation header and home page
+[33m2ae8edb[m master@{102}: commit: Update start fragment design
+[33m5360a57[m master@{103}: commit: Update start fragment design
+[33mc3d0c1e[m master@{104}: commit: Updated navigation
+[33m73bb013[m master@{105}: commit: grouped navigations
+[33md2f25e4[m master@{106}: commit: Finished sending question functionality
+[33m2e1dcdd[m master@{107}: commit: Added code implementation for sending a question
+[33ma1cac71[m master@{108}: commit: finished send question UI
+[33mc7486a7[m master@{109}: commit: Added send question fragment
+[33m392cb19[m master@{110}: commit: Create Acknowledgement fragment
+[33m119aba9[m master@{111}: commit: Update dimensions and navigation
+[33m1e23a62[m master@{112}: commit: Update quiz page and home page
+[33m68a00b2[m master@{113}: commit: Update list fragment
+[33m1c8058f[m master@{114}: commit: Enhance ResultFragment
+[33m1524226[m master@{115}: commit: update navigation for result fragment
+[33m43436ba[m master@{116}: commit: Update result page and scrollview
+[33mdec7067[m master@{117}: commit: Finished player and button
+[33m32f7d0e[m master@{118}: commit: Update list page and navigation homepage
+[33m6171ca9[m master@{119}: commit: Finished player and button
+[33mc26087d[m master@{120}: commit: Finished player and button
+[33m6415b94[m master@{121}: commit: Finished recent results
+[33m4fcac75[m master@{122}: commit: Finished adapter for home view model
+[33m93e0110[m master@{123}: commit: Finished adapter for home view model
+[33m4b029a2[m master@{124}: commit: Update UI Home page
+[33md391550[m master@{125}: commit: Started working on home
+[33m6816580[m master@{126}: commit: Update leader boards and profile UI
+[33m059aa86[m master@{127}: commit: Added home fragment
+[33md086b90[m master@{128}: commit: Update UI for profile fragment
+[33m6e3d871[m master@{129}: commit: Update UI for profile fragment
+[33m624167d[m master@{130}: commit: fix navigation
+[33m988f754[m master@{131}: commit: Update profile page
+[33m8370d23[m master@{132}: commit: update padding
+[33md0b71e4[m master@{133}: commit: Fixed user login for google accounts
+[33m1a7dc34[m master@{134}: commit: added ProfileFragment.kt
+[33m2938382[m master@{135}: commit: update ui for leader boards design
+[33m7f6114f[m master@{136}: commit: implemented leaderboards and registration for anonymous
+[33mb0f3a1c[m master@{137}: commit: Implemented leader boards
+[33mbc446df[m master@{138}: pull: Merge made by the 'recursive' strategy.
+[33m84df90e[m master@{139}: commit: Update leader boards page
+[33m4e048de[m master@{140}: commit: started working on leaderboards
+[33m4cc6805[m master@{141}: commit: Finish leaderboards layout
+[33m5bc2bc7[m master@{142}: commit: Create new leader fragment
+[33m45ec698[m master@{143}: commit: Fixed app bar layout
+[33m73f45c0[m master@{144}: commit: Added register user upon Login
+[33m367f7e8[m master@{145}: commit: Update chip selected color
+[33m5d9c05e[m master@{146}: commit: Added filter functionality and chips
+[33m2199cdb[m master@{147}: commit: Update styles
+[33m39c19a1[m master@{148}: commit: Update quiz list model
+[33m86a42c7[m master@{149}: commit: updated share button
+[33m2217db1[m master@{150}: commit: added nav header
+[33m52d93f0[m master@{151}: commit: Added share feature after the quiz
+[33m4f40c93[m master@{152}: commit: added about fragment
+[33m1dc4704[m master@{153}: commit: Firebase UI authentication
+[33m700a37e[m master@{154}: pull: Merge made by the 'recursive' strategy.
+[33m89efb90[m master@{155}: commit: finish dark mode
+[33ma9a1de9[m master@{156}: commit: implemented dark mode
+[33m7a7348f[m master@{157}: commit: show toolbar
+[33m3ddf439[m master@{158}: commit: update navigation of the app
+[33madbf27e[m master@{159}: commit: update light UI and navigation
+[33m6f10da0[m master@{160}: commit: Added property for option d
+[33m9215249[m master@{161}: commit: Update quiz fragment
+[33mb606ae9[m master@{162}: commit: Update firebase repository
+[33mffcfa80[m master@{163}: commit: Added question model
+[33meb78831[m master@{164}: commit: Added secondary constructor
+[33m858b564[m master@{165}: commit: Remove parcelable
+[33ma88d6c7[m master@{166}: commit: Update quiz list model to data class
+[33m40aa234[m master@{167}: commit: Refactored quiz list model
+[33mdea826a[m master@{168}: commit: Create a new quiz list model
+[33mb0c0cd6[m master@{169}: commit: Added firebase authentication on start fragment
+[33m991a9fb[m master@{170}: commit: added navigation graph
+[33ma93db78[m master@{171}: commit: Implemented UI for all pages
+[33m2be45a2[m master@{172}: commit: create 5 fragments
+[33mba00a6e[m master@{173}: commit (initial): initial commit
