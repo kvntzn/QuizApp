@@ -9,12 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.toObject
-import com.heathkev.quizado.model.QuestionsModel
-import com.heathkev.quizado.model.QuizListModel
-import com.heathkev.quizado.model.User
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.firebase.FirebaseUserLiveData
-import com.heathkev.quizado.model.Result
+import com.heathkev.quizado.model.*
 import kotlinx.coroutines.*
 
 private const val TAG = "QuizViewModel"
@@ -194,12 +191,20 @@ class QuizViewModel @ViewModelInject constructor(
 
                 val oldResult = value?.toObject<Result>()
 
-                if (oldResult != null) {
-                    val old = oldResult.correct
-                    val current = correctAnswer
-                    val difference = (old - current) * -1;
+                val old = oldResult?.correct ?: 0
+                val current = correctAnswer
+                val difference = (old - current) * -1;
 
-                    firebaseRepository.updateLeaderboards(currentUser, difference, old == 0L)
+                val document = firebaseRepository.getLeaderboardByUserId(currentUser.userId)
+                val leaderboard = document?.toObject<Leaderboard>()
+
+                if (leaderboard?.userId.isNullOrEmpty()) {
+                    firebaseRepository.createLeaderboard(currentUser, current.toLong())
+                } else {
+                    firebaseRepository.updateLeaderboards(
+                        currentUser,
+                        if (old == 0L) current.toLong() else difference
+                    )
                 }
 
             } catch (e: Exception) {

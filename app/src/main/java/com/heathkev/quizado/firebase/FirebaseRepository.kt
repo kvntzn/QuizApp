@@ -27,7 +27,8 @@ class FirebaseRepository @Inject constructor() {
     }
 
     suspend fun getMostPopularQuiz(userId: String): QuerySnapshot? {
-        return firebaseFireStore.collection("QuizList").orderBy("taken", Query.Direction.DESCENDING).get().await()
+        return firebaseFireStore.collection("QuizList").orderBy("taken", Query.Direction.DESCENDING)
+            .get().await()
     }
 
     suspend fun getQuizList(category: String?): QuerySnapshot? {
@@ -52,11 +53,12 @@ class FirebaseRepository @Inject constructor() {
 
         firebaseFireStore.collection("Users").document(userId).collection("results")
             .document(quizId).set(object {
-                val  score = result["correct"]
+                val score = result["correct"]
             }).await()
 
-        firebaseFireStore.collection("QuizList").document(quizId).update("taken", FieldValue.increment(1)).await()
-        
+        firebaseFireStore.collection("QuizList").document(quizId)
+            .update("taken", FieldValue.increment(1)).await()
+
         return firebaseFireStore.collection("QuizList").document(quizId).collection("Results")
             .document(userId).set(result).await()
     }
@@ -76,22 +78,39 @@ class FirebaseRepository @Inject constructor() {
             .await()
     }
 
-    suspend fun updateLeaderboards(user: User, difference: Long, isNewlyTaken: Boolean) {
-        val resultMap = HashMap<String, Any?>()
-        resultMap["name"] = user.name
-//        resultMap["score"] = FieldValue.increment(difference)
+    suspend fun getLeaderboardByUserId(userId: String): DocumentSnapshot? {
+        return firebaseFireStore.collection("leaderboard").document(userId).get().await()
+    }
 
-         firebaseFireStore.collection("leaderboard").document(user.userId).update("name", user.name)
+    suspend fun createLeaderboard(user: User, score: Long) {
+        firebaseFireStore.collection("leaderboard").document(user.userId).set(object {
+            val name = user.name
+            val photo = user.imageUrl.toString()
+            val score = score
+        }).await()
+    }
+
+    suspend fun updateLeaderboards(user: User, difference: Long) {
+        firebaseFireStore.collection("leaderboard").document(user.userId).update("name", user.name)
             .await()
 
-         if (!isNewlyTaken) firebaseFireStore.collection("leaderboard").document(user.userId).update("score", FieldValue.increment(difference))
-            .await() else firebaseFireStore.collection("leaderboard").document(user.userId).update("score", difference)
+        firebaseFireStore.collection("leaderboard").document(user.userId).update(
+            "photo",
+            user.imageUrl.toString()
+        ).await()
+
+        firebaseFireStore.collection("leaderboard").document(user.userId)
+            .update("score", FieldValue.increment(difference))
             .await()
     }
 
     suspend fun getLeaderboards(): QuerySnapshot? {
-        return firebaseFireStore.collection("leaderboard").whereNotEqualTo("name", null).get()
+        return firebaseFireStore.collection("leaderboard").orderBy(
+            "score", Query.Direction.DESCENDING
+        ).get()
             .await()
+
+//            .whereNotEqualTo("name", null)
     }
 
     suspend fun sendQuestion(questionMap: HashMap<String, Any?>): Void? {

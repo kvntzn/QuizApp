@@ -9,6 +9,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.model.Leaderboard
 import kotlinx.coroutines.*
+import timber.log.Timber
 
 private const val TAG = "LeadersViewModel"
 
@@ -60,7 +61,7 @@ class LeadersViewModel @ViewModelInject constructor(
         for (doc in value!!) {
             val resultItem = doc.toObject<Leaderboard>()
 
-            resultsList.add(resultItem)
+            if(!resultItem.name.isNullOrEmpty()) resultsList.add(resultItem)
         }
 
         _first.postValue(resultsList[0])

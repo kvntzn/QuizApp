@@ -90,9 +90,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun launchSignInFlow() {
         val providers = arrayListOf(
-            AuthUI.IdpConfig.AnonymousBuilder().build(),
-            AuthUI.IdpConfig.GoogleBuilder().build(),
-            AuthUI.IdpConfig.EmailBuilder().build()
+//            AuthUI.IdpConfig.AnonymousBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build()
+//            AuthUI.IdpConfig.EmailBuilder().build()
         )
 
         // Create and launch sign-in intent.                                     1

@@ -43,8 +43,9 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<QuizListModel>?) {
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
-    val image = if (imgUrl != null) imgUrl.toUri().buildUpon().scheme("https")
-        .build() else R.drawable.ic_unknown
+    val image = if(imgUrl.isNullOrEmpty()) R.drawable.ic_unknown else imgUrl
+
+    Timber.d("1 - $imgUrl" )
     Glide.with(imgView.context)
         .load(image)
         .apply(
@@ -57,11 +58,12 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 @BindingAdapter("imageUrl")
 fun bindImageUri(imgView: ImageView, imgUrl: Uri?) {
     val image = if (imgUrl != null && imgUrl != Uri.EMPTY) {
-        imgUrl.buildUpon().scheme("https")
-            ?.build()
+        imgUrl
     } else{
         R.drawable.ic_unknown
     }
+
+    Timber.d("2 - $imgUrl" )
 
     Glide.with(imgView.context)
         .load(image)
