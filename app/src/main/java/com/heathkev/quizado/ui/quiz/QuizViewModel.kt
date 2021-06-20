@@ -14,11 +14,12 @@ import com.heathkev.quizado.model.QuizListModel
 import com.heathkev.quizado.model.User
 import com.heathkev.quizado.firebase.FirebaseRepository
 import com.heathkev.quizado.firebase.FirebaseUserLiveData
+import com.heathkev.quizado.model.Result
 import kotlinx.coroutines.*
 
 private const val TAG = "QuizViewModel"
 
-class QuizViewModel @ViewModelInject constructor (
+class QuizViewModel @ViewModelInject constructor(
     private val firebaseRepository: FirebaseRepository,
     firebaseUser: FirebaseUserLiveData
 ) : ViewModel() {
@@ -47,15 +48,15 @@ class QuizViewModel @ViewModelInject constructor (
     private val _isTimeUp = MutableLiveData<Boolean>()
     private val _shouldNavigateToResult = MutableLiveData<Boolean>()
 
-    val user: LiveData<User> = Transformations.map(firebaseUser){ user ->
-        if(user != null){
+    val user: LiveData<User> = Transformations.map(firebaseUser) { user ->
+        if (user != null) {
             User(
                 user.uid,
                 user.displayName,
                 user.photoUrl,
                 user.email
             )
-        }else{
+        } else {
             User()
         }
     }
@@ -177,7 +178,33 @@ class QuizViewModel @ViewModelInject constructor (
             resultMap["player_photo"] =
                 if (currentUser.imageUrl != null && Uri.EMPTY != currentUser.imageUrl) currentUser.imageUrl.toString() else currentUser.imageUrl
 
+
+            updateLeaderboards()
             submit(resultMap)
+        }
+    }
+
+    private suspend fun updateLeaderboards() {
+        withContext(Dispatchers.IO) {
+            try {
+                val value = firebaseRepository.getResultsByQuizId(
+                    quizDetail.quiz_id,
+                    currentUser.userId
+                )
+
+                val oldResult = value?.toObject<Result>()
+
+                if (oldResult != null) {
+                    val old = oldResult.correct
+                    val current = correctAnswer
+                    val difference = (old - current) * -1;
+
+                    firebaseRepository.updateLeaderboards(currentUser, difference, old == 0L)
+                }
+
+            } catch (e: Exception) {
+                _quizTitle.postValue(e.message)
+            }
         }
     }
 
@@ -325,7 +352,7 @@ class QuizViewModel @ViewModelInject constructor (
         return canAnswer
     }
 
-    private fun isLoading(bool: Boolean){
+    private fun isLoading(bool: Boolean) {
         _isLoading.value = bool
     }
 

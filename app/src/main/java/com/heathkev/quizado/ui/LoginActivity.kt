@@ -3,20 +3,24 @@ package com.heathkev.quizado.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.heathkev.quizado.R
 import com.heathkev.quizado.databinding.ActivityLoginBinding
 import com.heathkev.quizado.ui.start.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+
 const val TAG = "LoginActivity"
+
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
     companion object {
@@ -58,8 +62,26 @@ class LoginActivity : AppCompatActivity() {
 
                 binding.startFeedback.text = getString(R.string.logged_in)
                 enterMainActivity()
-                Timber.d("Successfully signed in user ${FirebaseAuth.getInstance().currentUser?.displayName}!"
-                )
+//
+//                val currentUser = FirebaseAuth.getInstance().currentUser!!
+//                Timber.d(
+//                    "Successfully signed in user ${currentUser.displayName}!"
+//                )
+//
+//                val firebaseFireStore = FirebaseFirestore.getInstance()
+//
+//                val userMap = HashMap<String, Any?>()
+//                userMap["email"] = currentUser.email
+//                userMap["image"] = currentUser.photoUrl
+//                userMap["name"] = currentUser.displayName
+//
+//                firebaseFireStore.collection("Users").document(currentUser.uid).set(userMap)
+//                    .addOnSuccessListener {
+//                        Timber.d("Saved in Users ${currentUser.displayName}!")
+//                    }.addOnFailureListener{
+//                        Timber.d("$it")
+//                    }
+//
             } else {
                 Timber.d("Sign in unsuccessful ${response?.error?.errorCode}")
             }
@@ -87,7 +109,7 @@ class LoginActivity : AppCompatActivity() {
         )
     }
 
-    private fun enterMainActivity(){
+    private fun enterMainActivity() {
         finish()
         overridePendingTransition(R.anim.slide_down, R.anim.slide_up)
         startActivity(Intent(this, MainActivity::class.java))

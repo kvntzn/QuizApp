@@ -25,15 +25,15 @@ class HomeViewModel @ViewModelInject constructor(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    val currentUser: LiveData<User> = Transformations.map(firebaseUser){ user ->
-        if(user != null){
+    val currentUser: LiveData<User> = Transformations.map(firebaseUser) { user ->
+        if (user != null) {
             User(
                 user.uid,
                 user.displayName,
                 user.photoUrl,
                 user.email
             )
-        }else{
+        } else {
             User()
         }
     }
@@ -78,14 +78,24 @@ class HomeViewModel @ViewModelInject constructor(
             val recommendedQuizzes = parseQuizzes(firebaseRepository.getRecommendedQuiz(userId))
             val popularQuizzes = parseQuizzes(firebaseRepository.getMostPopularQuiz(userId))
 
-            if(recommendedQuizzes.size > 0 && popularQuizzes.size > 0){
+            if (recommendedQuizzes.size > 0 && popularQuizzes.size > 0) {
                 _recommendedQuizList.postValue(recommendedQuizzes)
                 _popularQuizList.postValue(popularQuizzes)
 
                 val randomInt = Random.nextInt(0, popularQuizzes.size)
                 _featuredQuiz.postValue(popularQuizzes[randomInt])
-            }else{
+            } else {
                 getQuizList(userId)
+//
+//                val defaultRecommendedQuizzes = parseQuizzes(firebaseRepository.getQuizList())
+//                val defaultPopularQuizzes = parseQuizzes(firebaseRepository.getQuizList())
+//
+//                _recommendedQuizList.postValue(defaultRecommendedQuizzes)
+//                _popularQuizList.postValue(defaultPopularQuizzes)
+//
+//                val randomInt = Random.nextInt(0, defaultPopularQuizzes.size)
+//                _featuredQuiz.postValue(defaultPopularQuizzes[randomInt])
+
                 Timber.d("Retry retrieving quiz")
             }
 
@@ -93,7 +103,7 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun parseQuizzes(value: QuerySnapshot?) : MutableList<QuizListModel> {
+    private fun parseQuizzes(value: QuerySnapshot?): MutableList<QuizListModel> {
         val quizListModelList: MutableList<QuizListModel> = mutableListOf()
         for (doc in value!!) {
             val quizItem = doc.toObject<QuizListModel>()
